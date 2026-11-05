@@ -35,6 +35,18 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/pcmobile/Pictures/scam 2/app/Pages/Help/AfterIncident.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSGVscC9BZnRlckluY2lkZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/pcmobile/Pictures/scam 2/app/Pages/Help/Information.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSGVscC9JbmZvcm1hdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/pcmobile/Pictures/scam 2/app/Pages/Help/Pay.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSGVscC9QYXkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/pcmobile/Pictures/scam 2/app/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

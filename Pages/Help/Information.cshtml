@@ -1,0 +1,115 @@
+@page
+@model FraudVerificationDemo.Pages.Help.InformationModel
+@inject FraudVerificationDemo.Services.SafetyContentService SafetyContent
+@{
+    ViewData["Title"] = "Someone is asking for my information";
+}
+
+<!-- Safety Reminder - Highest Priority -->
+<div class="safety-reminder">
+    <h2>Stop and Read This First</h2>
+    <p>@SafetyContent.GetHighestLevelReminder()</p>
+</div>
+
+<!-- Action Buttons - Always Visible -->
+<div class="row g-3 mb-4">
+    <div class="col-md-6">
+        <button type="button" class="btn btn-danger btn-action w-100" onclick="alert('End the call or close the message now. Do not give them anything.')">
+            End the conversation
+        </button>
+    </div>
+    <div class="col-md-6">
+        <button type="button" class="btn btn-primary btn-action w-100" onclick="alert('Call someone you trust right now. Use a number you already have saved.')">
+            Contact someone I trust
+        </button>
+    </div>
+</div>
+
+<!-- Verification Guidance -->
+<div class="verification-guidance">
+    <h3>To verify independently:</h3>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <h5 class="text-success">✓ DO use:</h5>
+            <ul class="guidance-list">
+                <li>The number on your physical card or old bills</li>
+                <li>Official contacts you found yourself (not from their message)</li>
+                <li>A number you saved before this happened</li>
+            </ul>
+        </div>
+        <div class="col-md-6 mb-3">
+            <h5 class="text-danger">✗ NEVER use:</h5>
+            <ul class="guidance-list guidance-list-negative">
+                <li>A phone number they gave you</li>
+                <li>A link they sent</li>
+                <li>An app they want you to download</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- What They're Asking For -->
+<div class="card mt-4">
+    <div class="card-header bg-light">
+        <h4 class="mb-0">What are they asking for? (Optional)</h4>
+    </div>
+    <div class="card-body">
+        <p class="text-muted">Select what matches (you don't have to answer):</p>
+        
+        <div class="btn-group-vertical w-100" role="group">
+            <button type="button" class="btn btn-outline-warning text-start py-3">
+                <strong>🔑 Password or security answer</strong>
+            </button>
+            <button type="button" class="btn btn-outline-warning text-start py-3">
+                <strong>📱 Verification code or OTP (one-time password)</strong>
+            </button>
+            <button type="button" class="btn btn-outline-warning text-start py-3">
+                <strong>💳 Credit card number, CVV, or bank account number</strong>
+            </button>
+            <button type="button" class="btn btn-outline-warning text-start py-3">
+                <strong>🆔 Social Security Number or ID documents</strong>
+            </button>
+            <button type="button" class="btn btn-outline-warning text-start py-3">
+                <strong>📲 Install an app, share screen, or let them control my device</strong>
+            </button>
+            <button type="button" class="btn btn-outline-secondary text-start py-3">
+                Something else or I'm not sure
+            </button>
+        </div>
+
+        <div class="alert alert-danger mt-4">
+            <strong>⚠️ Important:</strong> Do NOT give any of these to someone who contacted you first. Real companies will never ask for passwords, codes, or full card numbers over the phone or message.
+        </div>
+    </div>
+</div>
+
+<!-- Why This Matters -->
+<div class="card mt-4 border-danger">
+    <div class="card-header bg-danger text-white">
+        <h4 class="mb-0">Why you should NOT give this information:</h4>
+    </div>
+    <div class="card-body">
+        <ul class="fs-5">
+            <li class="mb-2"><strong>Passwords/codes:</strong> They can log into your accounts and steal money or information</li>
+            <li class="mb-2"><strong>Card/bank numbers:</strong> They can make unauthorized charges or transfers</li>
+            <li class="mb-2"><strong>Social Security Number:</strong> They can steal your identity and open accounts in your name</li>
+            <li class="mb-2"><strong>Device access:</strong> They can see everything on your device and control it</li>
+        </ul>
+        <p class="mb-0 fw-bold">Legitimate companies will NEVER ask for these by calling or messaging you first.</p>
+    </div>
+</div>
+
+<!-- Next Steps -->
+<div class="mt-5 pt-4 border-top">
+    <h3>What to do next:</h3>
+    <ol class="fs-5">
+        <li class="mb-3"><strong>Do NOT give them anything</strong></li>
+        <li class="mb-3"><strong>End the conversation immediately</strong> (hang up, close the message)</li>
+        <li class="mb-3"><strong>If they claim to be from a company you use</strong>, call that company using a number you find yourself (on your card, old bill, or their official website)</li>
+        <li class="mb-3"><strong>Do NOT use any contact information they gave you</strong></li>
+    </ol>
+    
+    <div class="text-center mt-4">
+        <a asp-page="/Index" class="btn btn-outline-primary btn-lg">Back to Home</a>
+    </div>
+</div>

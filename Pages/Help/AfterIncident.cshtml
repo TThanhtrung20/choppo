@@ -1,0 +1,257 @@
+@page
+@model FraudVerificationDemo.Pages.Help.AfterIncidentModel
+@inject FraudVerificationDemo.Services.SafetyContentService SafetyContent
+@{
+    ViewData["Title"] = "I already paid or gave information";
+}
+
+<!-- STOP Message - Highest Priority -->
+<div class="alert alert-danger border-danger" style="border-width: 3px;">
+    <h2 class="alert-heading">⛔ STOP</h2>
+    <p class="fs-4 mb-0">@SafetyContent.GetStopActionMessage()</p>
+</div>
+
+<!-- Quick Action Buttons -->
+<div class="row g-3 mb-4">
+    <div class="col-md-6">
+        <button type="button" class="btn btn-danger btn-action w-100" onclick="alert('Stop communicating with them now. Block their number/email.')">
+            Stop all contact with them
+        </button>
+    </div>
+    <div class="col-md-6">
+        <button type="button" class="btn btn-primary btn-action w-100" onclick="alert('Call someone you trust right now to help you.')">
+            Contact someone I trust
+        </button>
+    </div>
+</div>
+
+<!-- What Happened Section -->
+<div class="card mt-4">
+    <div class="card-header bg-light">
+        <h3 class="mb-0">What happened? (Choose what matches)</h3>
+    </div>
+    <div class="card-body">
+        <p class="text-muted mb-4">This helps us show you the right steps:</p>
+        
+        <h5 class="mb-3">Did you pay money?</h5>
+        <div class="d-grid gap-2 mb-4">
+            <button type="button" class="btn btn-outline-primary text-start py-3" data-bs-toggle="collapse" data-bs-target="#paymentHelp">
+                <strong>Yes, I paid money</strong> →
+            </button>
+            <button type="button" class="btn btn-outline-primary text-start py-3" data-bs-toggle="collapse" data-bs-target="#infoHelp">
+                <strong>No, but I gave them information</strong> →
+            </button>
+            <button type="button" class="btn btn-outline-secondary text-start py-3" data-bs-toggle="collapse" data-bs-target="#bothHelp">
+                <strong>Both - I paid AND gave information</strong> →
+            </button>
+        </div>
+
+        <!-- Payment Help Section (Collapsible) -->
+        <div class="collapse" id="paymentHelp">
+            <div class="card card-body bg-light">
+                <h5>How did you pay?</h5>
+                <div class="list-group">
+                    <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#helpCard">
+                        💳 Debit or Credit Card
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#helpTransfer">
+                        🏦 Bank Transfer / Wire / Payment App
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#helpGiftCard">
+                        🎁 Gift Card or Prepaid Card
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#helpCrypto">
+                        ₿ Cryptocurrency
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#helpCash">
+                        💵 Cash (by mail or delivery)
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#helpMoneyTransfer">
+                        💸 Money Transfer Service (Western Union, MoneyGram, etc.)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Information Help Section (Collapsible) -->
+        <div class="collapse" id="infoHelp">
+            <div class="card card-body bg-light">
+                <h5>What information did you give?</h5>
+                <div class="list-group">
+                    <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#helpPassword">
+                        🔑 Password or Security Answer
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#helpOTP">
+                        📱 Verification Code or OTP
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#helpCardNumber">
+                        💳 Card Number, CVV, or Bank Account Number
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#helpSSN">
+                        🆔 Social Security Number or ID Documents
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="collapse" data-bs-target="#helpDeviceAccess">
+                        📲 Installed App / Gave Device Access
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Both Section -->
+        <div class="collapse" id="bothHelp">
+            <div class="alert alert-warning">
+                <p class="mb-0"><strong>Do both sections below:</strong> Follow the steps for the payment method you used AND the information type you gave.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Guidance Sections (All Collapsed Initially) -->
+
+<!-- Card Payment -->
+<div class="collapse mt-3" id="helpCard">
+    <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">💳 You paid with a Debit or Credit Card</h4>
+        </div>
+        <div class="card-body">
+            <div style="white-space: pre-line;">@SafetyContent.GetPostPaymentGuidance("card")</div>
+        </div>
+    </div>
+</div>
+
+<!-- Bank Transfer -->
+<div class="collapse mt-3" id="helpTransfer">
+    <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">🏦 You sent a Bank Transfer/Wire/Payment App</h4>
+        </div>
+        <div class="card-body">
+            <div style="white-space: pre-line;">@SafetyContent.GetPostPaymentGuidance("transfer")</div>
+        </div>
+    </div>
+</div>
+
+<!-- Gift Card -->
+<div class="collapse mt-3" id="helpGiftCard">
+    <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">🎁 You paid with a Gift Card</h4>
+        </div>
+        <div class="card-body">
+            <div style="white-space: pre-line;">@SafetyContent.GetPostPaymentGuidance("giftcard")</div>
+        </div>
+    </div>
+</div>
+
+<!-- Cryptocurrency -->
+<div class="collapse mt-3" id="helpCrypto">
+    <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">₿ You paid with Cryptocurrency</h4>
+        </div>
+        <div class="card-body">
+            <div style="white-space: pre-line;">@SafetyContent.GetPostPaymentGuidance("crypto")</div>
+        </div>
+    </div>
+</div>
+
+<!-- Cash -->
+<div class="collapse mt-3" id="helpCash">
+    <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">💵 You sent Cash by Mail/Delivery</h4>
+        </div>
+        <div class="card-body">
+            <div style="white-space: pre-line;">@SafetyContent.GetPostPaymentGuidance("cash")</div>
+        </div>
+    </div>
+</div>
+
+<!-- Money Transfer -->
+<div class="collapse mt-3" id="helpMoneyTransfer">
+    <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">💸 You used a Money Transfer Service</h4>
+        </div>
+        <div class="card-body">
+            <div style="white-space: pre-line;">@SafetyContent.GetPostPaymentGuidance("moneytransfer")</div>
+        </div>
+    </div>
+</div>
+
+<!-- Password -->
+<div class="collapse mt-3" id="helpPassword">
+    <div class="card border-warning">
+        <div class="card-header bg-warning">
+            <h4 class="mb-0">🔑 You gave a Password or Security Answer</h4>
+        </div>
+        <div class="card-body">
+            <div style="white-space: pre-line;">@SafetyContent.GetPostDisclosureGuidance("password")</div>
+        </div>
+    </div>
+</div>
+
+<!-- OTP -->
+<div class="collapse mt-3" id="helpOTP">
+    <div class="card border-warning">
+        <div class="card-header bg-warning">
+            <h4 class="mb-0">📱 You gave a Verification Code/OTP</h4>
+        </div>
+        <div class="card-body">
+            <div style="white-space: pre-line;">@SafetyContent.GetPostDisclosureGuidance("otp")</div>
+        </div>
+    </div>
+</div>
+
+<!-- Card Number -->
+<div class="collapse mt-3" id="helpCardNumber">
+    <div class="card border-warning">
+        <div class="card-header bg-warning">
+            <h4 class="mb-0">💳 You gave Card/Bank Account Number</h4>
+        </div>
+        <div class="card-body">
+            <div style="white-space: pre-line;">@SafetyContent.GetPostDisclosureGuidance("card")</div>
+        </div>
+    </div>
+</div>
+
+<!-- SSN -->
+<div class="collapse mt-3" id="helpSSN">
+    <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">🆔 You gave Social Security Number/ID</h4>
+        </div>
+        <div class="card-body">
+            <div style="white-space: pre-line;">@SafetyContent.GetPostDisclosureGuidance("ssn")</div>
+        </div>
+    </div>
+</div>
+
+<!-- Device Access -->
+<div class="collapse mt-3" id="helpDeviceAccess">
+    <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">📲 You gave Device Access</h4>
+        </div>
+        <div class="card-body">
+            <div style="white-space: pre-line;">@SafetyContent.GetPostDisclosureGuidance("app")</div>
+        </div>
+    </div>
+</div>
+
+<!-- General Next Steps -->
+<div class="mt-5 pt-4 border-top">
+    <h3>General Steps After an Incident:</h3>
+    <ol class="fs-5">
+        <li class="mb-3"><strong>Act quickly</strong> - Time matters for stopping transactions</li>
+        <li class="mb-3"><strong>Keep all evidence</strong> - Messages, emails, receipts, transaction IDs</li>
+        <li class="mb-3"><strong>Write down what happened</strong> - While you remember the details</li>
+        <li class="mb-3"><strong>Report to local authorities</strong> if appropriate for your area</li>
+        <li class="mb-3"><strong>Be careful of "recovery" scams</strong> - Real help doesn't ask for fees upfront</li>
+    </ol>
+    
+    <div class="text-center mt-4">
+        <a asp-page="/Index" class="btn btn-outline-primary btn-lg">Back to Home</a>
+    </div>
+</div>

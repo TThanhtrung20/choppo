@@ -1,0 +1,89 @@
+@page
+@model FraudVerificationDemo.Pages.Help.PayModel
+@inject FraudVerificationDemo.Services.SafetyContentService SafetyContent
+@{
+    ViewData["Title"] = "Someone is asking me to pay";
+}
+
+<!-- Safety Reminder - Highest Priority -->
+<div class="safety-reminder">
+    <h2>Stop and Read This First</h2>
+    <p>@SafetyContent.GetHighestLevelReminder()</p>
+</div>
+
+<!-- Action Buttons - Always Visible -->
+<div class="row g-3 mb-4">
+    <div class="col-md-6">
+        <button type="button" class="btn btn-danger btn-action w-100" onclick="alert('Hang up now. Do not continue the conversation.')">
+            End the conversation
+        </button>
+    </div>
+    <div class="col-md-6">
+        <button type="button" class="btn btn-primary btn-action w-100" onclick="alert('Call someone you trust right now. Use a number you already have saved.')">
+            Contact someone I trust
+        </button>
+    </div>
+</div>
+
+<!-- Verification Guidance -->
+<div class="verification-guidance">
+    <h3>To verify independently:</h3>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <h5 class="text-success">✓ DO use:</h5>
+            <ul class="guidance-list">
+                <li>The number on your physical card or old bills – NOT a number they just gave you</li>
+                <li>Official contacts you found yourself (type the bank website yourself, don't click their link)</li>
+                <li>A number you saved before today</li>
+            </ul>
+        </div>
+        <div class="col-md-6 mb-3">
+            <h5 class="text-danger">✗ NEVER use:</h5>
+            <ul class="guidance-list guidance-list-negative">
+                <li>A phone number they just told you</li>
+                <li>A link or website they sent you</li>
+                <li>An app they asked you to download</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Additional Context Questions (Optional) -->
+<div class="card mt-4">
+    <div class="card-header bg-light">
+        <h4 class="mb-0">What are they saying? (Optional - helps you think)</h4>
+    </div>
+    <div class="card-body">
+        <p class="text-muted">You don't have to answer these, but thinking through them can help:</p>
+        
+        <div class="mb-4">
+            <p class="fw-bold">Why do they say you need to pay?</p>
+            <div class="btn-group-vertical w-100" role="group">
+                <button type="button" class="btn btn-outline-secondary text-start py-3">I owe money or have a bill to pay</button>
+                <button type="button" class="btn btn-outline-secondary text-start py-3">There's a problem with my account</button>
+                <button type="button" class="btn btn-outline-secondary text-start py-3">I'll get money or a prize</button>
+                <button type="button" class="btn btn-outline-secondary text-start py-3">Someone I know needs help</button>
+                <button type="button" class="btn btn-outline-secondary text-start py-3">I'm not sure / They won't explain clearly</button>
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <strong>Remember:</strong> These questions are just to help you think. The most important thing is in the yellow box at the top of this page.
+        </div>
+    </div>
+</div>
+
+<!-- Next Steps -->
+<div class="mt-5 pt-4 border-top">
+    <h3>What to do next:</h3>
+    <ol class="fs-5">
+        <li class="mb-3"><strong>Do NOT pay right now</strong></li>
+        <li class="mb-3"><strong>End the conversation</strong> (hang up, close the message, leave)</li>
+        <li class="mb-3"><strong>Verify through a channel you already have</strong> (number on your card, saved contact, official website you type yourself)</li>
+        <li class="mb-3"><strong>Talk to someone you trust</strong> before paying</li>
+    </ol>
+    
+    <div class="text-center mt-4">
+        <a asp-page="/Index" class="btn btn-outline-primary btn-lg">Back to Home</a>
+    </div>
+</div>
