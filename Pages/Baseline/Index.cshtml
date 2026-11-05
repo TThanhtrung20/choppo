@@ -2,14 +2,14 @@
 @model FraudVerificationDemo.Pages.Baseline.IndexModel
 @using FraudVerificationDemo.Models
 @{
-    ViewData["Title"] = "My Protection Baseline";
+    ViewData["Title"] = "My Personal Scam Protection Plan";
+    ViewData["Description"] = "Review your personal scam protection plan, including safety rules, trusted contacts, and usual payment methods to help recognize unusual requests.";
     var hasAnyData = Model.ProtectionRulesCount > 0 || Model.TrustedContactsCount > 0 || Model.UsualPaymentMethodsCount > 0;
 }
 
-<partial name="Shared/Components/_DemoWarning" />
-
-<div class="container my-5">
-    <h1 class="mb-4">My Protection Baseline</h1>
+<div class="manage-page">
+    <nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><span>/</span><span>My protection plan</span></nav>
+    <header class="manage-heading"><div><span class="eyebrow">YOUR PERSONAL PROTECTION PLAN</span><h1>My protection plan</h1><p>A few details you record while calm can help you notice when something is out of the ordinary.</p></div></header>
     
     <div class="alert alert-info mb-4">
         <h5 class="alert-heading">📋 What is this?</h5>

@@ -1,120 +1,47 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Scam and Fraud Help";
+    ViewData["Description"] = "Worried about a scam? Learn how to verify suspicious payment and personal information requests, take action if you already paid, and make a plan to protect yourself.";
 }
 
-<div class="text-center py-emergency">
-    <h1 class="display-5 fw-bold mb-4">Need Help Right Now?</h1>
-    <p class="lead mb-5">If someone is asking you for money or information and you're not sure what to do, start here:</p>
+<section class="home-hero">
+    <div class="hero-copy">
+        <span class="eyebrow"><span class="status-dot"></span> A calm next step starts here</span>
+        <h1>Pause. Verify.<br /><span>Stay in control.</span></h1>
+        <p class="hero-lede">Not sure if a request is real? Take a breath. We’ll help you decide what to do next—without pressure or judgement.</p>
+        <div class="hero-note"><span class="note-icon" aria-hidden="true">i</span><span>You don’t need to decide or send anything right now.</span></div>
+    </div>
+    <div class="hero-art" aria-hidden="true"><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><div class="shield-card"><div class="shield-icon">✓</div><span>YOUR SAFETY</span><strong>Comes first</strong><div class="shield-rule"></div><small>Take your time. Check it out.</small></div><div class="art-spark spark-one">✦</div><div class="art-spark spark-two">✳</div></div>
+</section>
 
+<section class="urgent-section" aria-labelledby="urgent-title">
+    <div class="section-heading"><div><span class="eyebrow">HOW CAN WE HELP?</span><h2 id="urgent-title">Choose what’s happening</h2></div><span class="section-step">01 <i></i> 03</span></div>
     <div class="emergency-buttons">
-        <!-- Emergency Button 1 -->
-        <a asp-page="/Help/Select" class="btn btn-primary btn-emergency btn-lg w-100">
-            💰 Someone is asking me to pay
-        </a>
-
-        <!-- Emergency Button 2 -->
-        <a asp-page="/Help/Select" class="btn btn-warning btn-emergency btn-lg w-100">
-            🔐 Someone is asking for my information
-        </a>
-
-        <!-- Emergency Button 3 -->
-        <a asp-page="/Help/AfterIncident" class="btn btn-danger btn-emergency btn-lg w-100">
-            ⚠️ I already paid or shared information
-        </a>
+        <a asp-page="/Help/Select" class="urgent-card urgent-payment"><span class="urgent-icon" aria-hidden="true">$</span><span class="urgent-copy"><strong>Someone is asking me to pay</strong><small>Check a payment request before you send money</small></span><span class="urgent-arrow" aria-hidden="true">↗</span></a>
+        <a asp-page="/Help/Select" class="urgent-card urgent-info"><span class="urgent-icon" aria-hidden="true">•••</span><span class="urgent-copy"><strong>Someone wants my information</strong><small>Get help protecting your details and accounts</small></span><span class="urgent-arrow" aria-hidden="true">↗</span></a>
+        <a asp-page="/Help/AfterIncident" class="urgent-card urgent-after"><span class="urgent-icon" aria-hidden="true">!</span><span class="urgent-copy"><strong>I already paid or shared something</strong><small>See what you can do now. It’s not too late to act.</small></span><span class="urgent-arrow" aria-hidden="true">↗</span></a>
     </div>
+</section>
 
-    <div class="mt-5 pt-4 border-top">
-        <h3 class="h5 text-muted mb-3">When you're not in a rush:</h3>
-        <p class="text-muted mb-3">Set up your personal protection baseline to help you recognize unusual requests.</p>
-        
+<section class="prepare-section">
+    <div class="prepare-icon" aria-hidden="true">✳</div>
+    <div class="prepare-copy"><span class="eyebrow">A LITTLE PREPARATION HELPS</span><h2>Make a plan before you need one</h2><p>Save your trusted people and usual payment habits, so it’s easier to spot something unusual later.</p></div>
+    <div class="prepare-action">
         @if (User.Identity?.IsAuthenticated == true)
         {
-            <a asp-page="/Baseline/Index" class="btn btn-outline-primary btn-lg">Go to My Baseline</a>
+            <a asp-page="/Baseline/Index" class="btn btn-primary">Open my protection plan <span aria-hidden="true">→</span></a>
         }
         else
         {
-            <div class="d-flex gap-2 justify-content-center">
-                <a asp-page="/Account/Register" class="btn btn-primary btn-lg">Create Account</a>
-                <a asp-page="/Account/Login" class="btn btn-outline-secondary btn-lg">Log In</a>
-            </div>
+            <a asp-page="/Account/Register" class="btn btn-primary">Create your free plan <span aria-hidden="true">→</span></a>
+            <a asp-page="/Account/Login" class="prepare-login">Already have an account? Log in</a>
         }
     </div>
-    
-    <!-- Feature Overview -->
-    <div class="row mt-5 text-start">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">🛡️ Protection Rules</h5>
-                    <p class="card-text">
-                        Set personal safety principles when you're calm and thinking clearly. 
-                        Like "I will never pay taxes with gift cards."
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">👥 Trusted Contacts</h5>
-                    <p class="card-text">
-                        Keep track of family and friends who might legitimately ask for help. 
-                        Know their usual contact methods.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">💳 Payment Methods</h5>
-                    <p class="card-text">
-                        Record how you usually pay bills. Spot when someone asks you to 
-                        pay in an unusual way.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-        @if (User.Identity?.IsAuthenticated == true)
-        {
-            <a asp-page="/Baseline/Index" class="btn btn-outline-primary">Go to My Baseline</a>
-        }
-        else
-        {
-            <a asp-page="/Account/Register" class="btn btn-outline-primary">Create Account</a>
-            <span class="text-muted mx-2">or</span>
-            <a asp-page="/Account/Login" class="btn btn-outline-secondary">Login</a>
-        }
-    </div>
-</div>
+</section>
 
-<div class="row mt-5 pt-4">
-    <div class="col-md-4 mb-4">
-        <div class="card h-100 border-0 shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">🛡️ Protection Rules</h5>
-                <p class="card-text">Set principles for yourself when you're calm, before anyone asks for money or information.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 mb-4">
-        <div class="card h-100 border-0 shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">👥 Trusted Contacts</h5>
-                <p class="card-text">Save people you can call when you're not sure what to do.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 mb-4">
-        <div class="card h-100 border-0 shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">💳 Usual Payments</h5>
-                <p class="card-text">Keep track of how you normally pay bills and who you regularly send money to.</p>
-            </div>
-        </div>
-    </div>
-</div>
+<section class="features-section" aria-label="What you can prepare">
+    <div class="feature-item"><span class="feature-icon feature-shield" aria-hidden="true">✓</span><div><h3>Personal rules</h3><p>Set boundaries while you have time to think.</p></div></div>
+    <div class="feature-item"><span class="feature-icon feature-people" aria-hidden="true">↗</span><div><h3>Trusted people</h3><p>Know who to call when something feels off.</p></div></div>
+    <div class="feature-item"><span class="feature-icon feature-wallet" aria-hidden="true">$</span><div><h3>Usual payments</h3><p>Remember how you normally pay bills.</p></div></div>
+</section>

@@ -2,88 +2,24 @@
 @model FraudVerificationDemo.Pages.Help.InformationModel
 @{
     ViewData["Title"] = Model.ScenarioTitle;
+    ViewData["Description"] = "Learn how to protect passwords, one-time codes, bank and card details, and identity documents from suspicious requests. Verify requests independently before sharing information.";
 }
 
-@if (!string.IsNullOrEmpty(Model.ScenarioType))
-{
-    <div class="container my-3">
-        <p class="text-muted">
-            <a href="/Help/Select">← Change scenario</a>
-        </p>
-    </div>
-}
+<div class="help-page">
+    <nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><span>/</span><a asp-page="/Help/Select">Get help</a><span>/</span><span>Information request</span></nav>
+    @if (!string.IsNullOrEmpty(Model.ScenarioType))
+    {
+        <a class="back-link" asp-page="/Help/Select">← Choose a different situation</a>
+    }
+    <header class="page-intro"><span class="eyebrow">PERSONAL INFORMATION SAFETY</span><h1>@Model.ScenarioTitle</h1><p>Keep passwords, one-time codes, and financial details private. If someone contacted you unexpectedly, pause and verify their identity through a channel you find yourself.</p></header>
+    <partial name="Shared/Components/_SafetyReminder" />
+    <partial name="Shared/Components/_ActionButtons" />
+    <partial name="Shared/Components/_VerificationGuidance" />
 
-<!-- Safety Reminder Component -->
-<partial name="Shared/Components/_SafetyReminder" />
+    <section class="content-panel mt-4"><div class="content-panel-heading"><span class="eyebrow">SENSITIVE DETAILS</span><h2>What information are they asking you to share?</h2><p>You do not need to enter or disclose any of these details here. This list is only to help identify the request.</p></div>
+        <div class="reflection-list" role="list"><div role="listitem">Password, PIN, or security answer</div><div role="listitem">Text message or email verification code</div><div role="listitem">Bank account, card number, or card security code</div><div role="listitem">Identity number or photo of an identity document</div><div role="listitem">Installing an app, sharing your screen, or remote device access</div></div>
+        <div class="alert alert-warning mt-4" role="note"><strong>Never share a one-time code or password with someone who contacted you.</strong> A caller may claim they need it to stop fraud, but sharing a code can allow them to access your account.</div>
+    </section>
 
-<!-- Action Buttons Component -->
-<partial name="Shared/Components/_ActionButtons" />
-
-<!-- Verification Guidance Component -->
-<partial name="Shared/Components/_VerificationGuidance" />
-
-<!-- What They're Asking For -->
-<div class="card mt-4">
-    <div class="card-header bg-light">
-        <h4 class="mb-0">What are they asking for? (Optional)</h4>
-    </div>
-    <div class="card-body">
-        <p class="text-muted">Select what matches (you don't have to answer):</p>
-        
-        <div class="btn-group-vertical w-100" role="group">
-            <button type="button" class="btn btn-outline-warning text-start py-3">
-                <strong>🔑 Password or security answer</strong>
-            </button>
-            <button type="button" class="btn btn-outline-warning text-start py-3">
-                <strong>📱 Verification code or OTP (one-time password)</strong>
-            </button>
-            <button type="button" class="btn btn-outline-warning text-start py-3">
-                <strong>💳 Credit card number, CVV, or bank account number</strong>
-            </button>
-            <button type="button" class="btn btn-outline-warning text-start py-3">
-                <strong>🆔 Social Security Number or ID documents</strong>
-            </button>
-            <button type="button" class="btn btn-outline-warning text-start py-3">
-                <strong>📲 Install an app, share screen, or let them control my device</strong>
-            </button>
-            <button type="button" class="btn btn-outline-secondary text-start py-3">
-                Something else or I'm not sure
-            </button>
-        </div>
-
-        <div class="alert alert-danger mt-4">
-            <strong>⚠️ Important:</strong> Do NOT give any of these to someone who contacted you first. Real companies will never ask for passwords, codes, or full card numbers over the phone or message.
-        </div>
-    </div>
-</div>
-
-<!-- Why This Matters -->
-<div class="card mt-4 border-danger">
-    <div class="card-header bg-danger text-white">
-        <h4 class="mb-0">Why you should NOT give this information:</h4>
-    </div>
-    <div class="card-body">
-        <ul class="fs-5">
-            <li class="mb-2"><strong>Passwords/codes:</strong> They can log into your accounts and steal money or information</li>
-            <li class="mb-2"><strong>Card/bank numbers:</strong> They can make unauthorized charges or transfers</li>
-            <li class="mb-2"><strong>Social Security Number:</strong> They can steal your identity and open accounts in your name</li>
-            <li class="mb-2"><strong>Device access:</strong> They can see everything on your device and control it</li>
-        </ul>
-        <p class="mb-0 fw-bold">Legitimate companies will NEVER ask for these by calling or messaging you first.</p>
-    </div>
-</div>
-
-<!-- Next Steps -->
-<div class="mt-5 pt-4 border-top">
-    <h3>What to do next:</h3>
-    <ol class="fs-5">
-        <li class="mb-3"><strong>Do NOT give them anything</strong></li>
-        <li class="mb-3"><strong>End the conversation immediately</strong> (hang up, close the message)</li>
-        <li class="mb-3"><strong>If they claim to be from a company you use</strong>, call that company using a number you find yourself (on your card, old bill, or their official website)</li>
-        <li class="mb-3"><strong>Do NOT use any contact information they gave you</strong></li>
-    </ol>
-    
-    <div class="text-center mt-4">
-        <a asp-page="/Index" class="btn btn-outline-primary btn-lg">Back to Home</a>
-    </div>
+    <section class="next-steps"><span class="eyebrow">PROTECT YOUR ACCOUNTS</span><h2>What to do next</h2><ol><li><strong>Do not share the information.</strong> Do not read codes aloud, click unexpected links, or install software at their request.</li><li><strong>End the conversation.</strong> Contact the company using the number on your card or a website you type yourself.</li><li><strong>Secure affected accounts.</strong> If you already shared a password or code, change the password through the official app or website and contact the provider.</li><li><strong>Ask for help.</strong> Tell someone you trust what happened, especially before changing account or payment settings.</li></ol><a asp-page="/Index" class="btn btn-outline-primary">Back to the home page</a></section>
 </div>

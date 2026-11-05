@@ -2,16 +2,13 @@
 @model FraudVerificationDemo.Pages.Baseline.PaymentsModel
 @using FraudVerificationDemo.Models
 @{
-    ViewData["Title"] = "Usual Payment Methods";
+    ViewData["Title"] = "Usual Payment Methods and Scam Prevention";
+    ViewData["Description"] = "Record your normal ways of paying bills and sending money so unusual payment requests are easier to recognize and verify.";
 }
 
-<partial name="Shared/Components/_DemoWarning" />
-
-<div class="container my-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>💳 Usual Payment Methods</h1>
-        <a asp-page="./Index" class="btn btn-outline-secondary">← Back to Dashboard</a>
-    </div>
+<div class="manage-page">
+    <nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><span>/</span><a asp-page="./Index">My protection</a><span>/</span><span>Usual payments</span></nav>
+    <header class="manage-heading"><div><span class="eyebrow">YOUR PERSONAL PROTECTION PLAN</span><h1>Usual payment methods</h1><p>Keep a reminder of how you normally pay bills and send money.</p></div><a asp-page="./Index" class="btn btn-outline-primary">← Back to overview</a></header>
 
     @if (!string.IsNullOrEmpty(Model.StatusMessage))
     {

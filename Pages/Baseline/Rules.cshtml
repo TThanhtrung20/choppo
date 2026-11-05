@@ -1,16 +1,13 @@
 @page
 @model FraudVerificationDemo.Pages.Baseline.RulesModel
 @{
-    ViewData["Title"] = "Protection Rules";
+    ViewData["Title"] = "Personal Scam Protection Rules";
+    ViewData["Description"] = "Create and manage personal scam prevention rules to help you pause, verify unusual payment requests, and protect your accounts from fraud.";
 }
 
-<partial name="Shared/Components/_DemoWarning" />
-
-<div class="container my-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>🛡️ Protection Rules</h1>
-        <a asp-page="./Index" class="btn btn-outline-secondary">← Back to Dashboard</a>
-    </div>
+<div class="manage-page">
+    <nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><span>/</span><a asp-page="./Index">My protection</a><span>/</span><span>Protection rules</span></nav>
+    <header class="manage-heading"><div><span class="eyebrow">YOUR PERSONAL PROTECTION PLAN</span><h1>Protection rules</h1><p>Write down clear boundaries to help you pause when a request feels unusual.</p></div><a asp-page="./Index" class="btn btn-outline-primary">← Back to overview</a></header>
 
     @if (!string.IsNullOrEmpty(Model.StatusMessage))
     {

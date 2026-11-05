@@ -2,62 +2,24 @@
 @model FraudVerificationDemo.Pages.Help.PayModel
 @{
     ViewData["Title"] = Model.ScenarioTitle;
+    ViewData["Description"] = "Guidance for checking a suspicious payment request. Pause before paying, verify the request using contact details you find independently, and talk with someone you trust.";
 }
 
-@if (!string.IsNullOrEmpty(Model.ScenarioType))
-{
-    <div class="container my-3">
-        <p class="text-muted">
-            <a href="/Help/Select">← Change scenario</a>
-        </p>
-    </div>
-}
+<div class="help-page">
+    <nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><span>/</span><a asp-page="/Help/Select">Get help</a><span>/</span><span>Payment request</span></nav>
+    @if (!string.IsNullOrEmpty(Model.ScenarioType))
+    {
+        <a class="back-link" asp-page="/Help/Select">← Choose a different situation</a>
+    }
+    <header class="page-intro"><span class="eyebrow">PAYMENT SAFETY</span><h1>@Model.ScenarioTitle</h1><p>Take a moment before sending money. Pressure, secrecy, and unusual payment methods are reasons to verify independently.</p></header>
+    <partial name="Shared/Components/_SafetyReminder" />
+    <partial name="Shared/Components/_ActionButtons" />
+    <partial name="Shared/Components/_VerificationGuidance" />
 
-<!-- Safety Reminder Component -->
-<partial name="Shared/Components/_SafetyReminder" />
+    <section class="content-panel mt-4"><div class="content-panel-heading"><span class="eyebrow">THINK IT THROUGH</span><h2>What reason did they give for the payment?</h2><p>You do not have to answer. Consider whether the explanation makes sense and can be checked independently.</p></div>
+        <div class="reflection-list" role="list"><div role="listitem">A bill, debt, fine, or account problem</div><div role="listitem">A prize, refund, job, or investment return</div><div role="listitem">An emergency involving someone you know</div><div role="listitem">They have not explained clearly, or they insist you keep it secret</div></div>
+        <div class="calm-note"><span aria-hidden="true">i</span> A legitimate request can wait while you verify it.</div>
+    </section>
 
-<!-- Action Buttons Component -->
-<partial name="Shared/Components/_ActionButtons" />
-
-<!-- Verification Guidance Component -->
-<partial name="Shared/Components/_VerificationGuidance" />
-
-<!-- Additional Context Questions (Optional) -->
-<div class="card mt-4">
-    <div class="card-header bg-light">
-        <h4 class="mb-0">What are they saying? (Optional - helps you think)</h4>
-    </div>
-    <div class="card-body">
-        <p class="text-muted">You don't have to answer these, but thinking through them can help:</p>
-        
-        <div class="mb-4">
-            <p class="fw-bold">Why do they say you need to pay?</p>
-            <div class="btn-group-vertical w-100" role="group">
-                <button type="button" class="btn btn-outline-secondary text-start py-3">I owe money or have a bill to pay</button>
-                <button type="button" class="btn btn-outline-secondary text-start py-3">There's a problem with my account</button>
-                <button type="button" class="btn btn-outline-secondary text-start py-3">I'll get money or a prize</button>
-                <button type="button" class="btn btn-outline-secondary text-start py-3">Someone I know needs help</button>
-                <button type="button" class="btn btn-outline-secondary text-start py-3">I'm not sure / They won't explain clearly</button>
-            </div>
-        </div>
-
-        <div class="alert alert-info">
-            <strong>Remember:</strong> These questions are just to help you think. The most important thing is in the yellow box at the top of this page.
-        </div>
-    </div>
-</div>
-
-<!-- Next Steps -->
-<div class="mt-5 pt-4 border-top">
-    <h3>What to do next:</h3>
-    <ol class="fs-5">
-        <li class="mb-3"><strong>Do NOT pay right now</strong></li>
-        <li class="mb-3"><strong>End the conversation</strong> (hang up, close the message, leave)</li>
-        <li class="mb-3"><strong>Verify through a channel you already have</strong> (number on your card, saved contact, official website you type yourself)</li>
-        <li class="mb-3"><strong>Talk to someone you trust</strong> before paying</li>
-    </ol>
-    
-    <div class="text-center mt-4">
-        <a asp-page="/Index" class="btn btn-outline-primary btn-lg">Back to Home</a>
-    </div>
+    <section class="next-steps"><span class="eyebrow">A SAFER WAY FORWARD</span><h2>Before you pay</h2><ol><li><strong>Pause the payment.</strong> Do not use gift cards, cryptocurrency, wire transfers, or payment apps because someone is pressuring you.</li><li><strong>End the conversation.</strong> Hang up or stop replying; do not use links or phone numbers they sent.</li><li><strong>Verify independently.</strong> Contact the person or organization using a number on your card, a saved contact, or a website you type yourself.</li><li><strong>Ask someone you trust.</strong> Share what happened before making a decision.</li></ol><a asp-page="/Index" class="btn btn-outline-primary">Back to the home page</a></section>
 </div>

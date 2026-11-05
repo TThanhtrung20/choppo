@@ -1,21 +1,14 @@
 @page
 @model FraudVerificationDemo.Pages.Account.LogoutModel
 @{
-    ViewData["Title"] = "Log out";
+    ViewData["Title"] = "You Have Logged Out";
+    ViewData["Description"] = "You have been logged out of your Safeline demo account. Return to the home page or log in again.";
 }
 
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="text-center">
-                <h1 class="mb-4">@ViewData["Title"]</h1>
-                <p class="lead mb-4">You have been logged out successfully.</p>
-                
-                <div class="d-grid gap-2 col-8 mx-auto">
-                    <a asp-page="/Index" class="btn btn-primary btn-lg">Go to Home</a>
-                    <a asp-page="./Login" class="btn btn-outline-secondary">Log in again</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<section class="logout-page">
+    <span class="logout-icon" aria-hidden="true">✓</span>
+    <span class="eyebrow">ACCOUNT</span>
+    <h1>You’re logged out</h1>
+    <p>You have successfully logged out of your Safeline demo account.</p>
+    <div class="logout-actions"><a asp-page="/Index" class="btn btn-primary">Go to the home page</a><a asp-page="./Login" class="btn btn-outline-primary">Log in again</a></div>
+</section>

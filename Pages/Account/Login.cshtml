@@ -1,67 +1,30 @@
 @page
 @model FraudVerificationDemo.Pages.Account.LoginModel
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Log in to your protection plan";
+    ViewData["Description"] = "Log in to manage your Safeline protection plan and review your saved personal safety rules, trusted contacts, and usual payments.";
 }
 
-<partial name="Shared/Components/_DemoWarning" />
-
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
-            <div class="card shadow-sm">
-                <div class="card-body p-4">
-                    <h1 class="h3 mb-4 text-center">Log In</h1>
-
-                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-                    {
-                        <div class="alert alert-danger" role="alert">
-                            @Model.ErrorMessage
-                        </div>
-                    }
-
-                    <form method="post">
-                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
-
-                        <div class="mb-3">
-                            <label asp-for="Input.Email" class="form-label">Email</label>
-                            <input asp-for="Input.Email" class="form-control" autocomplete="username" />
-                            <span asp-validation-for="Input.Email" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="Input.Password" class="form-label">Password</label>
-                            <input asp-for="Input.Password" class="form-control" autocomplete="current-password" />
-                            <span asp-validation-for="Input.Password" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-4 form-check">
-                            <input asp-for="Input.RememberMe" class="form-check-input" />
-                            <label asp-for="Input.RememberMe" class="form-check-label">
-                                Remember me
-                            </label>
-                        </div>
-
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary btn-lg">Log in</button>
-                        </div>
-                    </form>
-
-                    <hr class="my-4">
-
-                    <p class="text-center mb-0">
-                        Don't have an account? 
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register</a>
-                    </p>
-                </div>
-            </div>
-
-            <div class="mt-4 text-center">
-                <small class="text-muted">
-                    <strong>Demo Note:</strong> Your data is stored locally on this device only.
-                </small>
-            </div>
-        </div>
+<div class="account-page">
+    <nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><span aria-hidden="true">/</span><span>Log in</span></nav>
+    <div class="account-layout">
+        <aside class="account-aside"><span class="eyebrow">YOUR PERSONAL SAFETY PLAN</span><h1>Welcome back.</h1><p>Log in to review your trusted contacts, personal safety rules, and usual payment methods.</p><div class="account-aside-note"><span aria-hidden="true">✓</span><span>Use your saved plan to help spot requests that feel unusual.</span></div></aside>
+        <section class="account-card">
+            <h2>Log in</h2><p class="account-subtitle">Enter the email and password for your account.</p>
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger" role="alert">@Model.ErrorMessage</div>
+            }
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                <div class="mb-3"><label asp-for="Input.Email" class="form-label">Email address</label><input asp-for="Input.Email" class="form-control" autocomplete="username" /><span asp-validation-for="Input.Email" class="text-danger"></span></div>
+                <div class="mb-3"><label asp-for="Input.Password" class="form-label">Password</label><input asp-for="Input.Password" class="form-control" autocomplete="current-password" /><span asp-validation-for="Input.Password" class="text-danger"></span></div>
+                <div class="mb-4 form-check"><input asp-for="Input.RememberMe" class="form-check-input" /><label asp-for="Input.RememberMe" class="form-check-label">Remember me</label></div>
+                <button type="submit" class="btn btn-primary w-100">Log in securely</button>
+            </form>
+            <p class="account-switch">New to Safeline? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Create an account</a></p>
+            <p class="account-demo-note">Demo mode: account information is stored locally for this demonstration. Do not use a real password.</p>
+        </section>
     </div>
 </div>
 

@@ -1,16 +1,13 @@
 @page
 @model FraudVerificationDemo.Pages.Baseline.ContactsModel
 @{
-    ViewData["Title"] = "Trusted Contacts";
+    ViewData["Title"] = "Trusted Contacts for Scam Prevention";
+    ViewData["Description"] = "Save trusted friends and family to help verify unusual requests for money and reduce the risk of impersonation scams.";
 }
 
-<partial name="Shared/Components/_DemoWarning" />
-
-<div class="container my-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>👥 Trusted Contacts</h1>
-        <a asp-page="./Index" class="btn btn-outline-secondary">← Back to Dashboard</a>
-    </div>
+<div class="manage-page">
+    <nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><span>/</span><a asp-page="./Index">My protection</a><span>/</span><span>Trusted contacts</span></nav>
+    <header class="manage-heading"><div><span class="eyebrow">YOUR PERSONAL PROTECTION PLAN</span><h1>Trusted contacts</h1><p>People you can contact to independently verify an unusual request.</p></div><a asp-page="./Index" class="btn btn-outline-primary">← Back to overview</a></header>
 
     @if (!string.IsNullOrEmpty(Model.StatusMessage))
     {

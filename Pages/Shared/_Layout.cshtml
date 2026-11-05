@@ -7,141 +7,45 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Fraud Verification & Response</title>
+    <meta name="description" content="@(ViewData["Description"] ?? "Get practical guidance to identify possible scams, verify suspicious payment or information requests, and take action after fraud.")" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#f7faf8" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@(ViewData["Title"] ?? "Scam and Fraud Support") | Safeline" />
+    <meta property="og:description" content="@(ViewData["Description"] ?? "Get practical guidance to identify possible scams, verify suspicious payment or information requests, and take action after fraud.")" />
+    <title>@(ViewData["Title"] ?? "Scam and Fraud Support") | Safeline</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/FraudVerificationDemo.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <!-- Demo Warning Banner -->
-    <div class="demo-banner bg-warning text-dark py-2">
-        <div class="container text-center">
-            <strong>🧪 LOCAL DEMO</strong> - This is a demonstration for internal review only. Do not enter real personal information.
-        </div>
-    </div>
-
-    <!-- Navigation -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="demo-banner" role="note"><div class="container demo-banner-inner"><span class="demo-pill">DEMO</span><span>This is a local demonstration. Do not enter real personal information.</span></div></div>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg" aria-label="Main navigation">
             <div class="container">
-                <a class="navbar-brand fw-bold" asp-page="/Index">
-                    Fraud Verification & Response
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-page="/Index">Home</a>
-                        </li>
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="baselineDropdown" role="button" 
-                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                    My Baseline
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="baselineDropdown">
-                                    <li><a class="dropdown-item" asp-page="/Baseline/Index">Dashboard</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" asp-page="/Baseline/Rules">Protection Rules</a></li>
-                                    <li><a class="dropdown-item" asp-page="/Baseline/Contacts">Trusted Contacts</a></li>
-                                    <li><a class="dropdown-item" asp-page="/Baseline/Payments">Usual Payments</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" 
-                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                    Account
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="accountDropdown">
-                                    <li><span class="dropdown-item-text text-muted small">@User.Identity?.Name</span></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <form method="post" asp-page="/Account/Logout" class="d-inline">
-                                            <button type="submit" class="dropdown-item">Logout</button>
-                                        </form>
-                                    </li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item text-danger" asp-page="/Account/Delete">Delete Account</a></li>
-                                </ul>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-page="/Account/Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn btn-outline-primary ms-2" asp-page="/Account/Register">Register</a>
-                            </li>
-                        }
-                    </ul>
-                    
-                    <!-- User Menu -->
-                    <ul class="navbar-nav ms-auto">
-                        @if (User.Identity?.IsAuthenticated == true)
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    👤 @User.Identity.Name
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-                                    <li><a class="dropdown-item" asp-page="/Baseline/Index">My Baseline</a></li>
-                                    <li><a class="dropdown-item" asp-page="/Account/Manage/DeletePersonalData">Delete Account</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <form method="post" asp-page="/Account/Logout" class="d-inline">
-                                            <button type="submit" class="dropdown-item">Log out</button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-page="/Account/Login">Log in</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn btn-primary btn-sm ms-2" asp-page="/Account/Register">Register</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
+                <a class="navbar-brand" asp-page="/Index"><span class="brand-mark" aria-hidden="true">S</span><span>Safe<span class="brand-light">line</span><small>Fraud support, made clearer</small></span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarNav"><ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" asp-page="/Index">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-page="/Help/Select">Get help</a></li>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="baselineDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">My protection</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="baselineDropdown"><li><a class="dropdown-item" asp-page="/Baseline/Index">Overview</a></li><li><a class="dropdown-item" asp-page="/Baseline/Rules">Protection rules</a></li><li><a class="dropdown-item" asp-page="/Baseline/Contacts">Trusted contacts</a></li><li><a class="dropdown-item" asp-page="/Baseline/Payments">Usual payments</a></li></ul></li>
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">@User.Identity?.Name</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown"><li><a class="dropdown-item" asp-page="/Account/Manage/DeletePersonalData">Account settings</a></li><li><hr class="dropdown-divider" /></li><li><form method="post" asp-page="/Account/Logout"><button type="submit" class="dropdown-item">Log out</button></form></li></ul></li>
+                    }
+                    else
+                    {
+                        <li class="nav-item"><a class="nav-link" asp-page="/Account/Login">Log in</a></li>
+                        <li class="nav-item ms-lg-2"><a class="btn btn-primary nav-cta" asp-page="/Account/Register">Create account</a></li>
+                    }
+                </ul></div>
             </div>
         </nav>
     </header>
-
-    <!-- Main Content -->
-    <main role="main" class="py-4">
-        <div class="container">
-            @RenderBody()
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer mt-auto py-4 bg-light border-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center text-muted small">
-                    <p class="mb-2">
-                        @SafetyContent.GetDisclaimer()
-                    </p>
-                    <p class="mb-0">
-                        &copy; 2026 - Fraud Verification & Response Demo - For Internal Review Only
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+    <main role="main" class="site-main"><div class="container">@RenderBody()</div></main>
+    <footer class="site-footer"><div class="container footer-inner"><div><a class="footer-brand" asp-page="/Index">Safeline</a><p>Practical support for safer decisions.</p><a class="footer-privacy" asp-page="/Privacy">Privacy notice</a></div><div class="footer-note"><p>@SafetyContent.GetDisclaimer()</p><span>© 2026 Safeline Demo · For internal review only</span></div></div></footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

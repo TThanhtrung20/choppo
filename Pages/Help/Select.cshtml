@@ -1,131 +1,42 @@
 @page
 @model FraudVerificationDemo.Pages.Help.SelectModel
 @{
-    ViewData["Title"] = "What Happened?";
+    ViewData["Title"] = "Scam Warning Signs and Help";
+    ViewData["Description"] = "Choose the situation that fits: suspicious payment requests, requests for passwords or personal information, or help after you have already responded.";
 }
 
-<partial name="Components/_DemoWarning" />
+<div class="help-page">
+    <nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><span aria-hidden="true">/</span><span>Get help</span></nav>
+    <header class="page-intro">
+        <span class="eyebrow">STEP 1 · FIND THE RIGHT GUIDANCE</span>
+        <h1>What’s happening?</h1>
+        <p>Choose the situation that feels closest. You can go back and choose another option at any time.</p>
+        <div class="calm-note"><span aria-hidden="true">i</span> Take your time. You don’t have to send money or share information while you decide.</div>
+    </header>
 
-<div class="container my-4">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <h1 class="text-center mb-4">What Happened?</h1>
-            <p class="lead text-center mb-5">
-                Select the situation that matches what you're experiencing:
-            </p>
-
-            <div class="row g-3">
-                <!-- Payment Situations -->
-                <div class="col-12">
-                    <h3 class="h5 mb-3">💰 Payment Requests</h3>
-                </div>
-
-                <div class="col-md-6">
-                    <a href="/Help/Pay?type=unexpected" class="btn btn-outline-primary w-100 text-start p-3">
-                        <strong>Unexpected Payment Request</strong>
-                        <small class="d-block text-muted mt-1">Someone asked for money out of the blue</small>
-                    </a>
-                </div>
-
-                <div class="col-md-6">
-                    <a href="/Help/Pay?type=urgency" class="btn btn-outline-primary w-100 text-start p-3">
-                        <strong>Urgent Payment Demand</strong>
-                        <small class="d-block text-muted mt-1">"Pay now or else..." / Time pressure</small>
-                    </a>
-                </div>
-
-                <div class="col-md-6">
-                    <a href="/Help/Pay?type=authority" class="btn btn-outline-primary w-100 text-start p-3">
-                        <strong>Authority Figure Requesting Payment</strong>
-                        <small class="d-block text-muted mt-1">Claims to be police, government, bank, etc.</small>
-                    </a>
-                </div>
-
-                <div class="col-md-6">
-                    <a href="/Help/Pay?type=friend" class="btn btn-outline-primary w-100 text-start p-3">
-                        <strong>Friend/Family Asking for Money</strong>
-                        <small class="d-block text-muted mt-1">Unusual request from someone you know</small>
-                    </a>
-                </div>
-
-                <div class="col-md-6">
-                    <a href="/Help/Pay?type=prize" class="btn btn-outline-primary w-100 text-start p-3">
-                        <strong>Prize or Refund (Pay First)</strong>
-                        <small class="d-block text-muted mt-1">"Pay fees to claim your winnings"</small>
-                    </a>
-                </div>
-
-                <div class="col-md-6">
-                    <a href="/Help/Pay?type=investment" class="btn btn-outline-primary w-100 text-start p-3">
-                        <strong>Investment Opportunity</strong>
-                        <small class="d-block text-muted mt-1">High returns, guaranteed profits</small>
-                    </a>
-                </div>
-
-                <!-- Information Situations -->
-                <div class="col-12 mt-4">
-                    <h3 class="h5 mb-3">🔐 Information Requests</h3>
-                </div>
-
-                <div class="col-md-6">
-                    <a href="/Help/Information?type=credentials" class="btn btn-outline-warning w-100 text-start p-3">
-                        <strong>Login/Password Request</strong>
-                        <small class="d-block text-muted mt-1">Asked for username, password, PIN</small>
-                    </a>
-                </div>
-
-                <div class="col-md-6">
-                    <a href="/Help/Information?type=financial" class="btn btn-outline-warning w-100 text-start p-3">
-                        <strong>Financial Information Request</strong>
-                        <small class="d-block text-muted mt-1">Bank account, card number, CVV</small>
-                    </a>
-                </div>
-
-                <div class="col-md-6">
-                    <a href="/Help/Information?type=personal" class="btn btn-outline-warning w-100 text-start p-3">
-                        <strong>Personal Identity Request</strong>
-                        <small class="d-block text-muted mt-1">ID number, passport, birth certificate</small>
-                    </a>
-                </div>
-
-                <div class="col-md-6">
-                    <a href="/Help/Information?type=verification" class="btn btn-outline-warning w-100 text-start p-3">
-                        <strong>Verification Code Request</strong>
-                        <small class="d-block text-muted mt-1">OTP, 2FA code, SMS code</small>
-                    </a>
-                </div>
-
-                <div class="col-md-6">
-                    <a href="/Help/Information?type=documents" class="btn btn-outline-warning w-100 text-start p-3">
-                        <strong>Document Upload Request</strong>
-                        <small class="d-block text-muted mt-1">Photos of ID, documents, cards</small>
-                    </a>
-                </div>
-
-                <!-- Already Happened -->
-                <div class="col-12 mt-4">
-                    <h3 class="h5 mb-3">⚠️ Already Happened</h3>
-                </div>
-
-                <div class="col-12">
-                    <a href="/Help/AfterIncident" class="btn btn-danger w-100 text-start p-3">
-                        <strong>I Already Paid or Shared Information</strong>
-                        <small class="d-block text-muted mt-1">Get immediate steps to protect yourself</small>
-                    </a>
-                </div>
-
-                <!-- Not Sure -->
-                <div class="col-12 mt-3">
-                    <a href="/Help/Pay" class="btn btn-outline-secondary w-100 text-start p-3">
-                        <strong>I'm Not Sure / General Guidance</strong>
-                        <small class="d-block text-muted mt-1">View general verification steps</small>
-                    </a>
-                </div>
-            </div>
-
-            <div class="text-center mt-5">
-                <a href="/" class="btn btn-link">← Back to Home</a>
-            </div>
+    <section class="scenario-group" aria-labelledby="payment-title">
+        <div class="scenario-heading"><span class="scenario-symbol payment-symbol" aria-hidden="true">$</span><div><h2 id="payment-title">Someone is asking me to pay</h2><p>Review common payment situations before sending money.</p></div></div>
+        <div class="scenario-grid">
+            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="unexpected"><span><strong>Unexpected payment request</strong><small>Someone asks for money out of the blue</small></span><b aria-hidden="true">→</b></a>
+            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="urgency"><span><strong>Urgent payment demand</strong><small>“Pay now” or face a threat or penalty</small></span><b aria-hidden="true">→</b></a>
+            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="authority"><span><strong>Someone claims to be an authority</strong><small>Police, government, bank, or another institution</small></span><b aria-hidden="true">→</b></a>
+            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="friend"><span><strong>A friend or family member needs money</strong><small>An unusual request from someone you know</small></span><b aria-hidden="true">→</b></a>
+            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="prize"><span><strong>Prize, refund, or winnings</strong><small>You’re asked to pay a fee to receive money</small></span><b aria-hidden="true">→</b></a>
+            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="investment"><span><strong>Investment opportunity</strong><small>Promises of guaranteed or unusually high returns</small></span><b aria-hidden="true">→</b></a>
         </div>
-    </div>
+    </section>
+
+    <section class="scenario-group" aria-labelledby="information-title">
+        <div class="scenario-heading"><span class="scenario-symbol info-symbol" aria-hidden="true">•••</span><div><h2 id="information-title">Someone is asking for my information</h2><p>Learn how to protect your accounts, money, and identity.</p></div></div>
+        <div class="scenario-grid">
+            <a class="scenario-link" asp-page="/Help/Information" asp-route-type="credentials"><span><strong>Password, PIN, or security answer</strong><small>Someone wants details to access an account</small></span><b aria-hidden="true">→</b></a>
+            <a class="scenario-link" asp-page="/Help/Information" asp-route-type="financial"><span><strong>Bank or card information</strong><small>Account number, card number, or security code</small></span><b aria-hidden="true">→</b></a>
+            <a class="scenario-link" asp-page="/Help/Information" asp-route-type="personal"><span><strong>Identity or personal details</strong><small>Identity number, address, or date of birth</small></span><b aria-hidden="true">→</b></a>
+            <a class="scenario-link" asp-page="/Help/Information" asp-route-type="verification"><span><strong>One-time verification code</strong><small>SMS, email, or two-factor authentication code</small></span><b aria-hidden="true">→</b></a>
+            <a class="scenario-link" asp-page="/Help/Information" asp-route-type="documents"><span><strong>Photo or document upload</strong><small>Images of an ID, bank card, or other document</small></span><b aria-hidden="true">→</b></a>
+        </div>
+    </section>
+
+    <section class="already-section"><span class="scenario-symbol after-symbol" aria-hidden="true">!</span><div><h2>Already paid or shared information?</h2><p>There are steps you can take now to protect yourself and your accounts.</p></div><a asp-page="/Help/AfterIncident" class="btn btn-primary">See what to do next <span aria-hidden="true">→</span></a></section>
+    <p class="not-sure"><a asp-page="/Help/Pay">Not sure? Start with general payment safety guidance →</a></p>
 </div>
