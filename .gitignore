@@ -1,0 +1,26 @@
+## .NET Build Outputs
+bin/
+obj/
+*.dll
+*.pdb
+
+## Database Files (local demo only - do not commit)
+*.db
+*.db-shm
+*.db-wal
+
+## User Secrets
+appsettings.Development.json
+
+## Visual Studio / VS Code
+.vs/
+.vscode/
+
+## Rider
+.idea/
+
+## macOS
+.DS_Store
+
+## Windows
+Thumbs.db
