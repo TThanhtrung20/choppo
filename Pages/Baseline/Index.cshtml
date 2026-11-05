@@ -1,7 +1,9 @@
 @page
 @model FraudVerificationDemo.Pages.Baseline.IndexModel
+@using FraudVerificationDemo.Models
 @{
     ViewData["Title"] = "My Protection Baseline";
+    var hasAnyData = Model.ProtectionRulesCount > 0 || Model.TrustedContactsCount > 0 || Model.UsualPaymentMethodsCount > 0;
 }
 
 <partial name="Shared/Components/_DemoWarning" />
@@ -75,7 +77,7 @@
     </div>
 
     <!-- Getting Started -->
-    @if (Model.ProtectionRulesCount == 0 && Model.TrustedContactsCount == 0 && Model.UsualPaymentMethodsCount == 0)
+    @if (!hasAnyData)
     {
         <div class="card bg-light">
             <div class="card-body">
@@ -83,8 +85,7 @@
                 <p class="mb-3">You haven't set up your baseline yet. Here's what to add:</p>
                 <ol>
                     <li class="mb-2">
-                        <strong>Protection Rules:</strong> Add your phone numbers, email addresses, 
-                        and physical addresses that organizations legitimately use to contact you.
+                        <strong>Protection Rules:</strong> Personal safety principles like "I will never pay taxes with gift cards"
                     </li>
                     <li class="mb-2">
                         <strong>Trusted Contacts:</strong> Add family and close friends who might 
@@ -92,7 +93,7 @@
                     </li>
                     <li class="mb-2">
                         <strong>Usual Payment Methods:</strong> Record how you usually pay bills 
-                        (bank name, card last 4 digits, etc.).
+                        to spot unusual payment requests.
                     </li>
                 </ol>
                 <p class="text-muted mb-0">
@@ -101,6 +102,131 @@
                     </small>
                 </p>
             </div>
+        </div>
+    }
+    
+    <!-- Recent Activity -->
+    @if (hasAnyData)
+    {
+        <div class="row g-4">
+            <!-- Recent Rules -->
+            @if (Model.RecentRules.Any())
+            {
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">🛡️ Recent Protection Rules</h5>
+                            <a asp-page="./Rules" class="btn btn-sm btn-light">View All</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="list-group list-group-flush">
+                                @foreach (var rule in Model.RecentRules)
+                                {
+                                    <div class="list-group-item">
+                                        <p class="mb-1">@rule.Content</p>
+                                        <small class="text-muted">Added @(rule.CreatedAt.ToLocalTime().ToShortDateString())</small>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+            <!-- Recent Contacts -->
+            @if (Model.RecentContacts.Any())
+            {
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">👥 Recent Contacts</h5>
+                            <a asp-page="./Contacts" class="btn btn-sm btn-light">View All</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="list-group list-group-flush">
+                                @foreach (var contact in Model.RecentContacts)
+                                {
+                                    <div class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <strong>@contact.Name</strong>
+                                            @if (!string.IsNullOrEmpty(contact.Relationship))
+                                            {
+                                                <span class="text-muted"> - @contact.Relationship</span>
+                                            }
+                                            <br />
+                                            <small class="text-muted">📞 @contact.Phone</small>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+            <!-- Recent Payment Methods -->
+            @if (Model.RecentPaymentMethods.Any())
+            {
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">💳 Recent Payment Methods</h5>
+                            <a asp-page="./Payments" class="btn btn-sm btn-dark">View All</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="list-group list-group-flush">
+                                @foreach (var payment in Model.RecentPaymentMethods)
+                                {
+                                    <div class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <strong>@payment.RecipientName</strong>
+                                            <br />
+                                            <small class="text-muted">
+                                                @switch (payment.Method)
+                                                {
+                                                    case PaymentMethodType.BankTransfer:
+                                                        <span>🏦 Bank Transfer</span>
+                                                        break;
+                                                    case PaymentMethodType.CreditCard:
+                                                        <span>💳 Credit Card</span>
+                                                        break;
+                                                    case PaymentMethodType.DebitCard:
+                                                        <span>💳 Debit Card</span>
+                                                        break;
+                                                    case PaymentMethodType.PaymentApp:
+                                                        <span>📱 Payment App</span>
+                                                        break;
+                                                    case PaymentMethodType.Check:
+                                                        <span>✍️ Check</span>
+                                                        break;
+                                                    case PaymentMethodType.Other:
+                                                        <span>Other</span>
+                                                        break;
+                                                }
+                                                @if (!string.IsNullOrEmpty(payment.UsualAmount))
+                                                {
+                                                    <text> - @payment.UsualAmount</text>
+                                                }
+                                            </small>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        
+        <!-- Quick Tips -->
+        <div class="alert alert-info mt-4">
+            <h5 class="alert-heading">💡 Using Your Baseline</h5>
+            <ul class="mb-0">
+                <li>When someone asks for money, check if they match your trusted contacts</li>
+                <li>When asked to pay, compare to your usual payment methods</li>
+                <li>Review your protection rules regularly - add new ones as you learn</li>
+                <li>If something feels off, it probably is - pause and verify!</li>
+            </ul>
         </div>
     }
 </div>

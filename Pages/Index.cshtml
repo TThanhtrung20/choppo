@@ -5,29 +5,80 @@
 }
 
 <div class="text-center py-emergency">
-    <h1 class="display-5 fw-bold mb-4">Do you need help right now?</h1>
-    <p class="lead mb-5">Choose the situation that matches what's happening:</p>
+    <h1 class="display-5 fw-bold mb-4">Need Help Right Now?</h1>
+    <p class="lead mb-5">If someone is asking you for money or information and you're not sure what to do, start here:</p>
 
     <div class="emergency-buttons">
         <!-- Emergency Button 1 -->
         <a asp-page="/Help/Select" class="btn btn-primary btn-emergency btn-lg w-100">
-            Someone is asking me to pay
+            💰 Someone is asking me to pay
         </a>
 
         <!-- Emergency Button 2 -->
         <a asp-page="/Help/Select" class="btn btn-warning btn-emergency btn-lg w-100">
-            Someone is asking for my information or to use my phone
+            🔐 Someone is asking for my information
         </a>
 
         <!-- Emergency Button 3 -->
         <a asp-page="/Help/AfterIncident" class="btn btn-danger btn-emergency btn-lg w-100">
-            I already paid or gave information
+            ⚠️ I already paid or shared information
         </a>
     </div>
 
     <div class="mt-5 pt-4 border-top">
         <h3 class="h5 text-muted mb-3">When you're not in a rush:</h3>
         <p class="text-muted mb-3">Set up your personal protection baseline to help you recognize unusual requests.</p>
+        
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a asp-page="/Baseline/Index" class="btn btn-outline-primary btn-lg">Go to My Baseline</a>
+        }
+        else
+        {
+            <div class="d-flex gap-2 justify-content-center">
+                <a asp-page="/Account/Register" class="btn btn-primary btn-lg">Create Account</a>
+                <a asp-page="/Account/Login" class="btn btn-outline-secondary btn-lg">Log In</a>
+            </div>
+        }
+    </div>
+    
+    <!-- Feature Overview -->
+    <div class="row mt-5 text-start">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">🛡️ Protection Rules</h5>
+                    <p class="card-text">
+                        Set personal safety principles when you're calm and thinking clearly. 
+                        Like "I will never pay taxes with gift cards."
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">👥 Trusted Contacts</h5>
+                    <p class="card-text">
+                        Keep track of family and friends who might legitimately ask for help. 
+                        Know their usual contact methods.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">💳 Payment Methods</h5>
+                    <p class="card-text">
+                        Record how you usually pay bills. Spot when someone asks you to 
+                        pay in an unusual way.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
         @if (User.Identity?.IsAuthenticated == true)
         {
             <a asp-page="/Baseline/Index" class="btn btn-outline-primary">Go to My Baseline</a>
