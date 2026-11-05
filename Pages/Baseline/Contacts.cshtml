@@ -12,20 +12,184 @@
         <a asp-page="./Index" class="btn btn-outline-secondary">← Back to Dashboard</a>
     </div>
 
-    <div class="alert alert-warning">
-        <h5 class="alert-heading">⚠️ Page Under Construction</h5>
-        <p class="mb-0">
-            This page will allow you to manage trusted contacts (family and friends who might legitimately ask for money).
-            It will be implemented in Day 8 of the development plan.
-        </p>
+    @if (!string.IsNullOrEmpty(Model.StatusMessage))
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @Model.StatusMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="alert alert-info mb-4">
+        <strong>What are Trusted Contacts?</strong><br>
+        These are family members and close friends who might legitimately ask you for help or money. 
+        Having this list helps you recognize when someone claiming to be them might be an imposter.
     </div>
 
-    <div class="mt-4">
-        <h4>Coming Soon:</h4>
+    <!-- Add New Contact Form -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">
+                @if (!string.IsNullOrEmpty(Request.Query["edit"]))
+                {
+                    <text>Edit Contact</text>
+                }
+                else
+                {
+                    <text>Add New Contact</text>
+                }
+            </h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                <input type="hidden" asp-for="Input.Id" />
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label asp-for="Input.Name" class="form-label">Name</label>
+                        <input asp-for="Input.Name" class="form-control" placeholder="e.g., Mom, John Smith" />
+                        <span asp-validation-for="Input.Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Input.Phone" class="form-label">Phone Number</label>
+                        <input asp-for="Input.Phone" class="form-control" placeholder="555-0100" />
+                        <span asp-validation-for="Input.Phone" class="text-danger"></span>
+                        <small class="form-text text-muted">
+                            Demo format: 555-XXXX
+                        </small>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Input.Relationship" class="form-label">Relationship (optional)</label>
+                        <input asp-for="Input.Relationship" class="form-control" placeholder="e.g., Mother, Brother, Friend" />
+                        <span asp-validation-for="Input.Relationship" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success">
+                                @if (!string.IsNullOrEmpty(Request.Query["edit"]))
+                                {
+                                    <text>Update Contact</text>
+                                }
+                                else
+                                {
+                                    <text><i class="bi bi-plus-circle"></i> Add Contact</text>
+                                }
+                            </button>
+                            @if (!string.IsNullOrEmpty(Request.Query["edit"]))
+                            {
+                                <a asp-page="./Contacts" class="btn btn-outline-secondary">Cancel</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contacts List -->
+    @if (Model.Contacts.Any())
+    {
+        <h3 class="mb-3">Your Contacts (@Model.Contacts.Count)</h3>
+
+        <div class="row g-3">
+            @foreach (var contact in Model.Contacts)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">@contact.Name</h5>
+                            @if (!string.IsNullOrEmpty(contact.Relationship))
+                            {
+                                <p class="text-muted mb-2">
+                                    <small>@contact.Relationship</small>
+                                </p>
+                            }
+                            <p class="card-text">
+                                <strong>📞 Phone:</strong> @contact.Phone
+                            </p>
+                            <small class="text-muted d-block mb-3">
+                                Added: @(contact.CreatedAt.ToLocalTime().ToShortDateString())
+                                @if (contact.UpdatedAt.HasValue)
+                                {
+                                    @:<br />Updated: @(contact.UpdatedAt.Value.ToLocalTime().ToShortDateString())
+                                }
+                            </small>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-sm btn-outline-primary edit-contact-btn"
+                                        data-id="@contact.Id"
+                                        data-name='@contact.Name'
+                                        data-phone='@contact.Phone'
+                                        data-relationship='@(contact.Relationship ?? "")'>
+                                    Edit
+                                </button>
+                                <form method="post" asp-page-handler="Delete" asp-route-id="@contact.Id" 
+                                      class="d-inline" onsubmit="return confirm('Delete @contact.Name?');">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="card bg-light">
+            <div class="card-body text-center py-5">
+                <p class="lead text-muted mb-0">No contacts yet. Add your first trusted contact above!</p>
+            </div>
+        </div>
+    }
+
+    <!-- Examples & Tips -->
+    <div class="mt-5">
+        <h4>Tips for Trusted Contacts:</h4>
         <ul>
-            <li>Add trusted contacts with name, relationship, phone, email</li>
-            <li>Edit and delete contacts</li>
-            <li>View list of all trusted contacts</li>
+            <li><strong>Add close family:</strong> Parents, siblings, spouse, children</li>
+            <li><strong>Add close friends:</strong> People you've known for years</li>
+            <li><strong>Remember their usual contact methods:</strong> If "Mom" always calls from 555-1234, 
+                a call from a different number asking for money should raise suspicion</li>
+            <li><strong>Verify before acting:</strong> If someone claiming to be a trusted contact asks for money, 
+                call them back on the number you have saved here</li>
         </ul>
+        
+        <div class="alert alert-warning mt-3">
+            <strong>⚠️ Demo Note:</strong> This is a demonstration. Use fictional phone numbers in 555-XXXX format only.
+        </div>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Attach click handlers to all edit buttons
+        document.querySelectorAll('.edit-contact-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.dataset.id;
+                const name = this.dataset.name;
+                const phone = this.dataset.phone;
+                const relationship = this.dataset.relationship;
+                
+                // Populate form with existing values
+                document.querySelector('input[name="Input.Id"]').value = id;
+                document.querySelector('input[name="Input.Name"]').value = name;
+                document.querySelector('input[name="Input.Phone"]').value = phone;
+                document.querySelector('input[name="Input.Relationship"]').value = relationship;
+                
+                // Scroll to form
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Focus on name field
+                document.querySelector('input[name="Input.Name"]').focus();
+            });
+        });
+    </script>
+}
+
