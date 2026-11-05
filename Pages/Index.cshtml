@@ -1,10 +1,69 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center py-emergency">
+    <h1 class="display-5 fw-bold mb-4">Do you need help right now?</h1>
+    <p class="lead mb-5">Choose the situation that matches what's happening:</p>
+
+    <div class="emergency-buttons">
+        <!-- Emergency Button 1 -->
+        <a asp-page="/Help/Pay" class="btn btn-primary btn-emergency btn-lg w-100">
+            Someone is asking me to pay
+        </a>
+
+        <!-- Emergency Button 2 -->
+        <a asp-page="/Help/Information" class="btn btn-warning btn-emergency btn-lg w-100">
+            Someone is asking for my information or to use my phone
+        </a>
+
+        <!-- Emergency Button 3 -->
+        <a asp-page="/Help/AfterIncident" class="btn btn-danger btn-emergency btn-lg w-100">
+            I already paid or gave information
+        </a>
+    </div>
+
+    <div class="mt-5 pt-4 border-top">
+        <h3 class="h5 text-muted mb-3">When you're not in a rush:</h3>
+        <p class="text-muted mb-3">Set up your personal protection baseline to help you recognize unusual requests.</p>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a asp-page="/Baseline/Index" class="btn btn-outline-primary">Go to My Baseline</a>
+        }
+        else
+        {
+            <a asp-page="/Account/Register" class="btn btn-outline-primary">Create Account</a>
+            <span class="text-muted mx-2">or</span>
+            <a asp-page="/Account/Login" class="btn btn-outline-secondary">Login</a>
+        }
+    </div>
+</div>
+
+<div class="row mt-5 pt-4">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">🛡️ Protection Rules</h5>
+                <p class="card-text">Set principles for yourself when you're calm, before anyone asks for money or information.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">👥 Trusted Contacts</h5>
+                <p class="card-text">Save people you can call when you're not sure what to do.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">💳 Usual Payments</h5>
+                <p class="card-text">Keep track of how you normally pay bills and who you regularly send money to.</p>
+            </div>
+        </div>
+    </div>
 </div>

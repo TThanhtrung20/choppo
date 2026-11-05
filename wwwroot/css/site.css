@@ -1,24 +1,345 @@
-html {
-  font-size: 14px;
+/* ==========================================================================
+   Fraud Verification & Response - Custom Styles
+   ========================================================================== */
+
+/* --- Demo Banner --- */
+.demo-banner {
+    font-size: 0.9rem;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+/* --- Large Touch-Friendly Buttons --- */
+.btn-emergency {
+    min-height: 80px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 1.5rem 2rem;
+    white-space: normal;
+    text-align: center;
+    border-radius: 0.5rem;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+@media (max-width: 576px) {
+    .btn-emergency {
+        min-height: 70px;
+        font-size: 1.1rem;
+        padding: 1.25rem 1.5rem;
+    }
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+/* --- Action Buttons (Safety Reminder) --- */
+.btn-action {
+    min-height: 60px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+    border-radius: 0.4rem;
 }
 
+@media (max-width: 576px) {
+    .btn-action {
+        min-height: 55px;
+        font-size: 1rem;
+        padding: 0.875rem 1.25rem;
+    }
+}
+
+/* --- Safety Reminder Box --- */
+.safety-reminder {
+    background-color: #fff3cd;
+    border: 3px solid #ffc107;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.safety-reminder h2 {
+    color: #856404;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.safety-reminder p {
+    color: #333;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+@media (max-width: 576px) {
+    .safety-reminder {
+        padding: 1.5rem;
+    }
+    
+    .safety-reminder h2 {
+        font-size: 1.5rem;
+    }
+    
+    .safety-reminder p {
+        font-size: 1.1rem;
+    }
+}
+
+/* --- Verification Guidance --- */
+.verification-guidance {
+    background-color: #d1ecf1;
+    border-left: 4px solid #0c5460;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.verification-guidance h3 {
+    color: #0c5460;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.verification-guidance ul {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+@media (max-width: 576px) {
+    .verification-guidance {
+        padding: 1.25rem;
+    }
+    
+    .verification-guidance h3 {
+        font-size: 1.25rem;
+    }
+    
+    .verification-guidance ul {
+        font-size: 1rem;
+    }
+}
+
+/* --- Demo Data Warning --- */
+.demo-warning {
+    background-color: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.demo-warning h4 {
+    color: #856404;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.demo-warning ul {
+    margin-bottom: 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* --- Footer --- */
+.footer {
+    margin-top: 3rem;
+}
+
+.footer p {
+    line-height: 1.6;
+}
+
+/* --- Minimum Touch Target Size (WCAG) --- */
+button,
+.btn,
+a.btn {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* --- Focus States for Keyboard Navigation --- */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 3px solid #0d6efd;
+    outline-offset: 2px;
+}
+
+/* --- Responsive Typography --- */
 body {
-  margin-bottom: 60px;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+h1 {
+    font-size: 2.25rem;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.25rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 576px) {
+    body {
+        font-size: 0.95rem;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.25rem;
+    }
+}
+
+/* --- Spacing Utilities --- */
+.py-emergency {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+@media (max-width: 576px) {
+    .py-emergency {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+}
+
+/* --- Emergency Button Grid --- */
+.emergency-buttons {
+    display: grid;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+@media (max-width: 768px) {
+    .emergency-buttons {
+        gap: 1.25rem;
+    }
+}
+
+/* --- Card Styles for Baseline Items --- */
+.baseline-card {
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    background-color: #fff;
+}
+
+.baseline-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* --- Contact Display --- */
+.contact-display {
+    background-color: #e7f3ff;
+    border: 2px solid #0d6efd;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.contact-display .phone-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0d6efd;
+    margin: 1rem 0;
+    letter-spacing: 2px;
+}
+
+@media (max-width: 576px) {
+    .contact-display .phone-number {
+        font-size: 1.75rem;
+    }
+}
+
+/* --- Status Badges --- */
+.badge-draft {
+    background-color: #ffc107;
+    color: #000;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.65rem;
+    font-weight: 600;
+}
+
+.badge-approved {
+    background-color: #28a745;
+    color: #fff;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.65rem;
+    font-weight: 600;
+}
+
+/* --- List Styles for Guidance --- */
+.guidance-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.guidance-list li {
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    position: relative;
+}
+
+.guidance-list li::before {
+    content: "✓";
+    color: #28a745;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.guidance-list-negative li::before {
+    content: "✗";
+    color: #dc3545;
+}
+
+/* --- Loading/Spinner (if needed) --- */
+.spinner-border-lg {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.3rem;
+}
+
+/* --- Ensure no horizontal scroll on small screens --- */
+body {
+    overflow-x: hidden;
+}
+
+.container,
+.container-fluid {
+    overflow-x: hidden;
+}
+
+/* --- High Contrast for Important Actions --- */
+.btn-danger:hover {
+    background-color: #b02a37;
+    border-color: #a52834;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+.btn-success:hover {
+    background-color: #157347;
+    border-color: #146c43;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -28,4 +349,182 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+/* ==========================================================================
+   Fraud Verification & Response - Custom Styles
+   ========================================================================== */
+
+/* --- Demo Banner --- */
+.demo-banner {
+    font-size: 0.9rem;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+}
+
+/* --- Large Touch-Friendly Buttons --- */
+.btn-emergency {
+    min-height: 80px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 1.5rem 2rem;
+    white-space: normal;
+    text-align: center;
+    border-radius: 0.5rem;
+}
+
+@media (max-width: 576px) {
+    .btn-emergency {
+        min-height: 70px;
+        font-size: 1.1rem;
+        padding: 1.25rem 1.5rem;
+    }
+}
+
+/* --- Action Buttons (Safety Reminder) --- */
+.btn-action {
+    min-height: 60px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+    border-radius: 0.4rem;
+}
+
+@media (max-width: 576px) {
+    .btn-action {
+        min-height: 55px;
+        font-size: 1rem;
+        padding: 0.875rem 1.25rem;
+    }
+}
+
+/* --- Safety Reminder Box --- */
+.safety-reminder {
+    background-color: #fff3cd;
+    border: 3px solid #ffc107;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.safety-reminder h2 {
+    color: #856404;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.safety-reminder p {
+    color: #333;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+@media (max-width: 576px) {
+    .safety-reminder {
+        padding: 1.5rem;
+    }
+    
+    .safety-reminder h2 {
+        font-size: 1.5rem;
+    }
+    
+    .safety-reminder p {
+        font-size: 1.1rem;
+    }
+}
+
+/* --- Verification Guidance --- */
+.verification-guidance {
+    background-color: #d1ecf1;
+    border-left: 4px solid #0c5460;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.verification-guidance h3 {
+    color: #0c5460;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.verification-guidance ul {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+@media (max-width: 576px) {
+    .verification-guidance {
+        padding: 1.25rem;
+    }
+    
+    .verification-guidance h3 {
+        font-size: 1.25rem;
+    }
+    
+    .verification-guidance ul {
+        font-size: 1rem;
+    }
+}
+
+/* --- Demo Data Warning --- */
+.demo-warning {
+    background-color: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.demo-warning h4 {
+    color: #856404;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.demo-warning ul {
+    margin-bottom: 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* --- Contact Display --- */
+.contact-display {
+    background-color: #e7f3ff;
+    border: 2px solid #0d6efd;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.contact-display .phone-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0d6efd;
+    margin: 1rem 0;
+    letter-spacing: 2px;
+}
+
+@media (max-width: 576px) {
+    .contact-display .phone-number {
+        font-size: 1.75rem;
+    }
+}
+
+/* --- Status Badges --- */
+.badge-draft {
+    background-color: #ffc107;
+    color: #000;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.65rem;
+    font-weight: 600;
+}
+
+/* --- Ensure no horizontal scroll --- */
+body {
+    overflow-x: hidden;
 }

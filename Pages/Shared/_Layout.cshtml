@@ -1,45 +1,109 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<FraudVerificationDemo.Models.ApplicationUser> SignInManager
+@inject Microsoft.AspNetCore.Identity.UserManager<FraudVerificationDemo.Models.ApplicationUser> UserManager
+@inject FraudVerificationDemo.Services.SafetyContentService SafetyContent
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - FraudVerificationDemo</title>
-    <script type="importmap"></script>
+    <title>@ViewData["Title"] - Fraud Verification & Response</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FraudVerificationDemo.styles.css" asp-append-version="true" />
 </head>
 <body>
+    <!-- Demo Warning Banner -->
+    <div class="demo-banner bg-warning text-dark py-2">
+        <div class="container text-center">
+            <strong>🧪 LOCAL DEMO</strong> - This is a demonstration for internal review only. Do not enter real personal information.
+        </div>
+    </div>
+
+    <!-- Navigation -->
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">FraudVerificationDemo</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand fw-bold" asp-page="/Index">
+                    Fraud Verification & Response
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="baselineDropdown" role="button" 
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    My Baseline
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="baselineDropdown">
+                                    <li><a class="dropdown-item" asp-page="/Baseline/Index">Dashboard</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" asp-page="/Baseline/Rules">Protection Rules</a></li>
+                                    <li><a class="dropdown-item" asp-page="/Baseline/Contacts">Trusted Contacts</a></li>
+                                    <li><a class="dropdown-item" asp-page="/Baseline/Payments">Usual Payments</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" 
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    Account
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="accountDropdown">
+                                    <li><span class="dropdown-item-text text-muted small">@User.Identity?.Name</span></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form method="post" asp-page="/Account/Logout" class="d-inline">
+                                            <button type="submit" class="dropdown-item">Logout</button>
+                                        </form>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item text-danger" asp-page="/Account/Delete">Delete Account</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Account/Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-outline-primary ms-2" asp-page="/Account/Register">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
+    <!-- Main Content -->
+    <main role="main" class="py-4">
         <div class="container">
-            &copy; 2026 - FraudVerificationDemo - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            @RenderBody()
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-4 bg-light border-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center text-muted small">
+                    <p class="mb-2">
+                        @SafetyContent.GetDisclaimer()
+                    </p>
+                    <p class="mb-0">
+                        &copy; 2026 - Fraud Verification & Response Demo - For Internal Review Only
+                    </p>
+                </div>
+            </div>
         </div>
     </footer>
 

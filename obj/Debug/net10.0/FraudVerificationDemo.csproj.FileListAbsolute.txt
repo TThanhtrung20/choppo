@@ -149,7 +149,6 @@
 /home/pcmobile/Pictures/scam 2/app/obj/Debug/net10.0/scopedcss/Pages/Shared/_Layout.cshtml.rz.scp.css
 /home/pcmobile/Pictures/scam 2/app/obj/Debug/net10.0/scopedcss/bundle/FraudVerificationDemo.styles.css
 /home/pcmobile/Pictures/scam 2/app/obj/Debug/net10.0/scopedcss/projectbundle/FraudVerificationDemo.bundle.scp.css
-/home/pcmobile/Pictures/scam 2/app/obj/Debug/net10.0/compressed/7k11mcx19w-{0}-b9sayid5wm-b9sayid5wm.gz
 /home/pcmobile/Pictures/scam 2/app/obj/Debug/net10.0/compressed/depiq98dok-{0}-61n19gt1b8-61n19gt1b8.gz
 /home/pcmobile/Pictures/scam 2/app/obj/Debug/net10.0/compressed/15cez8myfw-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 /home/pcmobile/Pictures/scam 2/app/obj/Debug/net10.0/compressed/plnie7cv1p-{0}-bqjiyaj88i-bqjiyaj88i.gz
@@ -224,3 +223,4 @@
 /home/pcmobile/Pictures/scam 2/app/obj/Debug/net10.0/FraudVerificationDemo.pdb
 /home/pcmobile/Pictures/scam 2/app/obj/Debug/net10.0/FraudVerificationDemo.genruntimeconfig.cache
 /home/pcmobile/Pictures/scam 2/app/obj/Debug/net10.0/ref/FraudVerificationDemo.dll
+/home/pcmobile/Pictures/scam 2/app/obj/Debug/net10.0/compressed/7k11mcx19w-{0}-8x2o9pmsl6-8x2o9pmsl6.gz
