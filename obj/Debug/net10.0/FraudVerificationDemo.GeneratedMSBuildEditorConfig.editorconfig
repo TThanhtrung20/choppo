@@ -47,8 +47,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWNjb3VudC9SZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/pcmobile/Pictures/scam 2/app/Pages/Baseline/Contacts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQmFzZWxpbmUvQ29udGFjdHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/pcmobile/Pictures/scam 2/app/Pages/Baseline/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQmFzZWxpbmUvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/pcmobile/Pictures/scam 2/app/Pages/Baseline/Payments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQmFzZWxpbmUvUGF5bWVudHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/pcmobile/Pictures/scam 2/app/Pages/Baseline/Rules.cshtml]
