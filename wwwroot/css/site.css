@@ -1,16 +1,102 @@
 /* ==========================================================================
-   Fraud Verification & Response - Custom Styles
+   Fraud Verification & Response - Enhanced Modern Styles
    ========================================================================== */
 
-/* --- Demo Banner --- */
+/* --- Root Variables for Consistent Theming --- */
+:root {
+    --color-primary: #4F46E5;
+    --color-primary-light: #818CF8;
+    --color-primary-dark: #3730A3;
+    --color-success: #10B981;
+    --color-success-light: #6EE7B7;
+    --color-danger: #EF4444;
+    --color-danger-light: #FCA5A5;
+    --color-warning: #F59E0B;
+    --color-warning-light: #FCD34D;
+    --color-info: #3B82F6;
+    --color-info-light: #93C5FD;
+    
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+    
+    --radius-sm: 0.75rem;
+    --radius-md: 1rem;
+    --radius-lg: 1.5rem;
+    --radius-xl: 2rem;
+    
+    --transition-fast: all 0.2s ease-in-out;
+    --transition-medium: all 0.3s ease-in-out;
+    --transition-slow: all 0.4s ease-in-out;
+}
+
+/* --- Global Smooth Base --- */
+* {
+    transition: var(--transition-fast);
+}
+
+body {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #1F2937;
+    background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%);
+    overflow-x: hidden;
+}
+
+.container,
+.container-fluid {
+    overflow-x: hidden;
+}
+
+/* --- Smooth Typography --- */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: #111827;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+}
+
+h3 {
+    font-size: 1.625rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 576px) {
+    body {
+        font-size: 0.95rem;
+    }
+    
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.625rem; }
+    h3 { font-size: 1.375rem; }
+}
+
+/* --- Demo Banner with Gradient --- */
 .demo-banner {
     font-size: 0.9rem;
     position: sticky;
     top: 0;
     z-index: 1030;
+    background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%);
+    box-shadow: var(--shadow-md);
+    border: none;
 }
 
-/* --- Large Touch-Friendly Buttons --- */
+/* --- Large Touch-Friendly Emergency Buttons --- */
 .btn-emergency {
     min-height: 80px;
     font-size: 1.25rem;
@@ -18,7 +104,21 @@
     padding: 1.5rem 2rem;
     white-space: normal;
     text-align: center;
-    border-radius: 0.5rem;
+    border-radius: var(--radius-lg);
+    border: none;
+    box-shadow: var(--shadow-md);
+    transform: translateY(0);
+    transition: var(--transition-medium);
+}
+
+.btn-emergency:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+}
+
+.btn-emergency:active {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
 }
 
 @media (max-width: 576px) {
@@ -26,7 +126,75 @@
         min-height: 70px;
         font-size: 1.1rem;
         padding: 1.25rem 1.5rem;
+        border-radius: var(--radius-md);
     }
+}
+
+/* --- Enhanced Bootstrap Button Colors --- */
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    border: none;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-light) 100%);
+    border: none;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #059669 0%, var(--color-success) 100%);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--color-danger) 0%, var(--color-danger-light) 100%);
+    border: none;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #DC2626 0%, var(--color-danger) 100%);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, var(--color-warning) 0%, var(--color-warning-light) 100%);
+    border: none;
+    box-shadow: var(--shadow-sm);
+    color: #78350F;
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #D97706 0%, var(--color-warning) 100%);
+    box-shadow: var(--shadow-md);
+    color: #78350F;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, var(--color-info) 0%, var(--color-info-light) 100%);
+    border: none;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-info:hover {
+    background: linear-gradient(135deg, #2563EB 0%, var(--color-info) 100%);
+    box-shadow: var(--shadow-md);
+}
+
+/* --- All Buttons Smooth Corners --- */
+.btn,
+button {
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    transition: var(--transition-medium);
 }
 
 /* --- Action Buttons (Safety Reminder) --- */
@@ -35,7 +203,13 @@
     font-size: 1.1rem;
     font-weight: 600;
     padding: 1rem 1.5rem;
-    border-radius: 0.4rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
 }
 
 @media (max-width: 576px) {
@@ -46,32 +220,34 @@
     }
 }
 
-/* --- Safety Reminder Box --- */
+/* --- Safety Reminder Box with Soft Glow --- */
 .safety-reminder {
-    background-color: #fff3cd;
-    border: 3px solid #ffc107;
-    border-radius: 0.5rem;
+    background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+    border: 2px solid var(--color-warning-light);
+    border-radius: var(--radius-lg);
     padding: 2rem;
     margin-bottom: 2rem;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.15), var(--shadow-md);
 }
 
 .safety-reminder h2 {
-    color: #856404;
+    color: #92400E;
     font-size: 1.75rem;
     font-weight: 700;
     margin-bottom: 1rem;
 }
 
 .safety-reminder p {
-    color: #333;
+    color: #451A03;
     font-size: 1.25rem;
-    line-height: 1.6;
+    line-height: 1.7;
     margin-bottom: 0;
 }
 
 @media (max-width: 576px) {
     .safety-reminder {
         padding: 1.5rem;
+        border-radius: var(--radius-md);
     }
     
     .safety-reminder h2 {
@@ -83,16 +259,18 @@
     }
 }
 
-/* --- Verification Guidance --- */
+/* --- Verification Guidance with Smooth Blue Theme --- */
 .verification-guidance {
-    background-color: #d1ecf1;
-    border-left: 4px solid #0c5460;
-    padding: 1.5rem;
+    background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+    border-left: 5px solid var(--color-info);
+    border-radius: var(--radius-md);
+    padding: 1.75rem;
     margin: 2rem 0;
+    box-shadow: var(--shadow-sm);
 }
 
 .verification-guidance h3 {
-    color: #0c5460;
+    color: #1E40AF;
     font-size: 1.4rem;
     margin-bottom: 1rem;
 }
@@ -100,6 +278,7 @@
 .verification-guidance ul {
     font-size: 1.1rem;
     line-height: 1.8;
+    color: #1E3A8A;
 }
 
 @media (max-width: 576px) {
@@ -118,15 +297,16 @@
 
 /* --- Demo Data Warning --- */
 .demo-warning {
-    background-color: #fff3cd;
-    border: 2px solid #ffc107;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
+    background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+    border: 2px solid var(--color-warning);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
     margin: 2rem 0;
+    box-shadow: var(--shadow-sm);
 }
 
 .demo-warning h4 {
-    color: #856404;
+    color: #92400E;
     font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
@@ -135,86 +315,114 @@
 .demo-warning ul {
     margin-bottom: 0;
     font-size: 1rem;
-    color: #333;
+    color: #78350F;
 }
 
-/* --- Footer --- */
-.footer {
-    margin-top: 3rem;
-}
-
-.footer p {
-    line-height: 1.6;
-}
-
-/* --- Minimum Touch Target Size (WCAG) --- */
-button,
-.btn,
-a.btn {
-    min-height: 44px;
-    min-width: 44px;
-}
-
-/* --- Focus States for Keyboard Navigation --- */
-a:focus,
-button:focus,
-input:focus,
-select:focus,
-textarea:focus {
-    outline: 3px solid #0d6efd;
-    outline-offset: 2px;
-}
-
-/* --- Responsive Typography --- */
-body {
-    font-size: 1rem;
-    line-height: 1.6;
-}
-
-h1 {
-    font-size: 2.25rem;
-    margin-bottom: 1.5rem;
-}
-
-h2 {
-    font-size: 1.75rem;
-    margin-bottom: 1.25rem;
-}
-
-h3 {
-    font-size: 1.5rem;
+/* --- Card Styles for Baseline Items with Hover Effect --- */
+.baseline-card {
+    border: 1px solid #E5E7EB;
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
     margin-bottom: 1rem;
+    background: linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-medium);
+}
+
+.baseline-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary-light);
+}
+
+/* --- Contact Display with Smooth Blue Gradient --- */
+.contact-display {
+    background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+    border: 3px solid var(--color-info);
+    border-radius: var(--radius-xl);
+    padding: 2.5rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    box-shadow: 0 0 25px rgba(59, 130, 246, 0.2), var(--shadow-md);
+}
+
+.contact-display .phone-number {
+    font-size: 2.25rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-info) 0%, var(--color-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 1rem 0;
+    letter-spacing: 3px;
 }
 
 @media (max-width: 576px) {
-    body {
-        font-size: 0.95rem;
+    .contact-display {
+        padding: 2rem;
+        border-radius: var(--radius-lg);
     }
     
-    h1 {
-        font-size: 1.75rem;
-    }
-    
-    h2 {
-        font-size: 1.5rem;
-    }
-    
-    h3 {
-        font-size: 1.25rem;
+    .contact-display .phone-number {
+        font-size: 1.875rem;
+        letter-spacing: 2px;
     }
 }
 
-/* --- Spacing Utilities --- */
-.py-emergency {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+/* --- Status Badges with Soft Shadows --- */
+.badge-draft {
+    background: linear-gradient(135deg, var(--color-warning) 0%, var(--color-warning-light) 100%);
+    color: #78350F;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
 }
 
-@media (max-width: 576px) {
-    .py-emergency {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-    }
+.badge-approved {
+    background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-light) 100%);
+    color: #FFFFFF;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+}
+
+/* --- List Styles for Guidance with Smooth Icons --- */
+.guidance-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.guidance-list li {
+    padding-left: 2rem;
+    margin-bottom: 0.875rem;
+    position: relative;
+    font-size: 1.05rem;
+}
+
+.guidance-list li::before {
+    content: "✓";
+    color: var(--color-success);
+    font-weight: 900;
+    font-size: 1.25rem;
+    position: absolute;
+    left: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+    border-radius: 50%;
+}
+
+.guidance-list-negative li::before {
+    content: "✗";
+    color: var(--color-danger);
+    background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
 }
 
 /* --- Emergency Button Grid --- */
@@ -230,301 +438,291 @@ h3 {
     }
 }
 
-/* --- Card Styles for Baseline Items --- */
-.baseline-card {
-    border: 1px solid #dee2e6;
-    border-radius: 0.5rem;
-    padding: 1.25rem;
-    margin-bottom: 1rem;
-    background-color: #fff;
+/* --- Footer Styling --- */
+.footer {
+    margin-top: 4rem;
+    padding: 2rem 0;
+    border-top: 2px solid #E5E7EB;
+    background: linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%);
 }
 
-.baseline-card:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.footer p {
+    line-height: 1.7;
+    color: #6B7280;
 }
 
-/* --- Contact Display --- */
-.contact-display {
-    background-color: #e7f3ff;
-    border: 2px solid #0d6efd;
-    border-radius: 0.5rem;
-    padding: 2rem;
-    text-align: center;
-    margin: 1.5rem 0;
-}
-
-.contact-display .phone-number {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #0d6efd;
-    margin: 1rem 0;
-    letter-spacing: 2px;
+/* --- Spacing Utilities --- */
+.py-emergency {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
 
 @media (max-width: 576px) {
-    .contact-display .phone-number {
-        font-size: 1.75rem;
+    .py-emergency {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
     }
 }
 
-/* --- Status Badges --- */
-.badge-draft {
-    background-color: #ffc107;
-    color: #000;
-    font-size: 0.85rem;
-    padding: 0.35rem 0.65rem;
-    font-weight: 600;
+/* --- Form Controls with Smooth Styling --- */
+.form-control,
+.form-select {
+    border-radius: var(--radius-md);
+    border: 2px solid #E5E7EB;
+    padding: 0.75rem 1rem;
+    transition: var(--transition-fast);
 }
 
-.badge-approved {
-    background-color: #28a745;
-    color: #fff;
-    font-size: 0.85rem;
-    padding: 0.35rem 0.65rem;
-    font-weight: 600;
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--color-primary-light);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    outline: none;
 }
 
-/* --- List Styles for Guidance --- */
-.guidance-list {
-    list-style: none;
-    padding-left: 0;
+.form-floating > .form-control::placeholder {
+    color: #9CA3AF;
+    text-align: end;
 }
 
-.guidance-list li {
-    padding-left: 1.5rem;
-    margin-bottom: 0.75rem;
-    position: relative;
+.form-floating > .form-control:focus::placeholder {
+    text-align: start;
 }
 
-.guidance-list li::before {
-    content: "✓";
-    color: #28a745;
-    font-weight: bold;
-    position: absolute;
-    left: 0;
+.form-floating > label {
+    color: #6B7280;
+    font-weight: 500;
 }
 
-.guidance-list-negative li::before {
-    content: "✗";
-    color: #dc3545;
+/* --- Minimum Touch Target Size (WCAG) --- */
+button,
+.btn,
+a.btn {
+    min-height: 44px;
+    min-width: 44px;
 }
 
-/* --- Loading/Spinner (if needed) --- */
+/* --- Enhanced Focus States for Accessibility --- */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 3px solid var(--color-primary-light);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--color-primary-light);
+    outline-offset: 3px;
+}
+
+/* --- Loading/Spinner --- */
 .spinner-border-lg {
     width: 3rem;
     height: 3rem;
     border-width: 0.3rem;
 }
 
-/* --- Ensure no horizontal scroll on small screens --- */
-body {
-    overflow-x: hidden;
+/* --- Table Enhancements --- */
+.table {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
 }
 
-.container,
-.container-fluid {
-    overflow-x: hidden;
+.table thead {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    color: white;
 }
 
-/* --- High Contrast for Important Actions --- */
-.btn-danger:hover {
-    background-color: #b02a37;
-    border-color: #a52834;
+.table tbody tr {
+    transition: var(--transition-fast);
 }
 
-.btn-primary:hover {
-    background-color: #0b5ed7;
-    border-color: #0a58ca;
+.table tbody tr:hover {
+    background-color: #F3F4F6;
+    transform: scale(1.01);
 }
 
-.btn-success:hover {
-    background-color: #157347;
-    border-color: #146c43;
+/* --- Card Component --- */
+.card {
+    border-radius: var(--radius-lg);
+    border: 1px solid #E5E7EB;
+    box-shadow: var(--shadow-sm);
+    background: linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%);
+    transition: var(--transition-medium);
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+.card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
-}
-
-/* ==========================================================================
-   Fraud Verification & Response - Custom Styles
-   ========================================================================== */
-
-/* --- Demo Banner --- */
-.demo-banner {
-    font-size: 0.9rem;
-    position: sticky;
-    top: 0;
-    z-index: 1030;
-}
-
-/* --- Large Touch-Friendly Buttons --- */
-.btn-emergency {
-    min-height: 80px;
-    font-size: 1.25rem;
+.card-header {
+    background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%);
+    border-bottom: 2px solid #E5E7EB;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
     font-weight: 600;
-    padding: 1.5rem 2rem;
-    white-space: normal;
-    text-align: center;
-    border-radius: 0.5rem;
+    color: #374151;
 }
 
-@media (max-width: 576px) {
-    .btn-emergency {
-        min-height: 70px;
-        font-size: 1.1rem;
-        padding: 1.25rem 1.5rem;
-    }
+.card-body {
+    padding: 1.5rem;
 }
 
-/* --- Action Buttons (Safety Reminder) --- */
-.btn-action {
-    min-height: 60px;
-    font-size: 1.1rem;
-    font-weight: 600;
+/* --- Alert Components with Gradients --- */
+.alert {
+    border-radius: var(--radius-lg);
+    border: none;
+    box-shadow: var(--shadow-sm);
+    font-weight: 500;
+}
+
+.alert-primary {
+    background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+    color: #1E40AF;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+    color: #065F46;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%);
+    color: #991B1B;
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+    color: #92400E;
+}
+
+.alert-info {
+    background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+    color: #075985;
+}
+
+/* --- Navigation Improvements --- */
+.navbar {
+    box-shadow: var(--shadow-md);
+    background: linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%) !important;
+}
+
+.nav-link {
+    border-radius: var(--radius-md);
+    transition: var(--transition-fast);
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background-color: #F3F4F6;
+    transform: translateY(-1px);
+}
+
+.nav-link.active {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    color: white !important;
+}
+
+/* --- Breadcrumb Styling --- */
+.breadcrumb {
+    background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%);
+    border-radius: var(--radius-lg);
     padding: 1rem 1.5rem;
-    border-radius: 0.4rem;
+    box-shadow: var(--shadow-sm);
 }
 
-@media (max-width: 576px) {
-    .btn-action {
-        min-height: 55px;
-        font-size: 1rem;
-        padding: 0.875rem 1.25rem;
+.breadcrumb-item + .breadcrumb-item::before {
+    color: #9CA3AF;
+}
+
+/* --- Smooth Animations --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-/* --- Safety Reminder Box --- */
-.safety-reminder {
-    background-color: #fff3cd;
-    border: 3px solid #ffc107;
-    border-radius: 0.5rem;
-    padding: 2rem;
-    margin-bottom: 2rem;
+.fade-in {
+    animation: fadeIn 0.4s ease-out;
 }
 
-.safety-reminder h2 {
-    color: #856404;
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+/* --- Smooth Page Transitions --- */
+main {
+    animation: fadeIn 0.3s ease-out;
 }
 
-.safety-reminder p {
-    color: #333;
-    font-size: 1.25rem;
-    line-height: 1.6;
-    margin-bottom: 0;
+/* --- Modal Enhancements --- */
+.modal-content {
+    border-radius: var(--radius-xl);
+    border: none;
+    box-shadow: var(--shadow-xl);
 }
 
-@media (max-width: 576px) {
-    .safety-reminder {
-        padding: 1.5rem;
+.modal-header {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    color: white;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+.modal-footer {
+    background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%);
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+}
+
+/* --- Tooltip Styling --- */
+.tooltip-inner {
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+}
+
+/* --- Progress Bar --- */
+.progress {
+    border-radius: var(--radius-lg);
+    height: 1.25rem;
+    background-color: #E5E7EB;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.progress-bar {
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-light) 100%);
+}
+
+/* --- Smooth Scrollbar (Webkit browsers) --- */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F3F4F6;
+    border-radius: var(--radius-md);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    border-radius: var(--radius-md);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+}
+
+/* --- Print Styles --- */
+@media print {
+    * {
+        box-shadow: none !important;
+        background: white !important;
     }
-    
-    .safety-reminder h2 {
-        font-size: 1.5rem;
-    }
-    
-    .safety-reminder p {
-        font-size: 1.1rem;
-    }
-}
-
-/* --- Verification Guidance --- */
-.verification-guidance {
-    background-color: #d1ecf1;
-    border-left: 4px solid #0c5460;
-    padding: 1.5rem;
-    margin: 2rem 0;
-}
-
-.verification-guidance h3 {
-    color: #0c5460;
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-}
-
-.verification-guidance ul {
-    font-size: 1.1rem;
-    line-height: 1.8;
-}
-
-@media (max-width: 576px) {
-    .verification-guidance {
-        padding: 1.25rem;
-    }
-    
-    .verification-guidance h3 {
-        font-size: 1.25rem;
-    }
-    
-    .verification-guidance ul {
-        font-size: 1rem;
-    }
-}
-
-/* --- Demo Data Warning --- */
-.demo-warning {
-    background-color: #fff3cd;
-    border: 2px solid #ffc107;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    margin: 2rem 0;
-}
-
-.demo-warning h4 {
-    color: #856404;
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 0.75rem;
-}
-
-.demo-warning ul {
-    margin-bottom: 0;
-    font-size: 1rem;
-    color: #333;
-}
-
-/* --- Contact Display --- */
-.contact-display {
-    background-color: #e7f3ff;
-    border: 2px solid #0d6efd;
-    border-radius: 0.5rem;
-    padding: 2rem;
-    text-align: center;
-    margin: 1.5rem 0;
-}
-
-.contact-display .phone-number {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #0d6efd;
-    margin: 1rem 0;
-    letter-spacing: 2px;
-}
-
-@media (max-width: 576px) {
-    .contact-display .phone-number {
-        font-size: 1.75rem;
-    }
-}
-
-/* --- Status Badges --- */
-.badge-draft {
-    background-color: #ffc107;
-    color: #000;
-    font-size: 0.85rem;
-    padding: 0.35rem 0.65rem;
-    font-weight: 600;
-}
-
-/* --- Ensure no horizontal scroll --- */
-body {
-    overflow-x: hidden;
 }
