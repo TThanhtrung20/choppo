@@ -1,5 +1,6 @@
 @page
 @model FraudVerificationDemo.Pages.Baseline.PaymentsModel
+@using FraudVerificationDemo.Models
 @{
     ViewData["Title"] = "Usual Payment Methods";
 }
@@ -12,20 +13,212 @@
         <a asp-page="./Index" class="btn btn-outline-secondary">← Back to Dashboard</a>
     </div>
 
-    <div class="alert alert-warning">
-        <h5 class="alert-heading">⚠️ Page Under Construction</h5>
-        <p class="mb-0">
-            This page will allow you to manage usual payment methods (how you normally pay bills).
-            It will be implemented in Day 9 of the development plan.
-        </p>
+    @if (!string.IsNullOrEmpty(Model.StatusMessage))
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @Model.StatusMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="alert alert-info mb-4">
+        <strong>What are Usual Payment Methods?</strong><br>
+        These are the ways you normally pay bills and send money. Recording these helps you recognize 
+        when someone asks you to pay in an unusual way (like gift cards for a tax bill).
     </div>
 
-    <div class="mt-4">
-        <h4>Coming Soon:</h4>
+    <!-- Add New Payment Method Form -->
+    <div class="card mb-4">
+        <div class="card-header bg-warning text-dark">
+            <h5 class="mb-0">
+                @if (!string.IsNullOrEmpty(Request.Query["edit"]))
+                {
+                    <text>Edit Payment Method</text>
+                }
+                else
+                {
+                    <text>Add New Payment Method</text>
+                }
+            </h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                <input type="hidden" asp-for="Input.Id" />
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label asp-for="Input.RecipientName" class="form-label">Recipient/Payee Name</label>
+                        <input asp-for="Input.RecipientName" class="form-control" placeholder="e.g., Electric Company, Landlord" />
+                        <span asp-validation-for="Input.RecipientName" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Input.Method" class="form-label">Payment Method</label>
+                        <select asp-for="Input.Method" class="form-select">
+                            <option value="@PaymentMethodType.BankTransfer">Bank Transfer</option>
+                            <option value="@PaymentMethodType.CreditCard">Credit Card</option>
+                            <option value="@PaymentMethodType.DebitCard">Debit Card</option>
+                            <option value="@PaymentMethodType.PaymentApp">Payment App (Venmo, PayPal, etc.)</option>
+                            <option value="@PaymentMethodType.Check">Check</option>
+                            <option value="@PaymentMethodType.Other">Other</option>
+                        </select>
+                        <span asp-validation-for="Input.Method" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Input.UsualAmount" class="form-label">Usual Amount (optional)</label>
+                        <input asp-for="Input.UsualAmount" class="form-control" placeholder="e.g., $50-100, ~$200" />
+                        <span asp-validation-for="Input.UsualAmount" class="text-danger"></span>
+                        <small class="form-text text-muted">
+                            Approximate or range is fine
+                        </small>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-warning">
+                                @if (!string.IsNullOrEmpty(Request.Query["edit"]))
+                                {
+                                    <text>Update Payment Method</text>
+                                }
+                                else
+                                {
+                                    <text><i class="bi bi-plus-circle"></i> Add Payment Method</text>
+                                }
+                            </button>
+                            @if (!string.IsNullOrEmpty(Request.Query["edit"]))
+                            {
+                                <a asp-page="./Payments" class="btn btn-outline-secondary">Cancel</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Methods List -->
+    @if (Model.PaymentMethods.Any())
+    {
+        <h3 class="mb-3">Your Payment Methods (@Model.PaymentMethods.Count)</h3>
+
+        <div class="row g-3">
+            @foreach (var payment in Model.PaymentMethods)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">@payment.RecipientName</h5>
+                            <p class="card-text">
+                                <strong>Method:</strong> 
+                                @switch (payment.Method)
+                                {
+                                    case PaymentMethodType.BankTransfer:
+                                        <span class="badge bg-primary">🏦 Bank Transfer</span>
+                                        break;
+                                    case PaymentMethodType.CreditCard:
+                                        <span class="badge bg-success">💳 Credit Card</span>
+                                        break;
+                                    case PaymentMethodType.DebitCard:
+                                        <span class="badge bg-info">💳 Debit Card</span>
+                                        break;
+                                    case PaymentMethodType.PaymentApp:
+                                        <span class="badge bg-warning text-dark">📱 Payment App</span>
+                                        break;
+                                    case PaymentMethodType.Check:
+                                        <span class="badge bg-secondary">✍️ Check</span>
+                                        break;
+                                    case PaymentMethodType.Other:
+                                        <span class="badge bg-dark">Other</span>
+                                        break;
+                                }
+                            </p>
+                            @if (!string.IsNullOrEmpty(payment.UsualAmount))
+                            {
+                                <p class="card-text">
+                                    <strong>Usual Amount:</strong> @payment.UsualAmount
+                                </p>
+                            }
+                            <small class="text-muted d-block mb-3">
+                                Added: @(payment.CreatedAt.ToLocalTime().ToShortDateString())
+                                @if (payment.UpdatedAt.HasValue)
+                                {
+                                    @:<br />Updated: @(payment.UpdatedAt.Value.ToLocalTime().ToShortDateString())
+                                }
+                            </small>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-sm btn-outline-primary edit-payment-btn"
+                                        data-id="@payment.Id"
+                                        data-name='@payment.RecipientName'
+                                        data-method='@((int)payment.Method)'
+                                        data-amount='@(payment.UsualAmount ?? "")'>
+                                    Edit
+                                </button>
+                                <form method="post" asp-page-handler="Delete" asp-route-id="@payment.Id" 
+                                      class="d-inline" onsubmit="return confirm('Delete @payment.RecipientName payment method?');">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="card bg-light">
+            <div class="card-body text-center py-5">
+                <p class="lead text-muted mb-0">No payment methods yet. Add your first payment method above!</p>
+            </div>
+        </div>
+    }
+
+    <!-- Examples & Tips -->
+    <div class="mt-5">
+        <h4>Tips for Payment Methods:</h4>
         <ul>
-            <li>Add payment methods (bank name, payment type, description)</li>
-            <li>Edit and delete payment methods</li>
-            <li>View list of all usual payment methods</li>
+            <li><strong>Record regular bills:</strong> Electric company (bank transfer), rent (check), phone bill (credit card)</li>
+            <li><strong>Note unusual patterns:</strong> If you normally pay rent by check, a text asking for gift cards is suspicious</li>
+            <li><strong>Include recipients:</strong> Who you normally send money to and how</li>
+            <li><strong>⚠️ Red flags:</strong> Legitimate organizations rarely ask you to suddenly change payment methods, 
+                especially to gift cards, cryptocurrency, or wire transfers</li>
         </ul>
+        
+        <div class="alert alert-warning mt-3">
+            <strong>Remember:</strong> This is just a reference for you. It helps you pause and think 
+            "Is this how I usually pay them?" when someone asks for money.
+        </div>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Attach click handlers to all edit buttons
+        document.querySelectorAll('.edit-payment-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.dataset.id;
+                const name = this.dataset.name;
+                const method = this.dataset.method;
+                const amount = this.dataset.amount;
+                
+                // Populate form with existing values
+                document.querySelector('input[name="Input.Id"]').value = id;
+                document.querySelector('input[name="Input.RecipientName"]').value = name;
+                document.querySelector('select[name="Input.Method"]').value = method;
+                document.querySelector('input[name="Input.UsualAmount"]').value = amount;
+                
+                // Scroll to form
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Focus on name field
+                document.querySelector('input[name="Input.RecipientName"]').focus();
+            });
+        });
+    </script>
+}
+
