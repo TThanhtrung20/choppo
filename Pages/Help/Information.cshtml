@@ -1,52 +1,17 @@
 @page
 @model FraudVerificationDemo.Pages.Help.InformationModel
-@inject FraudVerificationDemo.Services.SafetyContentService SafetyContent
 @{
     ViewData["Title"] = "Someone is asking for my information";
 }
 
-<!-- Safety Reminder - Highest Priority -->
-<div class="safety-reminder">
-    <h2>Stop and Read This First</h2>
-    <p>@SafetyContent.GetHighestLevelReminder()</p>
-</div>
+<!-- Safety Reminder Component -->
+<partial name="Shared/Components/_SafetyReminder" />
 
-<!-- Action Buttons - Always Visible -->
-<div class="row g-3 mb-4">
-    <div class="col-md-6">
-        <button type="button" class="btn btn-danger btn-action w-100" onclick="alert('End the call or close the message now. Do not give them anything.')">
-            End the conversation
-        </button>
-    </div>
-    <div class="col-md-6">
-        <button type="button" class="btn btn-primary btn-action w-100" onclick="alert('Call someone you trust right now. Use a number you already have saved.')">
-            Contact someone I trust
-        </button>
-    </div>
-</div>
+<!-- Action Buttons Component -->
+<partial name="Shared/Components/_ActionButtons" />
 
-<!-- Verification Guidance -->
-<div class="verification-guidance">
-    <h3>To verify independently:</h3>
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <h5 class="text-success">✓ DO use:</h5>
-            <ul class="guidance-list">
-                <li>The number on your physical card or old bills</li>
-                <li>Official contacts you found yourself (not from their message)</li>
-                <li>A number you saved before this happened</li>
-            </ul>
-        </div>
-        <div class="col-md-6 mb-3">
-            <h5 class="text-danger">✗ NEVER use:</h5>
-            <ul class="guidance-list guidance-list-negative">
-                <li>A phone number they gave you</li>
-                <li>A link they sent</li>
-                <li>An app they want you to download</li>
-            </ul>
-        </div>
-    </div>
-</div>
+<!-- Verification Guidance Component -->
+<partial name="Shared/Components/_VerificationGuidance" />
 
 <!-- What They're Asking For -->
 <div class="card mt-4">

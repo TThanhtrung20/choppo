@@ -1,0 +1,40 @@
+@inject FraudVerificationDemo.Services.SafetyContentService SafetyContent
+
+@*
+    Verification Guidance Component
+    Shows how to verify independently through channels user already has.
+    This is critical safety content that prevents users from using
+    contact information supplied by the potential scammer.
+    
+    Status: Uses DRAFT content from CONTENT-LIBRARY.md
+*@
+
+<div class="verification-guidance">
+    <div class="d-flex justify-content-between align-items-start mb-3">
+        <h3 class="mb-0">To verify independently:</h3>
+        <span class="badge badge-draft">⚠️ DRAFT</span>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <h5 class="text-success">✓ DO use:</h5>
+            <ul class="guidance-list">
+                <li>The number on your physical card or old bills – NOT a number they just gave you</li>
+                <li>Official contacts you found yourself (type the website yourself, don't click their link)</li>
+                <li>A number you saved before this happened</li>
+            </ul>
+        </div>
+        <div class="col-md-6 mb-3">
+            <h5 class="text-danger">✗ NEVER use:</h5>
+            <ul class="guidance-list guidance-list-negative">
+                <li>A phone number they just told you</li>
+                <li>A link or website they sent you</li>
+                <li>An app they asked you to download</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="alert alert-warning mt-3 mb-0">
+        <strong>Why this matters:</strong> Scammers often give you fake "verification" numbers that are actually controlled by them or their partners. Real verification means using a contact you obtained independently.
+    </div>
+</div>

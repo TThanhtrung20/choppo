@@ -1,0 +1,36 @@
+@*
+    Action Buttons Component
+    Shows two primary action buttons on all emergency pages:
+    1. End the conversation (or Hang up if on phone)
+    2. Contact someone I trust
+    
+    These buttons are always visible and do NOT require:
+    - Login
+    - Database
+    - Credits
+    - AI
+*@
+
+@{
+    var isPhoneCall = ViewData["IsPhoneCall"] as bool? ?? false;
+    var endButtonText = isPhoneCall ? "Hang up" : "End the conversation";
+}
+
+<div class="row g-3 mb-4">
+    <div class="col-md-6">
+        <button type="button" class="btn btn-danger btn-action w-100" 
+                onclick="alert('Stop the conversation now. Do not continue. If you need to think, tell them you will call back - but use a number you find yourself, not one they gave you.')">
+            @endButtonText
+        </button>
+    </div>
+    <div class="col-md-6">
+        <button type="button" class="btn btn-primary btn-action w-100" 
+                onclick="alert('Call someone you trust right now using a number you already have saved. Don\\'t use any contact information the other person gave you.')">
+            Contact someone I trust
+        </button>
+    </div>
+</div>
+
+<div class="alert alert-info small">
+    <strong>Note:</strong> These buttons help you remember what to do. This app cannot make calls or hang up for you - you need to do that yourself.
+</div>

@@ -1,0 +1,14 @@
+@inject FraudVerificationDemo.Services.SafetyContentService SafetyContent
+
+@*
+    Demo Data Warning Component
+    Displays on all account and baseline pages to warn users
+    NOT to enter real personal information.
+    
+    This is critical for the local demo.
+*@
+
+<div class="demo-warning">
+    <h4>⚠️ DEMO DATA ONLY</h4>
+    <div style="white-space: pre-line;" class="mb-0">@SafetyContent.GetDemoDataWarning()</div>
+</div>

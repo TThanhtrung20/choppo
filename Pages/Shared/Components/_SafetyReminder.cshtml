@@ -1,0 +1,17 @@
+@inject FraudVerificationDemo.Services.SafetyContentService SafetyContent
+
+@*
+    Safety Reminder Component
+    Displays the highest-level reminder on all emergency pages.
+    This content is static and does NOT depend on AI, database, or Credits.
+    
+    Status: Uses DRAFT content from CONTENT-LIBRARY.md (awaiting user approval)
+*@
+
+<div class="safety-reminder">
+    <div class="d-flex justify-content-between align-items-start mb-2">
+        <h2 class="mb-0">Stop and Read This First</h2>
+        <span class="badge badge-draft">⚠️ DRAFT CONTENT</span>
+    </div>
+    <p>@SafetyContent.GetHighestLevelReminder()</p>
+</div>
