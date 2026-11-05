@@ -1,0 +1,131 @@
+@page
+@model FraudVerificationDemo.Pages.Help.SelectModel
+@{
+    ViewData["Title"] = "What Happened?";
+}
+
+<partial name="Components/_DemoWarning" />
+
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="text-center mb-4">What Happened?</h1>
+            <p class="lead text-center mb-5">
+                Select the situation that matches what you're experiencing:
+            </p>
+
+            <div class="row g-3">
+                <!-- Payment Situations -->
+                <div class="col-12">
+                    <h3 class="h5 mb-3">💰 Payment Requests</h3>
+                </div>
+
+                <div class="col-md-6">
+                    <a href="/Help/Pay?type=unexpected" class="btn btn-outline-primary w-100 text-start p-3">
+                        <strong>Unexpected Payment Request</strong>
+                        <small class="d-block text-muted mt-1">Someone asked for money out of the blue</small>
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+                    <a href="/Help/Pay?type=urgency" class="btn btn-outline-primary w-100 text-start p-3">
+                        <strong>Urgent Payment Demand</strong>
+                        <small class="d-block text-muted mt-1">"Pay now or else..." / Time pressure</small>
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+                    <a href="/Help/Pay?type=authority" class="btn btn-outline-primary w-100 text-start p-3">
+                        <strong>Authority Figure Requesting Payment</strong>
+                        <small class="d-block text-muted mt-1">Claims to be police, government, bank, etc.</small>
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+                    <a href="/Help/Pay?type=friend" class="btn btn-outline-primary w-100 text-start p-3">
+                        <strong>Friend/Family Asking for Money</strong>
+                        <small class="d-block text-muted mt-1">Unusual request from someone you know</small>
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+                    <a href="/Help/Pay?type=prize" class="btn btn-outline-primary w-100 text-start p-3">
+                        <strong>Prize or Refund (Pay First)</strong>
+                        <small class="d-block text-muted mt-1">"Pay fees to claim your winnings"</small>
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+                    <a href="/Help/Pay?type=investment" class="btn btn-outline-primary w-100 text-start p-3">
+                        <strong>Investment Opportunity</strong>
+                        <small class="d-block text-muted mt-1">High returns, guaranteed profits</small>
+                    </a>
+                </div>
+
+                <!-- Information Situations -->
+                <div class="col-12 mt-4">
+                    <h3 class="h5 mb-3">🔐 Information Requests</h3>
+                </div>
+
+                <div class="col-md-6">
+                    <a href="/Help/Information?type=credentials" class="btn btn-outline-warning w-100 text-start p-3">
+                        <strong>Login/Password Request</strong>
+                        <small class="d-block text-muted mt-1">Asked for username, password, PIN</small>
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+                    <a href="/Help/Information?type=financial" class="btn btn-outline-warning w-100 text-start p-3">
+                        <strong>Financial Information Request</strong>
+                        <small class="d-block text-muted mt-1">Bank account, card number, CVV</small>
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+                    <a href="/Help/Information?type=personal" class="btn btn-outline-warning w-100 text-start p-3">
+                        <strong>Personal Identity Request</strong>
+                        <small class="d-block text-muted mt-1">ID number, passport, birth certificate</small>
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+                    <a href="/Help/Information?type=verification" class="btn btn-outline-warning w-100 text-start p-3">
+                        <strong>Verification Code Request</strong>
+                        <small class="d-block text-muted mt-1">OTP, 2FA code, SMS code</small>
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+                    <a href="/Help/Information?type=documents" class="btn btn-outline-warning w-100 text-start p-3">
+                        <strong>Document Upload Request</strong>
+                        <small class="d-block text-muted mt-1">Photos of ID, documents, cards</small>
+                    </a>
+                </div>
+
+                <!-- Already Happened -->
+                <div class="col-12 mt-4">
+                    <h3 class="h5 mb-3">⚠️ Already Happened</h3>
+                </div>
+
+                <div class="col-12">
+                    <a href="/Help/AfterIncident" class="btn btn-danger w-100 text-start p-3">
+                        <strong>I Already Paid or Shared Information</strong>
+                        <small class="d-block text-muted mt-1">Get immediate steps to protect yourself</small>
+                    </a>
+                </div>
+
+                <!-- Not Sure -->
+                <div class="col-12 mt-3">
+                    <a href="/Help/Pay" class="btn btn-outline-secondary w-100 text-start p-3">
+                        <strong>I'm Not Sure / General Guidance</strong>
+                        <small class="d-block text-muted mt-1">View general verification steps</small>
+                    </a>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="/" class="btn btn-link">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>

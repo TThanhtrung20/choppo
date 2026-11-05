@@ -1,7 +1,16 @@
 @page
 @model FraudVerificationDemo.Pages.Help.InformationModel
 @{
-    ViewData["Title"] = "Someone is asking for my information";
+    ViewData["Title"] = Model.ScenarioTitle;
+}
+
+@if (!string.IsNullOrEmpty(Model.ScenarioType))
+{
+    <div class="container my-3">
+        <p class="text-muted">
+            <a href="/Help/Select">← Change scenario</a>
+        </p>
+    </div>
 }
 
 <!-- Safety Reminder Component -->

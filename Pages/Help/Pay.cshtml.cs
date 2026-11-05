@@ -11,9 +11,22 @@ namespace FraudVerificationDemo.Pages.Help;
 [AllowAnonymous]
 public class PayModel : PageModel
 {
-    public void OnGet()
+    public string? ScenarioType { get; set; }
+    public string ScenarioTitle { get; set; } = "Someone is asking me to pay";
+    
+    public void OnGet(string? type)
     {
-        // No database queries, no authentication required
-        // Content is injected in the view via SafetyContentService
+        ScenarioType = type;
+        
+        ScenarioTitle = type switch
+        {
+            "unexpected" => "Unexpected Payment Request",
+            "urgency" => "Urgent Payment Demand",
+            "authority" => "Authority Figure Requesting Payment",
+            "friend" => "Friend/Family Asking for Money",
+            "prize" => "Prize or Refund (Pay Fees First)",
+            "investment" => "Investment Opportunity",
+            _ => "Someone is asking me to pay"
+        };
     }
 }

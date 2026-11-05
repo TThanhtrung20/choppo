@@ -11,9 +11,21 @@ namespace FraudVerificationDemo.Pages.Help;
 [AllowAnonymous]
 public class InformationModel : PageModel
 {
-    public void OnGet()
+    public string? ScenarioType { get; set; }
+    public string ScenarioTitle { get; set; } = "Someone is asking for my information";
+    
+    public void OnGet(string? type)
     {
-        // No database queries, no authentication required
-        // Content is injected in the view via SafetyContentService
+        ScenarioType = type;
+        
+        ScenarioTitle = type switch
+        {
+            "credentials" => "Login/Password Request",
+            "financial" => "Financial Information Request",
+            "personal" => "Personal Identity Request",
+            "verification" => "Verification Code Request",
+            "documents" => "Document Upload Request",
+            _ => "Someone is asking for my information"
+        };
     }
 }
