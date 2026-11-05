@@ -1,0 +1,156 @@
+@page
+@model FraudVerificationDemo.Pages.Baseline.RulesModel
+@{
+    ViewData["Title"] = "Protection Rules";
+}
+
+<partial name="Shared/Components/_DemoWarning" />
+
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>🛡️ Protection Rules</h1>
+        <a asp-page="./Index" class="btn btn-outline-secondary">← Back to Dashboard</a>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.StatusMessage))
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @Model.StatusMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="alert alert-info mb-4">
+        <strong>What are Protection Rules?</strong><br>
+        These are your personal safety principles - statements you make when you're calm and thinking clearly, 
+        before any pressure or urgency. They help you pause and verify unusual requests.
+    </div>
+
+    <!-- Add New Rule Form -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">
+                @if (!string.IsNullOrEmpty(Request.Query["edit"]))
+                {
+                    <text>Edit Rule</text>
+                }
+                else
+                {
+                    <text>Add New Rule</text>
+                }
+            </h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                <input type="hidden" asp-for="Input.Id" />
+
+                <div class="mb-3">
+                    <label asp-for="Input.Content" class="form-label">Your Protection Rule</label>
+                    <textarea asp-for="Input.Content" class="form-control" rows="3" 
+                              placeholder="Example: I will never pay using gift cards for any bill or tax payment"></textarea>
+                    <span asp-validation-for="Input.Content" class="text-danger"></span>
+                    <small class="form-text text-muted">
+                        Write a clear statement about what you will or won't do. Minimum 10 characters.
+                    </small>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        @if (!string.IsNullOrEmpty(Request.Query["edit"]))
+                        {
+                            <text>Update Rule</text>
+                        }
+                        else
+                        {
+                            <text><i class="bi bi-plus-circle"></i> Add Rule</text>
+                        }
+                    </button>
+                    @if (!string.IsNullOrEmpty(Request.Query["edit"]))
+                    {
+                        <a asp-page="./Rules" class="btn btn-outline-secondary">Cancel</a>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Rules List -->
+    @if (Model.Rules.Any())
+    {
+        <h3 class="mb-3">Your Rules (@Model.Rules.Count)</h3>
+
+        <div class="list-group">
+            @foreach (var rule in Model.Rules)
+            {
+                <div class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <p class="mb-2">@rule.Content</p>
+                            <small class="text-muted">
+                                Created: @rule.CreatedAt.ToString("MMM d, yyyy")
+                                @if (rule.UpdatedAt.HasValue)
+                                {
+                                    <text> | Updated: @rule.UpdatedAt.Value.ToString("MMM d, yyyy")</text>
+                                }
+                            </small>
+                        </div>
+                        <div class="ms-3">
+                            <button type="button" class="btn btn-sm btn-outline-primary" 
+                                    onclick="editRule(@rule.Id, '@Html.Raw(System.Text.Json.JsonSerializer.Serialize(rule.Content))')">
+                                Edit
+                            </button>
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@rule.Id" 
+                                  class="d-inline" onsubmit="return confirm('Delete this rule?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="card bg-light">
+            <div class="card-body text-center py-5">
+                <p class="lead text-muted mb-0">No rules yet. Add your first protection rule above!</p>
+            </div>
+        </div>
+    }
+
+    <!-- Examples -->
+    <div class="mt-5">
+        <h4>Example Protection Rules:</h4>
+        <ul>
+            <li>I will never pay taxes or fines using gift cards</li>
+            <li>I will never share my banking password or PIN with anyone</li>
+            <li>I will not pay for a prize or lottery winnings upfront</li>
+            <li>My bank will never ask me to move money to a "safe account"</li>
+            <li>I will verify any urgent payment request by calling back on the official number</li>
+            <li>I will not click links in unexpected emails claiming to be from my bank</li>
+        </ul>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function editRule(id, content) {
+            // Parse JSON-encoded content
+            const parsedContent = JSON.parse(content);
+            
+            // Populate form with existing values
+            document.querySelector('input[name="Input.Id"]').value = id;
+            document.querySelector('textarea[name="Input.Content"]').value = parsedContent;
+            
+            // Scroll to form
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Focus on content field
+            document.querySelector('textarea[name="Input.Content"]').focus();
+        }
+    </script>
+}

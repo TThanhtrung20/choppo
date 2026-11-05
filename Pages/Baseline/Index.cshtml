@@ -1,0 +1,106 @@
+@page
+@model FraudVerificationDemo.Pages.Baseline.IndexModel
+@{
+    ViewData["Title"] = "My Protection Baseline";
+}
+
+<partial name="Shared/Components/_DemoWarning" />
+
+<div class="container my-5">
+    <h1 class="mb-4">My Protection Baseline</h1>
+    
+    <div class="alert alert-info mb-4">
+        <h5 class="alert-heading">📋 What is this?</h5>
+        <p class="mb-0">
+            Your protection baseline helps you recognize when something is unusual. 
+            By recording your normal patterns (who you trust, how you usually pay), 
+            you can spot when someone asks you to do something different.
+        </p>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <!-- Protection Rules Card -->
+        <div class="col-md-4">
+            <div class="card h-100 border-primary">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        🛡️ Protection Rules
+                    </h5>
+                    <p class="display-4 text-primary mb-3">@Model.ProtectionRulesCount</p>
+                    <p class="card-text text-muted">
+                        Your usual phone numbers, email addresses, and physical addresses.
+                    </p>
+                    <a asp-page="./Rules" class="btn btn-primary w-100">
+                        Manage Rules
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trusted Contacts Card -->
+        <div class="col-md-4">
+            <div class="card h-100 border-success">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        👥 Trusted Contacts
+                    </h5>
+                    <p class="display-4 text-success mb-3">@Model.TrustedContactsCount</p>
+                    <p class="card-text text-muted">
+                        People you trust who might ask you for help or money.
+                    </p>
+                    <a asp-page="./Contacts" class="btn btn-success w-100">
+                        Manage Contacts
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Usual Payment Methods Card -->
+        <div class="col-md-4">
+            <div class="card h-100 border-warning">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        💳 Usual Payment Methods
+                    </h5>
+                    <p class="display-4 text-warning mb-3">@Model.UsualPaymentMethodsCount</p>
+                    <p class="card-text text-muted">
+                        How you usually pay bills and make payments.
+                    </p>
+                    <a asp-page="./Payments" class="btn btn-warning w-100">
+                        Manage Payments
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Getting Started -->
+    @if (Model.ProtectionRulesCount == 0 && Model.TrustedContactsCount == 0 && Model.UsualPaymentMethodsCount == 0)
+    {
+        <div class="card bg-light">
+            <div class="card-body">
+                <h4 class="card-title">🚀 Getting Started</h4>
+                <p class="mb-3">You haven't set up your baseline yet. Here's what to add:</p>
+                <ol>
+                    <li class="mb-2">
+                        <strong>Protection Rules:</strong> Add your phone numbers, email addresses, 
+                        and physical addresses that organizations legitimately use to contact you.
+                    </li>
+                    <li class="mb-2">
+                        <strong>Trusted Contacts:</strong> Add family and close friends who might 
+                        genuinely ask you for help or money.
+                    </li>
+                    <li class="mb-2">
+                        <strong>Usual Payment Methods:</strong> Record how you usually pay bills 
+                        (bank name, card last 4 digits, etc.).
+                    </li>
+                </ol>
+                <p class="text-muted mb-0">
+                    <small>
+                        <strong>Note:</strong> This is demo mode - data is stored locally on this device only.
+                    </small>
+                </p>
+            </div>
+        </div>
+    }
+</div>
