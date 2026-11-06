@@ -6,9 +6,9 @@
 }
 
 <div class="account-page">
-    <nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><span aria-hidden="true">/</span><span>Log in</span></nav>
+    <nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><i class="bi bi-chevron-right" aria-hidden="true"></i><span>Log in</span></nav>
     <div class="account-layout">
-        <aside class="account-aside"><span class="eyebrow">YOUR PERSONAL SAFETY PLAN</span><h1>Welcome back.</h1><p>Log in to review your trusted contacts, personal safety rules, and usual payment methods.</p><div class="account-aside-note"><span aria-hidden="true">✓</span><span>Use your saved plan to help spot requests that feel unusual.</span></div></aside>
+        <aside class="account-aside"><span class="eyebrow">YOUR PERSONAL SAFETY PLAN</span><h1>Welcome back.</h1><p>Log in to review your trusted contacts, personal safety rules, and usual payment methods.</p><div class="account-aside-note"><i class="bi bi-shield-check" aria-hidden="true"></i><span>Use your saved plan to help spot requests that feel unusual.</span></div></aside>
         <section class="account-card">
             <h2>Log in</h2><p class="account-subtitle">Enter the email and password for your account.</p>
             @if (!string.IsNullOrEmpty(Model.ErrorMessage))
@@ -20,7 +20,7 @@
                 <div class="mb-3"><label asp-for="Input.Email" class="form-label">Email address</label><input asp-for="Input.Email" class="form-control" autocomplete="username" /><span asp-validation-for="Input.Email" class="text-danger"></span></div>
                 <div class="mb-3"><label asp-for="Input.Password" class="form-label">Password</label><input asp-for="Input.Password" class="form-control" autocomplete="current-password" /><span asp-validation-for="Input.Password" class="text-danger"></span></div>
                 <div class="mb-4 form-check"><input asp-for="Input.RememberMe" class="form-check-input" /><label asp-for="Input.RememberMe" class="form-check-label">Remember me</label></div>
-                <button type="submit" class="btn btn-primary w-100">Log in securely</button>
+                <button type="submit" class="btn btn-primary w-100"><span class="spinner-border spinner-border-sm btn-spinner" aria-hidden="true"></span><i class="bi bi-box-arrow-in-right" aria-hidden="true"></i> Log in securely</button>
             </form>
             <p class="account-switch">New to Safeline? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Create an account</a></p>
             <p class="account-demo-note">Demo mode: account information is stored locally for this demonstration. Do not use a real password.</p>

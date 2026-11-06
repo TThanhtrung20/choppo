@@ -6,18 +6,18 @@
 }
 
 <div class="account-page">
-    <nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><span>/</span><span>Delete account</span></nav>
+    <nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><i class="bi bi-chevron-right" aria-hidden="true"></i><span>Delete account</span></nav>
     <section class="account-card delete-account-card">
         <span class="eyebrow">ACCOUNT SETTINGS</span>
         <h1>Delete your account</h1>
         <p class="account-subtitle">This action permanently removes your account and the protection plan information saved with it.</p>
-        <div class="alert alert-danger" role="alert"><h2 class="alert-heading">This cannot be undone</h2><p>Deleting your account permanently removes:</p><ul class="mb-0"><li>Your email and login credentials</li><li>Your protection rules</li><li>Your trusted contacts</li><li>Your usual payment methods</li><li>Other personal data associated with this account</li></ul></div>
+        <div class="alert alert-danger" role="alert"><h2 class="alert-heading"><i class="bi bi-exclamation-octagon" aria-hidden="true"></i> This cannot be undone</h2><p>Deleting your account permanently removes:</p><ul class="mb-0"><li>Your email and login credentials</li><li>Your protection rules</li><li>Your trusted contacts</li><li>Your usual payment methods</li><li>Other personal data associated with this account</li></ul></div>
         @if (Model.RequirePassword)
         {
             <form method="post">
                 <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
                 <div class="mb-3"><label asp-for="Input.Password" class="form-label">Confirm your password</label><input asp-for="Input.Password" class="form-control" autocomplete="current-password" /><span asp-validation-for="Input.Password" class="text-danger"></span></div>
-                <button type="submit" class="btn btn-danger w-100">Permanently delete my account</button>
+                <button type="submit" class="btn btn-danger w-100"><i class="bi bi-trash3" aria-hidden="true"></i> Permanently delete my account</button>
                 <a asp-page="/Index" class="btn btn-outline-secondary w-100 mt-2">Cancel and keep my account</a>
             </form>
         }

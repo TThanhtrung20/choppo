@@ -10,38 +10,59 @@
         <span class="eyebrow"><span class="status-dot"></span> A calm next step starts here</span>
         <h1>Pause. Verify.<br /><span>Stay in control.</span></h1>
         <p class="hero-lede">Not sure if a request is real? Take a breath. We’ll help you decide what to do next—without pressure or judgement.</p>
-        <div class="hero-note"><span class="note-icon" aria-hidden="true">i</span><span>You don’t need to decide or send anything right now.</span></div>
+        <div class="hero-note"><span class="note-icon" aria-hidden="true"><i class="bi bi-info-lg"></i></span><span>You don’t need to decide or send anything right now.</span></div>
     </div>
-    <div class="hero-art" aria-hidden="true"><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><div class="shield-card"><div class="shield-icon">✓</div><span>YOUR SAFETY</span><strong>Comes first</strong><div class="shield-rule"></div><small>Take your time. Check it out.</small></div><div class="art-spark spark-one">✦</div><div class="art-spark spark-two">✳</div></div>
+    <div class="hero-art" aria-hidden="true"><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><div class="shield-card"><div class="shield-icon"><i class="bi bi-shield-check"></i></div><span>YOUR SAFETY</span><strong>Comes first</strong><div class="shield-rule"></div><small>Take your time. Check it out.</small></div><div class="art-spark spark-one"><i class="bi bi-stars"></i></div><div class="art-spark spark-two"><i class="bi bi-asterisk"></i></div></div>
 </section>
 
 <section class="urgent-section" aria-labelledby="urgent-title">
     <div class="section-heading"><div><span class="eyebrow">HOW CAN WE HELP?</span><h2 id="urgent-title">Choose what’s happening</h2></div><span class="section-step">01 <i></i> 03</span></div>
     <div class="emergency-buttons">
-        <a asp-page="/Help/Select" class="urgent-card urgent-payment"><span class="urgent-icon" aria-hidden="true">$</span><span class="urgent-copy"><strong>Someone is asking me to pay</strong><small>Check a payment request before you send money</small></span><span class="urgent-arrow" aria-hidden="true">↗</span></a>
-        <a asp-page="/Help/Select" class="urgent-card urgent-info"><span class="urgent-icon" aria-hidden="true">•••</span><span class="urgent-copy"><strong>Someone wants my information</strong><small>Get help protecting your details and accounts</small></span><span class="urgent-arrow" aria-hidden="true">↗</span></a>
-        <a asp-page="/Help/AfterIncident" class="urgent-card urgent-after"><span class="urgent-icon" aria-hidden="true">!</span><span class="urgent-copy"><strong>I already paid or shared something</strong><small>See what you can do now. It’s not too late to act.</small></span><span class="urgent-arrow" aria-hidden="true">↗</span></a>
+        <a asp-page="/Help/Select" class="urgent-card urgent-payment"><span class="urgent-icon" aria-hidden="true"><i class="bi bi-cash-coin"></i></span><span class="urgent-copy"><strong>Someone is asking me to pay</strong><small>Check a payment request before you send money</small></span><span class="urgent-arrow" aria-hidden="true"><i class="bi bi-arrow-up-right"></i></span></a>
+        <a asp-page="/Help/Select" class="urgent-card urgent-info"><span class="urgent-icon" aria-hidden="true"><i class="bi bi-person-lock"></i></span><span class="urgent-copy"><strong>Someone wants my information</strong><small>Get help protecting your details and accounts</small></span><span class="urgent-arrow" aria-hidden="true"><i class="bi bi-arrow-up-right"></i></span></a>
+        <a asp-page="/Help/AfterIncident" class="urgent-card urgent-after"><span class="urgent-icon" aria-hidden="true"><i class="bi bi-exclamation-triangle"></i></span><span class="urgent-copy"><strong>I already paid or shared something</strong><small>See what you can do now. It’s not too late to act.</small></span><span class="urgent-arrow" aria-hidden="true"><i class="bi bi-arrow-up-right"></i></span></a>
     </div>
 </section>
 
 <section class="prepare-section">
-    <div class="prepare-icon" aria-hidden="true">✳</div>
+    <div class="prepare-icon" aria-hidden="true"><i class="bi bi-clipboard-check"></i></div>
     <div class="prepare-copy"><span class="eyebrow">A LITTLE PREPARATION HELPS</span><h2>Make a plan before you need one</h2><p>Save your trusted people and usual payment habits, so it’s easier to spot something unusual later.</p></div>
     <div class="prepare-action">
         @if (User.Identity?.IsAuthenticated == true)
         {
-            <a asp-page="/Baseline/Index" class="btn btn-primary">Open my protection plan <span aria-hidden="true">→</span></a>
+            <a asp-page="/Baseline/Index" class="btn btn-primary">Open my protection plan <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
         }
         else
         {
-            <a asp-page="/Account/Register" class="btn btn-primary">Create your free plan <span aria-hidden="true">→</span></a>
+            <a asp-page="/Account/Register" class="btn btn-primary">Create your free plan <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
             <a asp-page="/Account/Login" class="prepare-login">Already have an account? Log in</a>
         }
     </div>
 </section>
 
 <section class="features-section" aria-label="What you can prepare">
-    <div class="feature-item"><span class="feature-icon feature-shield" aria-hidden="true">✓</span><div><h3>Personal rules</h3><p>Set boundaries while you have time to think.</p></div></div>
-    <div class="feature-item"><span class="feature-icon feature-people" aria-hidden="true">↗</span><div><h3>Trusted people</h3><p>Know who to call when something feels off.</p></div></div>
-    <div class="feature-item"><span class="feature-icon feature-wallet" aria-hidden="true">$</span><div><h3>Usual payments</h3><p>Remember how you normally pay bills.</p></div></div>
+    <div class="feature-item"><span class="feature-icon feature-shield" aria-hidden="true"><i class="bi bi-shield-check"></i></span><div><h3>Personal rules</h3><p>Set boundaries while you have time to think.</p></div></div>
+    <div class="feature-item"><span class="feature-icon feature-people" aria-hidden="true"><i class="bi bi-people"></i></span><div><h3>Trusted people</h3><p>Know who to call when something feels off.</p></div></div>
+    <div class="feature-item"><span class="feature-icon feature-wallet" aria-hidden="true"><i class="bi bi-wallet2"></i></span><div><h3>Usual payments</h3><p>Remember how you normally pay bills.</p></div></div>
+</section>
+
+<section class="ai-assistant-cta" style="padding: 60px 20px; background: linear-gradient(135deg, #f8f7ff 0%, #ffffff 100%); text-align: center; border-top: 1px solid #e5e8ef;">
+    <div style="max-width: 800px; margin: 0 auto;">
+        <div style="display: inline-flex; align-items: center; gap: 8px; background: #7c5ce7; color: white; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 20px;">
+            <i class="bi bi-stars"></i>
+            <span>NEW FEATURE</span>
+        </div>
+        <h2 style="font-size: 32px; font-weight: 700; color: #20243a; margin-bottom: 16px;">
+            Not sure? Ask Safeline AI Assistant
+        </h2>
+        <p style="font-size: 16px; color: #566073; margin-bottom: 32px; line-height: 1.6;">
+            Paste a suspicious message, email, link, or payment request. Our AI will analyze common scam indicators and help you decide what to do next—instantly and privately.
+        </p>
+        <a asp-page="/Chat" class="btn btn-primary btn-lg" style="padding: 14px 32px; font-size: 16px; font-weight: 600; border-radius: 12px; box-shadow: 0 4px 12px rgba(124, 92, 231, 0.3);">
+            <i class="bi bi-chat-dots me-2"></i> Try AI Assistant Now
+        </a>
+        <p style="margin-top: 16px; font-size: 13px; color: #929bac;">
+            <i class="bi bi-shield-check me-1"></i> Free to use · No account required · Privacy-focused
+        </p>
+    </div>
 </section>

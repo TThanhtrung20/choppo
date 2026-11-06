@@ -1,51 +1,153 @@
 ﻿@inject Microsoft.AspNetCore.Identity.SignInManager<FraudVerificationDemo.Models.ApplicationUser> SignInManager
-@inject Microsoft.AspNetCore.Identity.UserManager<FraudVerificationDemo.Models.ApplicationUser> UserManager
 @inject FraudVerificationDemo.Services.SafetyContentService SafetyContent
-
+@{
+    var title = $"{ViewData["Title"] ?? "Scam and Fraud Support"} | Safeline";
+    var description = ViewData["Description"] as string
+        ?? "Get practical guidance to identify possible scams, verify suspicious payment or information requests, and take action after fraud.";
+    var currentPage = ViewContext.RouteData.Values["page"] as string ?? string.Empty;
+    string Active(string prefix) => currentPage.StartsWith(prefix, StringComparison.OrdinalIgnoreCase) ? "active" : string.Empty;
+    string Current(string prefix) => currentPage.StartsWith(prefix, StringComparison.OrdinalIgnoreCase) ? "page" : "false";
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="@(ViewData["Description"] ?? "Get practical guidance to identify possible scams, verify suspicious payment or information requests, and take action after fraud.")" />
+    <meta name="description" content="@description" />
     <meta name="robots" content="noindex,nofollow" />
-    <meta name="theme-color" content="#f7faf8" />
+    <meta name="theme-color" content="#f6f9f8" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="@(ViewData["Title"] ?? "Scam and Fraud Support") | Safeline" />
-    <meta property="og:description" content="@(ViewData["Description"] ?? "Get practical guidance to identify possible scams, verify suspicious payment or information requests, and take action after fraud.")" />
-    <title>@(ViewData["Title"] ?? "Scam and Fraud Support") | Safeline</title>
+    <meta property="og:title" content="@title" />
+    <meta property="og:description" content="@description" />
+    @* HTMX: fresh data on back/forward, smooth view transitions where supported *@
+    <meta name="htmx-config" content='{"historyCacheSize":0,"refreshOnHistoryMiss":true,"globalViewTransitions":true,"scrollBehavior":"instant"}' />
+    <title>@title</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    @* Scripts live in <head> with defer so HTMX body swaps never re-run them. *@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="~/lib/htmx/htmx.min.js" defer></script>
+    <script src="~/js/site.js" asp-append-version="true" defer></script>
 </head>
-<body>
-    <div class="demo-banner" role="note"><div class="container demo-banner-inner"><span class="demo-pill">DEMO</span><span>This is a local demonstration. Do not enter real personal information.</span></div></div>
-    <header class="site-header">
-        <nav class="navbar navbar-expand-lg" aria-label="Main navigation">
-            <div class="container">
-                <a class="navbar-brand" asp-page="/Index"><span class="brand-mark" aria-hidden="true">S</span><span>Safe<span class="brand-light">line</span><small>Fraud support, made clearer</small></span></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarNav"><ul class="navbar-nav ms-auto align-items-lg-center">
-                    <li class="nav-item"><a class="nav-link" asp-page="/Index">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-page="/Help/Select">Get help</a></li>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="baselineDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">My protection</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="baselineDropdown"><li><a class="dropdown-item" asp-page="/Baseline/Index">Overview</a></li><li><a class="dropdown-item" asp-page="/Baseline/Rules">Protection rules</a></li><li><a class="dropdown-item" asp-page="/Baseline/Contacts">Trusted contacts</a></li><li><a class="dropdown-item" asp-page="/Baseline/Payments">Usual payments</a></li></ul></li>
-                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">@User.Identity?.Name</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown"><li><a class="dropdown-item" asp-page="/Account/Manage/DeletePersonalData">Account settings</a></li><li><hr class="dropdown-divider" /></li><li><form method="post" asp-page="/Account/Logout"><button type="submit" class="dropdown-item">Log out</button></form></li></ul></li>
-                    }
-                    else
-                    {
-                        <li class="nav-item"><a class="nav-link" asp-page="/Account/Login">Log in</a></li>
-                        <li class="nav-item ms-lg-2"><a class="btn btn-primary nav-cta" asp-page="/Account/Register">Create account</a></li>
-                    }
-                </ul></div>
+<body hx-boost="true" hx-indicator="#page-progress">
+    <a class="skip-link" href="#main-content" hx-boost="false">Skip to main content</a>
+    <div id="page-progress" class="page-progress htmx-indicator" aria-hidden="true"></div>
+
+    @if (currentPage.StartsWith("/Chat", StringComparison.OrdinalIgnoreCase))
+    {
+        @RenderBody()
+    }
+    else
+    {
+        <div class="demo-banner" role="note">
+            <div class="container demo-banner-inner">
+                <span class="demo-pill">DEMO</span>
+                <span>This is a local demonstration. Do not enter real personal information.</span>
             </div>
-        </nav>
-    </header>
-    <main role="main" class="site-main"><div class="container">@RenderBody()</div></main>
-    <footer class="site-footer"><div class="container footer-inner"><div><a class="footer-brand" asp-page="/Index">Safeline</a><p>Practical support for safer decisions.</p><a class="footer-privacy" asp-page="/Privacy">Privacy notice</a></div><div class="footer-note"><p>@SafetyContent.GetDisclaimer()</p><span>© 2026 Safeline Demo · For internal review only</span></div></div></footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+        </div>
+
+        <header class="site-header">
+            <nav class="navbar navbar-expand-lg" aria-label="Main navigation">
+                <div class="container">
+                    <a class="navbar-brand" asp-page="/Index">
+                        <span class="brand-mark" aria-hidden="true"><i class="bi bi-shield-check"></i></span>
+                        <span class="brand-text">Safe<span class="brand-light">line</span><small>Fraud support, made clearer</small></span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-list" aria-hidden="true"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto align-items-lg-center">
+                            <li class="nav-item">
+                                <a class="nav-link @(currentPage == "/Index" ? "active" : "")" aria-current="@(currentPage == "/Index" ? "page" : "false")" asp-page="/Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @Active("/Help")" aria-current="@Current("/Help")" asp-page="/Help/Select">Get help</a>
+                            </li>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle @Active("/Baseline")" href="#" id="baselineDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">My protection</a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="baselineDropdown">
+                                        <li><a class="dropdown-item" asp-page="/Baseline/Index"><i class="bi bi-grid" aria-hidden="true"></i> Overview</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Baseline/Rules"><i class="bi bi-shield-check" aria-hidden="true"></i> Protection rules</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Baseline/Contacts"><i class="bi bi-people" aria-hidden="true"></i> Trusted contacts</a></li>
+                                        <li><a class="dropdown-item" asp-page="/Baseline/Payments"><i class="bi bi-wallet2" aria-hidden="true"></i> Usual payments</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle nav-account" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-person-circle" aria-hidden="true"></i><span class="nav-account-name">@User.Identity?.Name</span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                                        <li><a class="dropdown-item" asp-page="/Account/Manage/DeletePersonalData"><i class="bi bi-gear" aria-hidden="true"></i> Account settings</a></li>
+                                        <li><hr class="dropdown-divider" /></li>
+                                        <li>
+                                            <form method="post" asp-page="/Account/Logout">
+                                                <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right" aria-hidden="true"></i> Log out</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link @Active("/Account/Login")" asp-page="/Account/Login">Log in</a>
+                                </li>
+                                <li class="nav-item ms-lg-2">
+                                    <a class="btn btn-primary nav-cta" asp-page="/Account/Register">Create account</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main id="main-content" role="main" class="site-main" tabindex="-1">
+            <div class="container page-shell">@RenderBody()</div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="container footer-inner">
+                <div>
+                    <a class="footer-brand" asp-page="/Index"><i class="bi bi-shield-check" aria-hidden="true"></i> Safeline</a>
+                    <p>Practical support for safer decisions.</p>
+                    <a class="footer-privacy" asp-page="/Privacy">Privacy notice</a>
+                </div>
+                <div class="footer-note">
+                    <p>@SafetyContent.GetDisclaimer()</p>
+                    <span>© 2026 Safeline Demo · For internal review only</span>
+                </div>
+            </div>
+        </footer>
+    }
+
+    @* Shared confirmation dialog used by hx-confirm (see site.js). *@
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalTitle" aria-hidden="true" hx-preserve="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <span class="confirm-icon" aria-hidden="true"><i class="bi bi-trash3"></i></span>
+                    <h2 class="modal-title h5" id="confirmModalTitle">Are you sure?</h2>
+                    <p class="text-secondary mb-0" data-confirm-message></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" data-confirm-ok>Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

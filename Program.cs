@@ -41,6 +41,10 @@ builder.Services.ConfigureApplicationCookie(options =>
 // Add safety content service (singleton - static content)
 builder.Services.AddSingleton<SafetyContentService>();
 
+// Add chat services
+builder.Services.AddScoped<FraudVerificationDemo.Modules.Chat.Services.ChatService>();
+builder.Services.AddScoped<FraudVerificationDemo.Modules.Chat.Services.ScamAnalysisService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

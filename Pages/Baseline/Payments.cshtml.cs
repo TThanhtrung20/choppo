@@ -47,7 +47,29 @@ public class PaymentsModel : PageModel
         public string? UsualAmount { get; set; }
     }
 
-    public async Task OnGetAsync()
+    /// <summary>True when the form is editing an existing item (?edit=id or a failed edit post).</summary>
+    public bool IsEditing => Input?.Id is not null;
+
+    public async Task<IActionResult> OnGetAsync(int? edit)
+    {
+        await LoadAsync();
+
+        if (edit is int id)
+        {
+            var item = PaymentMethods.FirstOrDefault(x => x.Id == id);
+            if (item == null)
+            {
+                StatusMessage = "Error: Payment method not found.";
+                return RedirectToPage();
+            }
+
+            Input = new InputModel { Id = item.Id, RecipientName = item.RecipientName, Method = item.Method, UsualAmount = item.UsualAmount };
+        }
+
+        return Page();
+    }
+
+    private async Task LoadAsync()
     {
         var userId = _userManager.GetUserId(User);
         PaymentMethods = await _context.UsualPaymentMethods
@@ -60,7 +82,7 @@ public class PaymentsModel : PageModel
     {
         if (!ModelState.IsValid)
         {
-            await OnGetAsync();
+            await LoadAsync();
             return Page();
         }
 

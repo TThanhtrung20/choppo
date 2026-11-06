@@ -1,36 +1,41 @@
 @*
     Action Buttons Component
-    Shows two primary action buttons on all emergency pages:
-    1. End the conversation (or Hang up if on phone)
-    2. Contact someone I trust
-    
-    These buttons are always visible and do NOT require:
-    - Login
-    - Database
-    - Credits
-    - AI
+    Shown on every emergency page. Works without login, database, credits or AI.
+    Each button opens a short instruction panel (Bootstrap collapse, no inline script).
 *@
-
 @{
     var isPhoneCall = ViewData["IsPhoneCall"] as bool? ?? false;
     var endButtonText = isPhoneCall ? "Hang up" : "End the conversation";
 }
 
-<div class="row g-3 mb-4">
-    <div class="col-md-6">
-        <button type="button" class="btn btn-danger btn-action w-100" 
-                onclick="alert('Stop the conversation now. Do not continue. If you need to think, tell them you will call back - but use a number you find yourself, not one they gave you.')">
-            @endButtonText
-        </button>
+<div class="action-buttons" id="actionButtons">
+    <div class="row g-3">
+        <div class="col-md-6">
+            <button type="button" class="btn btn-danger btn-action w-100" data-bs-toggle="collapse"
+                    data-bs-target="#actionEnd" aria-expanded="false" aria-controls="actionEnd">
+                <i class="bi bi-telephone-x" aria-hidden="true"></i> @endButtonText
+            </button>
+        </div>
+        <div class="col-md-6">
+            <button type="button" class="btn btn-primary btn-action w-100" data-bs-toggle="collapse"
+                    data-bs-target="#actionTrust" aria-expanded="false" aria-controls="actionTrust">
+                <i class="bi bi-person-heart" aria-hidden="true"></i> Contact someone I trust
+            </button>
+        </div>
     </div>
-    <div class="col-md-6">
-        <button type="button" class="btn btn-primary btn-action w-100" 
-                onclick="alert('Call someone you trust right now using a number you already have saved. Don\\'t use any contact information the other person gave you.')">
-            Contact someone I trust
-        </button>
-    </div>
-</div>
 
-<div class="alert alert-info small">
-    <strong>Note:</strong> These buttons help you remember what to do. This app cannot make calls or hang up for you - you need to do that yourself.
+    <div class="collapse" id="actionEnd" data-bs-parent="#actionButtons">
+        <div class="action-detail action-detail-danger" role="status">
+            <strong>Stop the conversation now.</strong>
+            If you need time to think, tell them you will call back, then use a number you find yourself, not one they gave you.
+        </div>
+    </div>
+    <div class="collapse" id="actionTrust" data-bs-parent="#actionButtons">
+        <div class="action-detail" role="status">
+            <strong>Call someone you trust right now</strong> using a number you already have saved.
+            Don’t use any contact details the other person gave you.
+        </div>
+    </div>
+
+    <p class="action-note"><i class="bi bi-info-circle" aria-hidden="true"></i> These buttons remind you what to do. This app cannot make or end calls for you.</p>
 </div>

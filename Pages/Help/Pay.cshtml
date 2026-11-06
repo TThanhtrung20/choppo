@@ -6,10 +6,10 @@
 }
 
 <div class="help-page">
-    <nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><span>/</span><a asp-page="/Help/Select">Get help</a><span>/</span><span>Payment request</span></nav>
+    <nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><i class="bi bi-chevron-right" aria-hidden="true"></i><a asp-page="/Help/Select">Get help</a><i class="bi bi-chevron-right" aria-hidden="true"></i><span aria-current="page">Payment request</span></nav>
     @if (!string.IsNullOrEmpty(Model.ScenarioType))
     {
-        <a class="back-link" asp-page="/Help/Select">← Choose a different situation</a>
+        <a class="back-link" asp-page="/Help/Select"><i class="bi bi-arrow-left" aria-hidden="true"></i> Choose a different situation</a>
     }
     <header class="page-intro"><span class="eyebrow">PAYMENT SAFETY</span><h1>@Model.ScenarioTitle</h1><p>Take a moment before sending money. Pressure, secrecy, and unusual payment methods are reasons to verify independently.</p></header>
     <partial name="Shared/Components/_SafetyReminder" />
@@ -18,7 +18,7 @@
 
     <section class="content-panel mt-4"><div class="content-panel-heading"><span class="eyebrow">THINK IT THROUGH</span><h2>What reason did they give for the payment?</h2><p>You do not have to answer. Consider whether the explanation makes sense and can be checked independently.</p></div>
         <div class="reflection-list" role="list"><div role="listitem">A bill, debt, fine, or account problem</div><div role="listitem">A prize, refund, job, or investment return</div><div role="listitem">An emergency involving someone you know</div><div role="listitem">They have not explained clearly, or they insist you keep it secret</div></div>
-        <div class="calm-note"><span aria-hidden="true">i</span> A legitimate request can wait while you verify it.</div>
+        <div class="calm-note"><span aria-hidden="true"><i class="bi bi-info-lg"></i></span> A legitimate request can wait while you verify it.</div>
     </section>
 
     <section class="next-steps"><span class="eyebrow">A SAFER WAY FORWARD</span><h2>Before you pay</h2><ol><li><strong>Pause the payment.</strong> Do not use gift cards, cryptocurrency, wire transfers, or payment apps because someone is pressuring you.</li><li><strong>End the conversation.</strong> Hang up or stop replying; do not use links or phone numbers they sent.</li><li><strong>Verify independently.</strong> Contact the person or organization using a number on your card, a saved contact, or a website you type yourself.</li><li><strong>Ask someone you trust.</strong> Share what happened before making a decision.</li></ol><a asp-page="/Index" class="btn btn-outline-primary">Back to the home page</a></section>

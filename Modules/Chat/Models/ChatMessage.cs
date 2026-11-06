@@ -21,4 +21,9 @@ public sealed class ChatMessage
     public string Content { get; set; } = string.Empty;
 
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
+
+    // Navigation properties
+    public List<ChatAttachment> Attachments { get; set; } = [];
+
+    public ScamAnalysisResult? Analysis { get; set; }
 }

@@ -1,0 +1,17 @@
+@model string?
+@*
+    Status message shown after add / update / delete.
+    Messages starting with "Error:" are rendered as a danger alert.
+*@
+@if (!string.IsNullOrEmpty(Model))
+{
+    var isError = Model.StartsWith("Error", StringComparison.OrdinalIgnoreCase);
+    var text = isError && Model.Contains(':') ? Model[(Model.IndexOf(':') + 1)..].Trim() : Model;
+
+    <div class="alert @(isError ? "alert-danger" : "alert-success") alert-dismissible fade show status-alert"
+         role="@(isError ? "alert" : "status")">
+        <i class="bi @(isError ? "bi-exclamation-circle" : "bi-check-circle")" aria-hidden="true"></i>
+        <span>@text</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}

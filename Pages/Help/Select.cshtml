@@ -6,37 +6,37 @@
 }
 
 <div class="help-page">
-    <nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><span aria-hidden="true">/</span><span>Get help</span></nav>
+    <nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><i class="bi bi-chevron-right" aria-hidden="true"></i><span>Get help</span></nav>
     <header class="page-intro">
         <span class="eyebrow">STEP 1 · FIND THE RIGHT GUIDANCE</span>
         <h1>What’s happening?</h1>
         <p>Choose the situation that feels closest. You can go back and choose another option at any time.</p>
-        <div class="calm-note"><span aria-hidden="true">i</span> Take your time. You don’t have to send money or share information while you decide.</div>
+        <div class="calm-note"><span aria-hidden="true"><i class="bi bi-info-lg"></i></span> Take your time. You don’t have to send money or share information while you decide.</div>
     </header>
 
     <section class="scenario-group" aria-labelledby="payment-title">
-        <div class="scenario-heading"><span class="scenario-symbol payment-symbol" aria-hidden="true">$</span><div><h2 id="payment-title">Someone is asking me to pay</h2><p>Review common payment situations before sending money.</p></div></div>
+        <div class="scenario-heading"><span class="scenario-symbol payment-symbol" aria-hidden="true"><i class="bi bi-cash-coin"></i></span><div><h2 id="payment-title">Someone is asking me to pay</h2><p>Review common payment situations before sending money.</p></div></div>
         <div class="scenario-grid">
-            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="unexpected"><span><strong>Unexpected payment request</strong><small>Someone asks for money out of the blue</small></span><b aria-hidden="true">→</b></a>
-            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="urgency"><span><strong>Urgent payment demand</strong><small>“Pay now” or face a threat or penalty</small></span><b aria-hidden="true">→</b></a>
-            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="authority"><span><strong>Someone claims to be an authority</strong><small>Police, government, bank, or another institution</small></span><b aria-hidden="true">→</b></a>
-            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="friend"><span><strong>A friend or family member needs money</strong><small>An unusual request from someone you know</small></span><b aria-hidden="true">→</b></a>
-            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="prize"><span><strong>Prize, refund, or winnings</strong><small>You’re asked to pay a fee to receive money</small></span><b aria-hidden="true">→</b></a>
-            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="investment"><span><strong>Investment opportunity</strong><small>Promises of guaranteed or unusually high returns</small></span><b aria-hidden="true">→</b></a>
+            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="unexpected"><span><strong>Unexpected payment request</strong><small>Someone asks for money out of the blue</small></span><i class="bi bi-chevron-right scenario-arrow" aria-hidden="true"></i></a>
+            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="urgency"><span><strong>Urgent payment demand</strong><small>“Pay now” or face a threat or penalty</small></span><i class="bi bi-chevron-right scenario-arrow" aria-hidden="true"></i></a>
+            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="authority"><span><strong>Someone claims to be an authority</strong><small>Police, government, bank, or another institution</small></span><i class="bi bi-chevron-right scenario-arrow" aria-hidden="true"></i></a>
+            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="friend"><span><strong>A friend or family member needs money</strong><small>An unusual request from someone you know</small></span><i class="bi bi-chevron-right scenario-arrow" aria-hidden="true"></i></a>
+            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="prize"><span><strong>Prize, refund, or winnings</strong><small>You’re asked to pay a fee to receive money</small></span><i class="bi bi-chevron-right scenario-arrow" aria-hidden="true"></i></a>
+            <a class="scenario-link" asp-page="/Help/Pay" asp-route-type="investment"><span><strong>Investment opportunity</strong><small>Promises of guaranteed or unusually high returns</small></span><i class="bi bi-chevron-right scenario-arrow" aria-hidden="true"></i></a>
         </div>
     </section>
 
     <section class="scenario-group" aria-labelledby="information-title">
-        <div class="scenario-heading"><span class="scenario-symbol info-symbol" aria-hidden="true">•••</span><div><h2 id="information-title">Someone is asking for my information</h2><p>Learn how to protect your accounts, money, and identity.</p></div></div>
+        <div class="scenario-heading"><span class="scenario-symbol info-symbol" aria-hidden="true"><i class="bi bi-person-lock"></i></span><div><h2 id="information-title">Someone is asking for my information</h2><p>Learn how to protect your accounts, money, and identity.</p></div></div>
         <div class="scenario-grid">
-            <a class="scenario-link" asp-page="/Help/Information" asp-route-type="credentials"><span><strong>Password, PIN, or security answer</strong><small>Someone wants details to access an account</small></span><b aria-hidden="true">→</b></a>
-            <a class="scenario-link" asp-page="/Help/Information" asp-route-type="financial"><span><strong>Bank or card information</strong><small>Account number, card number, or security code</small></span><b aria-hidden="true">→</b></a>
-            <a class="scenario-link" asp-page="/Help/Information" asp-route-type="personal"><span><strong>Identity or personal details</strong><small>Identity number, address, or date of birth</small></span><b aria-hidden="true">→</b></a>
-            <a class="scenario-link" asp-page="/Help/Information" asp-route-type="verification"><span><strong>One-time verification code</strong><small>SMS, email, or two-factor authentication code</small></span><b aria-hidden="true">→</b></a>
-            <a class="scenario-link" asp-page="/Help/Information" asp-route-type="documents"><span><strong>Photo or document upload</strong><small>Images of an ID, bank card, or other document</small></span><b aria-hidden="true">→</b></a>
+            <a class="scenario-link" asp-page="/Help/Information" asp-route-type="credentials"><span><strong>Password, PIN, or security answer</strong><small>Someone wants details to access an account</small></span><i class="bi bi-chevron-right scenario-arrow" aria-hidden="true"></i></a>
+            <a class="scenario-link" asp-page="/Help/Information" asp-route-type="financial"><span><strong>Bank or card information</strong><small>Account number, card number, or security code</small></span><i class="bi bi-chevron-right scenario-arrow" aria-hidden="true"></i></a>
+            <a class="scenario-link" asp-page="/Help/Information" asp-route-type="personal"><span><strong>Identity or personal details</strong><small>Identity number, address, or date of birth</small></span><i class="bi bi-chevron-right scenario-arrow" aria-hidden="true"></i></a>
+            <a class="scenario-link" asp-page="/Help/Information" asp-route-type="verification"><span><strong>One-time verification code</strong><small>SMS, email, or two-factor authentication code</small></span><i class="bi bi-chevron-right scenario-arrow" aria-hidden="true"></i></a>
+            <a class="scenario-link" asp-page="/Help/Information" asp-route-type="documents"><span><strong>Photo or document upload</strong><small>Images of an ID, bank card, or other document</small></span><i class="bi bi-chevron-right scenario-arrow" aria-hidden="true"></i></a>
         </div>
     </section>
 
-    <section class="already-section"><span class="scenario-symbol after-symbol" aria-hidden="true">!</span><div><h2>Already paid or shared information?</h2><p>There are steps you can take now to protect yourself and your accounts.</p></div><a asp-page="/Help/AfterIncident" class="btn btn-primary">See what to do next <span aria-hidden="true">→</span></a></section>
-    <p class="not-sure"><a asp-page="/Help/Pay">Not sure? Start with general payment safety guidance →</a></p>
+    <section class="already-section"><span class="scenario-symbol after-symbol" aria-hidden="true"><i class="bi bi-exclamation-triangle"></i></span><div><h2>Already paid or shared information?</h2><p>There are steps you can take now to protect yourself and your accounts.</p></div><a asp-page="/Help/AfterIncident" class="btn btn-primary">See what to do next <i class="bi bi-arrow-right" aria-hidden="true"></i></a></section>
+    <p class="not-sure"><a asp-page="/Help/Pay">Not sure? Start with general payment safety guidance <i class="bi bi-arrow-right" aria-hidden="true"></i></a></p>
 </div>

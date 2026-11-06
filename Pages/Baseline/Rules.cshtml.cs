@@ -39,7 +39,29 @@ public class RulesModel : PageModel
         public string Content { get; set; } = default!;
     }
 
-    public async Task OnGetAsync()
+    /// <summary>True when the form is editing an existing item (?edit=id or a failed edit post).</summary>
+    public bool IsEditing => Input?.Id is not null;
+
+    public async Task<IActionResult> OnGetAsync(int? edit)
+    {
+        await LoadAsync();
+
+        if (edit is int id)
+        {
+            var item = Rules.FirstOrDefault(x => x.Id == id);
+            if (item == null)
+            {
+                StatusMessage = "Error: Rule not found.";
+                return RedirectToPage();
+            }
+
+            Input = new InputModel { Id = item.Id, Content = item.Content };
+        }
+
+        return Page();
+    }
+
+    private async Task LoadAsync()
     {
         var userId = _userManager.GetUserId(User);
         Rules = await _context.ProtectionRules
@@ -52,7 +74,7 @@ public class RulesModel : PageModel
     {
         if (!ModelState.IsValid)
         {
-            await OnGetAsync();
+            await LoadAsync();
             return Page();
         }
 

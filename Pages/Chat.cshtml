@@ -1,0 +1,428 @@
+@page
+@model ChatModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Safeline — Scam & Fraud Safety Assistant";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Check suspicious messages, emails, links, and payment requests. Identify potential scams and learn how to protect your accounts and personal information.">
+  <meta name="theme-color" content="#7652e9">
+  <title>@ViewData["Title"]</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <!-- Bootstrap Icons 1.11.3 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Chat page styles -->
+  <link rel="stylesheet" href="~/css/chat.css?v=@DateTime.Now.Ticks" asp-append-version="true">
+</head>
+<body>
+  <div class="app">
+    <!-- Left conversation sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2.5 20 5v6.2c0 5-3.2 8.4-8 10.3-4.8-1.9-8-5.3-8-10.3V5l8-2.5Z"/>
+            <path d="m8.7 11.8 2.2 2.2 4.5-4.8"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">Safeline <span class="ai-tag">AI</span></div>
+          <div class="brand-sub">Scam protection assistant</div>
+        </div>
+      </div>
+
+      <button class="new-chat btn" id="newChat" type="button">
+        <span class="plus"><i class="bi bi-plus-lg"></i></span>
+        <span>New conversation</span>
+        <span class="key">Ctrl K</span>
+      </button>
+
+      <div class="search">
+        <span class="search-icon"><i class="bi bi-search"></i></span>
+        <input id="search" type="search" placeholder="Search conversations..." aria-label="Search conversations">
+      </div>
+
+      <div class="section-label">
+        <span>RECENT CONVERSATIONS</span>
+        <div class="d-flex align-items-center gap-1">
+          <span class="count badge rounded-pill" id="historyCount">@Model.Conversations.Count</span>
+          <button type="button" class="btn btn-sm btn-link text-danger p-0 text-decoration-none clear-history-btn" id="clearHistoryBtn" style="font-size:10px; display:@(Model.Conversations.Count > 0 ? "inline-block" : "none");" title="Clear all conversations">Clear all</button>
+        </div>
+      </div>
+      <div class="history-list" id="historyList"></div>
+
+      <div class="privacy">
+        <span class="privacy-icon"><i class="bi bi-shield-lock-fill"></i></span>
+        <div>
+          <b>Privacy &amp; security</b>
+          Your data is used only to review potential risks. Never enter passwords, one-time codes, or bank PINs.
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main chat workspace -->
+    <main class="workspace">
+      <header class="topbar">
+        <div class="d-flex align-items-center gap-2">
+          <!-- Mobile conversation history toggle -->
+          <button class="btn btn-sm btn-outline-secondary d-md-none sidebar-toggle-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas" aria-label="Open conversation history">
+            <i class="bi bi-list fs-5"></i>
+          </button>
+          <div class="status">
+            <span class="status-dot"></span>
+            <div>
+              Scam safety assistant
+              <small>Automated analysis · @Model.Stats.TotalConversations conversations · @Model.Stats.HighRiskDetections high-risk alerts</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+          <a href="/Baseline/Index" class="session-btn btn" id="saveSession">
+            <i class="bi bi-house-door me-1"></i> Home
+          </a>
+          <!-- Mobile files panel toggle button -->
+          <button class="btn btn-sm btn-outline-secondary d-xl-none files-toggle-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filesOffcanvas" aria-controls="filesOffcanvas" aria-label="Open attachments">
+            <i class="bi bi-paperclip fs-5"></i>
+          </button>
+        </div>
+      </header>
+
+      <div class="center-scroll" id="centerScroll">
+        <section class="content container-fluid px-3 px-sm-4">
+          <!-- Welcome panel (hidden after the first message) -->
+          <div id="welcomeHero">
+            <div class="hero-icon" aria-hidden="true">
+              <i class="bi bi-stars"></i>
+            </div>
+
+            <div>
+              <span class="eyebrow">
+                <i class="bi bi-shield-check"></i>
+                <span>SMART SCAM DETECTION TECHNOLOGY</span>
+              </span>
+            </div>
+
+            <h1>
+              Check anything that makes you<br>
+              <span class="gradient">feel unsure or suspicious</span>
+            </h1>
+
+            <p class="intro">
+              Paste a suspicious message, account number, email, or link—or upload a screenshot. Safeline AI will review common scam indicators and help you decide what to do next.
+            </p>
+
+            <div class="badges">
+              <span class="badge-pill">
+                <i class="bi bi-chat-square-text text-info"></i>
+                <span>AI-powered review</span>
+              </span>
+              <span class="badge-pill">
+                <i class="bi bi-paperclip text-primary"></i>
+                <span>File and image uploads</span>
+              </span>
+              <span class="badge-pill">
+                <i class="bi bi-shield-shaded text-success"></i>
+                <span>Privacy-minded</span>
+              </span>
+            </div>
+
+            <!-- Four sample scenarios -->
+            <div class="examples row g-3">
+              <div class="col-12 col-md-6 col-xl-3">
+                <button type="button" class="example w-100 btn text-start" data-example="Bank SMS: Your account will be locked within 24 hours. Visit http://bank-xacminh.com to cancel the service or unlock your card.">
+                  <span class="example-icon"><i class="bi bi-chat-dots-fill"></i></span>
+                  <span class="example-copy">
+                    <b>Bank impersonation text</b>
+                    <small>Asks you to use an unfamiliar link to unlock a card</small>
+                  </span>
+                  <span class="arrow"><i class="bi bi-arrow-up-right"></i></span>
+                </button>
+              </div>
+              <div class="col-12 col-md-6 col-xl-3">
+                <button type="button" class="example w-100 btn text-start" data-example="High-paying online task: Earn 50,000–500,000 VND per day by watching videos or liking TikTok posts. Deposit money into a task wallet first to receive a refund plus a 30% commission.">
+                  <span class="example-icon"><i class="bi bi-briefcase-fill"></i></span>
+                  <span class="example-copy">
+                    <b>High-commission online job</b>
+                    <small>Tasks require an upfront deposit for a promised refund</small>
+                  </span>
+                  <span class="arrow"><i class="bi bi-arrow-up-right"></i></span>
+                </button>
+              </div>
+              <div class="col-12 col-md-6 col-xl-3">
+                <button type="button" class="example w-100 btn text-start" data-example="Unexpected prize notice: Congratulations, you won a new motorbike or iPhone 15. Transfer 1,200,000 VND for tax and shipping before your prize can be delivered.">
+                  <span class="example-icon"><i class="bi bi-gift-fill"></i></span>
+                  <span class="example-copy">
+                    <b>Unexpected prize notification</b>
+                    <small>Requests an upfront payment for tax or shipping</small>
+                  </span>
+                  <span class="arrow"><i class="bi bi-arrow-up-right"></i></span>
+                </button>
+              </div>
+              <div class="col-12 col-md-6 col-xl-3">
+                <button type="button" class="example w-100 btn text-start" data-example="A caller claiming to be from the police or prosecutor's office says your ID is linked to an international money-laundering case and threatens arrest unless you transfer all your money to a supposed government holding account.">
+                  <span class="example-icon"><i class="bi bi-telephone-fill"></i></span>
+                  <span class="example-copy">
+                    <b>Caller impersonating authorities</b>
+                    <small>Threatens arrest and demands a transfer to a “holding account”</small>
+                  </span>
+                  <span class="arrow"><i class="bi bi-arrow-up-right"></i></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Conversation message thread -->
+          <div class="chat-thread" id="chatThread"></div>
+        </section>
+      </div>
+
+      <!-- Fixed message composer -->
+      <footer class="chat-bottom-bar">
+        <div class="chat-bottom-inner">
+          <form class="analyzer" id="analyzer">
+            <!-- Pending attachments -->
+            <div class="chat-attached-files" id="chatAttachedFiles" style="display:none;"></div>
+
+            <textarea id="message" maxlength="8000" rows="1" placeholder="Paste a suspicious message, email, link, or scenario here..."></textarea>
+
+            <div class="submit-row">
+              <button type="button" class="tool-btn btn btn-sm" id="uploadButton">
+                <i class="bi bi-paperclip"></i> Attach files
+              </button>
+              <span class="shortcut-hint ms-auto">
+                <i class="bi bi-info-circle me-1"></i> <kbd>Enter</kbd> to send · <kbd>Shift</kbd> + <kbd>Enter</kbd> for a new line
+              </span>
+              <span class="char-count ms-2" id="charCount">0 / 8.000</span>
+              <button class="submit btn" type="submit" aria-label="Analyze message" title="Send message">
+                <i class="bi bi-arrow-up"></i>
+              </button>
+            </div>
+          </form>
+
+          <p class="disclaimer">
+            <i class="bi bi-shield-exclamation me-1"></i> This tool flags common risk indicators for guidance only. Its results are not a definitive assessment and do not replace advice from relevant authorities.
+          </p>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Right evidence and attachments panel -->
+    <aside class="files d-none d-xl-flex flex-column" id="filesPanel">
+      <div class="files-head">
+        <div>
+          <small>SESSION FILES</small>
+          <h2>Evidence &amp; files</h2>
+        </div>
+        <button class="icon-button btn" id="headerUpload" type="button" aria-label="Upload a file">
+          <i class="bi bi-cloud-arrow-up"></i>
+        </button>
+      </div>
+
+      <div class="dropzone" id="dropzone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="drop-icon">
+          <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5"/>
+          <path d="M20 16.5v2a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5v-2"/>
+          <path d="M6.5 10.5a5.5 5.5 0 0 1 10.8-1.2 3.7 3.7 0 0 1 1.2 7.2"/>
+        </svg>
+        <b>Drop files here</b>
+        <span>or <button type="button" class="btn btn-link p-0 text-decoration-underline" id="chooseInline">browse your device</button></span>
+      </div>
+
+      <div class="section-label">
+        <span>FILES IN THIS SESSION</span>
+        <div class="d-flex align-items-center gap-1">
+          <span class="count badge rounded-pill" id="fileCount">0</span>
+          <button type="button" class="btn btn-sm btn-link text-danger p-0 text-decoration-none clear-files-btn" id="clearFilesBtn" style="font-size:10px; display:none;" title="Clear all files">Clear all</button>
+        </div>
+      </div>
+
+      <!-- Uploaded files list -->
+      <div class="file-history-wrapper" id="fileHistoryWrapper" style="display:none;">
+        <div class="file-list" id="fileList"></div>
+      </div>
+
+      <div class="empty-files" id="emptyFiles">
+        <div class="empty-icon"><i class="bi bi-file-earmark-lock"></i></div>
+        <b>No files attached yet</b>
+        <p>Upload message screenshots, email files (.eml), PDF/Word documents, audio (.mp3), or video (.mp4) for review.</p>
+        <button class="choose-btn btn" id="chooseButton" type="button">
+          <i class="bi bi-plus-lg me-1"></i> Choose files
+        </button>
+      </div>
+
+      <div class="formats">
+        <b class="d-flex align-items-center gap-1">
+          <span class="status-dot-sm"></span> Supported formats
+        </b>
+        <div class="format-tags">
+          <span class="badge bg-light text-secondary border">PNG</span>
+          <span class="badge bg-light text-secondary border">JPG</span>
+          <span class="badge bg-light text-secondary border">PDF</span>
+          <span class="badge bg-light text-secondary border">DOCX</span>
+          <span class="badge bg-light text-secondary border">MP3</span>
+          <span class="badge bg-light text-secondary border">MP4</span>
+        </div>
+        <small class="text-muted d-block mt-2">Maximum file size: 10 MB per file</small>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Mobile conversation history drawer -->
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
+    <div class="offcanvas-header border-bottom">
+      <div class="d-flex align-items-center gap-2">
+        <div class="brand-mark sm" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:16px;">
+            <path d="M12 2.5 20 5v6.2c0 5-3.2 8.4-8 10.3-4.8-1.9-8-5.3-8-10.3V5l8-2.5Z"/>
+            <path d="m8.7 11.8 2.2 2.2 4.5-4.8"/>
+          </svg>
+        </div>
+        <h5 class="offcanvas-title fw-bold fs-6 mb-0" id="sidebarOffcanvasLabel">Safeline AI</h5>
+      </div>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column p-3">
+      <button class="new-chat btn mb-3" id="newChatMobile" type="button" data-bs-dismiss="offcanvas">
+        <span class="plus"><i class="bi bi-plus-lg"></i></span>
+        <span>New conversation</span>
+        <span class="key">Ctrl K</span>
+      </button>
+
+      <div class="search mb-3">
+        <span class="search-icon"><i class="bi bi-search"></i></span>
+        <input id="searchMobile" type="search" placeholder="Search conversations..." aria-label="Search conversations">
+      </div>
+
+      <div class="section-label">
+        <span>RECENT CONVERSATIONS</span>
+        <div class="d-flex align-items-center gap-1">
+          <span class="count badge rounded-pill" id="historyCountMobile">@Model.Conversations.Count</span>
+          <button type="button" class="btn btn-sm btn-link text-danger p-0 text-decoration-none clear-history-btn" id="clearHistoryBtnMobile" style="font-size:10px; display:@(Model.Conversations.Count > 0 ? "inline-block" : "none");" title="Clear all conversations">Clear all</button>
+        </div>
+      </div>
+      <div class="history-list flex-grow-1" id="historyListMobile"></div>
+
+      <div class="privacy mt-3">
+        <span class="privacy-icon"><i class="bi bi-shield-lock-fill"></i></span>
+        <div>
+          <b>Privacy &amp; security</b>
+          Your data is used only to review potential risks. Never enter passwords or one-time codes.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile evidence and files drawer -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="filesOffcanvas" aria-labelledby="filesOffcanvasLabel">
+    <div class="offcanvas-header border-bottom">
+      <div>
+        <small class="text-uppercase text-muted fw-bold" style="font-size:9px; letter-spacing:.08em;">SESSION FILES</small>
+        <h5 class="offcanvas-title fw-bold fs-6 mb-0" id="filesOffcanvasLabel">Evidence &amp; files</h5>
+      </div>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column p-3">
+      <div class="dropzone" id="dropzoneMobile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="drop-icon">
+          <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5"/>
+          <path d="M20 16.5v2a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5v-2"/>
+          <path d="M6.5 10.5a5.5 5.5 0 0 1 10.8-1.2 3.7 3.7 0 0 1 1.2 7.2"/>
+        </svg>
+        <b>Drop files here</b>
+        <span>or <button type="button" class="btn btn-link p-0 text-decoration-underline" id="chooseInlineMobile">browse your device</button></span>
+      </div>
+
+      <div class="section-label">
+        <span>FILES IN THIS SESSION</span>
+        <div class="d-flex align-items-center gap-1">
+          <span class="count badge rounded-pill" id="fileCountMobile">0</span>
+          <button type="button" class="btn btn-sm btn-link text-danger p-0 text-decoration-none clear-files-btn" id="clearFilesBtnMobile" style="font-size:10px; display:none;" title="Clear all files">Clear all</button>
+        </div>
+      </div>
+
+      <!-- Uploaded files list (mobile) -->
+      <div class="file-history-wrapper" id="fileHistoryWrapperMobile" style="display:none;">
+        <div class="file-list" id="fileListMobile"></div>
+      </div>
+
+      <div class="empty-files" id="emptyFilesMobile">
+        <div class="empty-icon"><i class="bi bi-file-earmark-lock"></i></div>
+        <b>No files attached yet</b>
+        <p>Upload message screenshots, email files (.eml), PDF/Word documents, audio (.mp3), or video (.mp4) for review.</p>
+        <button class="choose-btn btn" id="chooseButtonMobile" type="button">
+          <i class="bi bi-plus-lg me-1"></i> Choose files
+        </button>
+      </div>
+
+      <div class="formats mt-auto">
+        <b class="d-flex align-items-center gap-1">
+          <span class="status-dot-sm"></span> Supported formats
+        </b>
+        <div class="format-tags">
+          <span class="badge bg-light text-secondary border">PNG</span>
+          <span class="badge bg-light text-secondary border">JPG</span>
+          <span class="badge bg-light text-secondary border">PDF</span>
+          <span class="badge bg-light text-secondary border">DOCX</span>
+          <span class="badge bg-light text-secondary border">MP3</span>
+          <span class="badge bg-light text-secondary border">MP4</span>
+        </div>
+        <small class="text-muted d-block mt-2">Maximum file size: 10 MB per file</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- File preview modal -->
+  <div class="modal fade" id="filePreviewModal" tabindex="-1" aria-labelledby="filePreviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow-lg" style="border-radius:18px; overflow:hidden;">
+        <div class="modal-header border-bottom py-3">
+          <div class="d-flex align-items-center gap-2 text-truncate pe-2">
+            <span class="preview-file-icon fs-5"></span>
+            <h5 class="modal-title fs-6 fw-bold text-truncate mb-0" id="filePreviewModalLabel">File details</h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-3 text-center" id="filePreviewBody" style="background:#fafbfe; min-height:240px; display:grid; place-items:center;">
+          <!-- Preview content is inserted here -->
+        </div>
+        <div class="modal-footer border-top py-2 d-flex justify-content-between">
+          <small class="text-muted" id="filePreviewMeta">Size: 0 KB</small>
+          <div class="d-flex gap-2">
+            <a href="#" class="btn btn-sm btn-outline-primary" id="fileDownloadBtn" download>
+              <i class="bi bi-download me-1"></i> Download
+            </a>
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden native file input -->
+  <input class="upload-input d-none" type="file" id="fileInput" multiple accept=".png,.jpg,.jpeg,.pdf,.docx,.mp3,.mp4,image/png,image/jpeg,application/pdf,audio/mpeg,video/mp4">
+
+  <!-- Anti-forgery token -->
+  @Html.AntiForgeryToken()
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <!-- Custom Chat JS -->
+  <script src="~/js/chat.js" asp-append-version="true"></script>
+</body>
+</html>

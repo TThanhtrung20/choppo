@@ -47,7 +47,8 @@ public class LoginModel : PageModel
             ModelState.AddModelError(string.Empty, ErrorMessage);
         }
 
-        returnUrl ??= Url.Content("~/");
+        // Default to Chat page after login
+        returnUrl ??= Url.Content("~/Chat");
 
         // Clear the existing external cookie to ensure a clean login process
         await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
@@ -57,7 +58,8 @@ public class LoginModel : PageModel
 
     public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
     {
-        returnUrl ??= Url.Content("~/");
+        // Default to Chat page after login
+        returnUrl ??= Url.Content("~/Chat");
 
         if (ModelState.IsValid)
         {

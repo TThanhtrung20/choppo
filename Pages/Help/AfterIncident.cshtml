@@ -4,199 +4,149 @@
 @{
     ViewData["Title"] = "What to Do After a Scam";
     ViewData["Description"] = "If you paid a suspected scammer or shared personal information, take these practical steps to contact your bank, secure accounts, preserve evidence, and report the incident.";
+
+    // (collapse id, icon, button label, guidance title, tone, guidance text)
+    var payments = new (string Id, string Icon, string Label, string Title, string Text)[]
+    {
+        ("helpCard", "bi-credit-card", "Debit or credit card", "You paid with a debit or credit card", SafetyContent.GetPostPaymentGuidance("card")),
+        ("helpTransfer", "bi-bank", "Bank transfer or payment app", "You sent a bank transfer, wire or payment-app payment", SafetyContent.GetPostPaymentGuidance("transfer")),
+        ("helpGiftCard", "bi-gift", "Gift or prepaid card", "You paid with a gift card", SafetyContent.GetPostPaymentGuidance("giftcard")),
+        ("helpCrypto", "bi-currency-bitcoin", "Cryptocurrency", "You paid with cryptocurrency", SafetyContent.GetPostPaymentGuidance("crypto")),
+        ("helpCash", "bi-envelope-paper", "Cash by mail or delivery", "You sent cash by mail or delivery", SafetyContent.GetPostPaymentGuidance("cash")),
+        ("helpMoneyTransfer", "bi-arrow-left-right", "Money transfer service", "You used a money transfer service", SafetyContent.GetPostPaymentGuidance("moneytransfer"))
+    };
+    var disclosures = new (string Id, string Icon, string Label, string Title, string Text)[]
+    {
+        ("helpPassword", "bi-key", "Password or security answer", "You gave a password or security answer", SafetyContent.GetPostDisclosureGuidance("password")),
+        ("helpOTP", "bi-phone", "Verification code or OTP", "You gave a verification code (OTP)", SafetyContent.GetPostDisclosureGuidance("otp")),
+        ("helpCardNumber", "bi-credit-card-2-back", "Card or bank details", "You gave card or bank account details", SafetyContent.GetPostDisclosureGuidance("card")),
+        ("helpSSN", "bi-person-vcard", "Identity document or number", "You gave an identity number or document", SafetyContent.GetPostDisclosureGuidance("ssn")),
+        ("helpDeviceAccess", "bi-laptop", "App install or device access", "You gave someone access to your device", SafetyContent.GetPostDisclosureGuidance("app"))
+    };
 }
 
 <div class="incident-page">
-<nav class="page-breadcrumb" aria-label="Breadcrumb"><a asp-page="/Index">Home</a><span>/</span><a asp-page="/Help/Select">Get help</a><span>/</span><span>After a possible scam</span></nav>
-<header class="incident-hero"><div><span class="eyebrow"><span class="incident-pulse"></span> YOU’RE NOT ALONE</span><h1>Already paid or shared information?</h1><p>Take a breath. There are practical steps you can take now. Start with the one that fits what happened.</p></div><div class="incident-art" aria-hidden="true"><span>✓</span></div></header>
+    <nav class="page-breadcrumb" aria-label="Breadcrumb">
+        <a asp-page="/Index">Home</a><i class="bi bi-chevron-right" aria-hidden="true"></i>
+        <a asp-page="/Help/Select">Get help</a><i class="bi bi-chevron-right" aria-hidden="true"></i>
+        <span aria-current="page">After a possible scam</span>
+    </nav>
 
-<div class="incident-first" role="alert"><span class="incident-first-icon" aria-hidden="true">!</span><div><strong>First, stop contact and don’t send anything else.</strong><p class="mb-0">@SafetyContent.GetStopActionMessage()</p></div></div>
-
-<section class="incident-choice-panel" aria-labelledby="incident-choice-title">
-    <div class="incident-choice-heading"><span class="eyebrow">WE’LL GUIDE YOU STEP BY STEP</span><h2 id="incident-choice-title">What happened?</h2><p>Choose all that apply. Your choices only open guidance on this page.</p></div>
-    <div class="incident-choice-grid">
-        <button type="button" class="incident-choice" data-bs-toggle="collapse" data-bs-target="#paymentHelp" aria-expanded="false" aria-controls="paymentHelp"><span class="incident-choice-icon money-choice">$</span><span><strong>I sent money or made a payment</strong><small>Card, bank transfer, payment app, gift card, crypto, or cash</small></span><span class="incident-choice-arrow">+</span></button>
-        <button type="button" class="incident-choice" data-bs-toggle="collapse" data-bs-target="#infoHelp" aria-expanded="false" aria-controls="infoHelp"><span class="incident-choice-icon info-choice">•••</span><span><strong>I shared personal or account information</strong><small>Password, code, bank details, ID, or device access</small></span><span class="incident-choice-arrow">+</span></button>
-        <button type="button" class="incident-choice incident-choice-both" data-bs-toggle="collapse" data-bs-target="#bothHelp" aria-expanded="false" aria-controls="bothHelp"><span class="incident-choice-icon both-choice">↗</span><span><strong>Both happened</strong><small>Open both sections and follow each set of steps</small></span><span class="incident-choice-arrow">+</span></button>
-    </div>
-
-    <!-- Payment Help Section (Collapsible) -->
-    <div class="collapse incident-choice-details" id="paymentHelp">
-        <div class="incident-detail-card"><div class="incident-detail-heading"><span class="eyebrow">PAYMENT METHOD</span><h3>How did you pay?</h3><p>Choose the payment type to see relevant next steps.</p></div>
-        <div class="incident-method-grid">
-            <button type="button" class="incident-method" data-bs-toggle="collapse" data-bs-target="#helpCard">💳 <span>Debit or credit card</span><b>→</b></button>
-            <button type="button" class="incident-method" data-bs-toggle="collapse" data-bs-target="#helpTransfer">🏦 <span>Bank transfer or payment app</span><b>→</b></button>
-            <button type="button" class="incident-method" data-bs-toggle="collapse" data-bs-target="#helpGiftCard">🎁 <span>Gift or prepaid card</span><b>→</b></button>
-            <button type="button" class="incident-method" data-bs-toggle="collapse" data-bs-target="#helpCrypto">₿ <span>Cryptocurrency</span><b>→</b></button>
-            <button type="button" class="incident-method" data-bs-toggle="collapse" data-bs-target="#helpCash">💵 <span>Cash by mail or delivery</span><b>→</b></button>
-            <button type="button" class="incident-method" data-bs-toggle="collapse" data-bs-target="#helpMoneyTransfer">💸 <span>Money transfer service</span><b>→</b></button>
-        </div></div>
-    </div>
-
-    <!-- Information Help Section (Collapsible) -->
-    <div class="collapse incident-choice-details" id="infoHelp">
-        <div class="incident-detail-card"><div class="incident-detail-heading"><span class="eyebrow">INFORMATION TYPE</span><h3>What did you share?</h3><p>Choose the closest match. Don’t post any actual passwords or numbers here.</p></div>
-        <div class="incident-method-grid">
-            <button type="button" class="incident-method" data-bs-toggle="collapse" data-bs-target="#helpPassword">🔑 <span>Password or security answer</span><b>→</b></button>
-            <button type="button" class="incident-method" data-bs-toggle="collapse" data-bs-target="#helpOTP">📱 <span>Verification code or OTP</span><b>→</b></button>
-            <button type="button" class="incident-method" data-bs-toggle="collapse" data-bs-target="#helpCardNumber">💳 <span>Card or bank details</span><b>→</b></button>
-            <button type="button" class="incident-method" data-bs-toggle="collapse" data-bs-target="#helpSSN">🪪 <span>Identity document or number</span><b>→</b></button>
-            <button type="button" class="incident-method" data-bs-toggle="collapse" data-bs-target="#helpDeviceAccess">📲 <span>App install or device access</span><b>→</b></button>
-        </div></div>
-    </div>
-
-    <!-- Both Section -->
-    <div class="collapse incident-choice-details" id="bothHelp"><div class="incident-both-note"><strong>Handle both parts.</strong> Open the payment section and the information section above, then follow the relevant guidance in each.</div></div>
-</section>
-
-<section class="incident-guidance-list" aria-label="Detailed guidance">
-    <div class="incident-guidance-intro"><span class="eyebrow">YOUR NEXT STEPS</span><h2>Choose the details below for tailored guidance</h2><p>Select a payment or information type above to open the relevant instructions here.</p></div>
-
-    <!-- Guidance Sections (All Collapsed Initially) -->
-
-<!-- Card Payment -->
-<div class="collapse mt-3" id="helpCard">
-    <div class="card border-primary">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">💳 You paid with a Debit or Credit Card</h4>
+    <header class="incident-hero">
+        <div>
+            <span class="eyebrow"><span class="incident-pulse"></span> You’re not alone</span>
+            <h1>Already paid or shared information?</h1>
+            <p>Take a breath. There are practical steps you can take now. Start with the one that fits what happened.</p>
         </div>
-        <div class="card-body">
-            <div style="white-space: pre-line;">@SafetyContent.GetPostPaymentGuidance("card")</div>
+        <div class="incident-art" aria-hidden="true"><span><i class="bi bi-shield-check"></i></span></div>
+    </header>
+
+    <div class="incident-first" role="alert">
+        <span class="incident-first-icon" aria-hidden="true"><i class="bi bi-exclamation-lg"></i></span>
+        <div>
+            <strong>First, stop contact and don’t send anything else.</strong>
+            <p class="mb-0 pre-line">@SafetyContent.GetStopActionMessage()</p>
         </div>
     </div>
+
+    <section class="incident-choice-panel" aria-labelledby="incident-choice-title">
+        <div class="incident-choice-heading">
+            <span class="eyebrow">We’ll guide you step by step</span>
+            <h2 id="incident-choice-title">What happened?</h2>
+            <p>Choose all that apply. Your choices only open guidance on this page.</p>
+        </div>
+        <div class="incident-choice-grid">
+            <button type="button" class="incident-choice" data-bs-toggle="collapse" data-bs-target="#paymentHelp" aria-expanded="false" aria-controls="paymentHelp">
+                <span class="incident-choice-icon tone-teal" aria-hidden="true"><i class="bi bi-cash-stack"></i></span>
+                <span><strong>I sent money or made a payment</strong><small>Card, bank transfer, payment app, gift card, crypto, or cash</small></span>
+                <span class="incident-choice-arrow" aria-hidden="true"><i class="bi bi-plus-lg"></i></span>
+            </button>
+            <button type="button" class="incident-choice" data-bs-toggle="collapse" data-bs-target="#infoHelp" aria-expanded="false" aria-controls="infoHelp">
+                <span class="incident-choice-icon tone-blue" aria-hidden="true"><i class="bi bi-person-lock"></i></span>
+                <span><strong>I shared personal or account information</strong><small>Password, code, bank details, ID, or device access</small></span>
+                <span class="incident-choice-arrow" aria-hidden="true"><i class="bi bi-plus-lg"></i></span>
+            </button>
+            <button type="button" class="incident-choice" data-bs-toggle="collapse" data-bs-target="#paymentHelp,#infoHelp" aria-expanded="false" aria-controls="paymentHelp infoHelp">
+                <span class="incident-choice-icon tone-amber" aria-hidden="true"><i class="bi bi-intersect"></i></span>
+                <span><strong>Both happened</strong><small>Opens both sections so you can follow each set of steps</small></span>
+                <span class="incident-choice-arrow" aria-hidden="true"><i class="bi bi-plus-lg"></i></span>
+            </button>
+        </div>
+
+        <div class="collapse incident-choice-details" id="paymentHelp">
+            <div class="incident-detail-card">
+                <div class="incident-detail-heading">
+                    <span class="eyebrow">Payment method</span>
+                    <h3>How did you pay?</h3>
+                    <p>Choose the payment type to see relevant next steps.</p>
+                </div>
+                <div class="incident-method-grid">
+                    @foreach (var item in payments)
+                    {
+                        <button type="button" class="incident-method" data-bs-toggle="collapse" data-bs-target="#@item.Id" aria-expanded="false" aria-controls="@item.Id">
+                            <i class="bi @item.Icon" aria-hidden="true"></i><span>@item.Label</span><i class="bi bi-chevron-down incident-method-arrow" aria-hidden="true"></i>
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="collapse incident-choice-details" id="infoHelp">
+            <div class="incident-detail-card">
+                <div class="incident-detail-heading">
+                    <span class="eyebrow">Information type</span>
+                    <h3>What did you share?</h3>
+                    <p>Choose the closest match. Don’t type any real passwords or numbers here.</p>
+                </div>
+                <div class="incident-method-grid">
+                    @foreach (var item in disclosures)
+                    {
+                        <button type="button" class="incident-method" data-bs-toggle="collapse" data-bs-target="#@item.Id" aria-expanded="false" aria-controls="@item.Id">
+                            <i class="bi @item.Icon" aria-hidden="true"></i><span>@item.Label</span><i class="bi bi-chevron-down incident-method-arrow" aria-hidden="true"></i>
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="incident-guidance-list" aria-labelledby="guidance-title">
+        <div class="incident-guidance-intro">
+            <span class="eyebrow">Your next steps</span>
+            <h2 id="guidance-title">Tailored guidance</h2>
+            <p>Select a payment or information type above to open the relevant instructions here.</p>
+        </div>
+
+        @foreach (var item in payments)
+        {
+            <div class="collapse" id="@item.Id">
+                <article class="guidance-card tone-payment">
+                    <h3><i class="bi @item.Icon" aria-hidden="true"></i> @item.Title</h3>
+                    <div class="pre-line">@item.Text</div>
+                </article>
+            </div>
+        }
+        @foreach (var item in disclosures)
+        {
+            <div class="collapse" id="@item.Id">
+                <article class="guidance-card tone-info">
+                    <h3><i class="bi @item.Icon" aria-hidden="true"></i> @item.Title</h3>
+                    <div class="pre-line">@item.Text</div>
+                </article>
+            </div>
+        }
+    </section>
+
+    <section class="next-steps incident-next-steps" aria-labelledby="general-steps-title">
+        <span class="eyebrow">General steps after a possible scam</span>
+        <h2 id="general-steps-title">Protect yourself and keep a record</h2>
+        <ol>
+            <li><strong>Contact your bank or payment provider.</strong> Ask whether they can stop, reverse, or dispute the transaction.</li>
+            <li><strong>Secure affected accounts.</strong> Change exposed passwords using official apps or websites and enable extra security where available.</li>
+            <li><strong>Keep evidence.</strong> Save messages, emails, receipts, account names, and transaction details.</li>
+            <li><strong>Report the incident.</strong> Use the appropriate official reporting service or local authorities for your location.</li>
+            <li><strong>Watch for recovery scams.</strong> Be cautious of anyone promising to get your money back for an upfront fee.</li>
+        </ol>
+        <a asp-page="/Index" class="btn btn-outline-primary"><i class="bi bi-house" aria-hidden="true"></i> Back to the home page</a>
+    </section>
 </div>
-
-<!-- Bank Transfer -->
-<div class="collapse mt-3" id="helpTransfer">
-    <div class="card border-primary">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">🏦 You sent a Bank Transfer/Wire/Payment App</h4>
-        </div>
-        <div class="card-body">
-            <div style="white-space: pre-line;">@SafetyContent.GetPostPaymentGuidance("transfer")</div>
-        </div>
-    </div>
-</div>
-
-<!-- Gift Card -->
-<div class="collapse mt-3" id="helpGiftCard">
-    <div class="card border-primary">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">🎁 You paid with a Gift Card</h4>
-        </div>
-        <div class="card-body">
-            <div style="white-space: pre-line;">@SafetyContent.GetPostPaymentGuidance("giftcard")</div>
-        </div>
-    </div>
-</div>
-
-<!-- Cryptocurrency -->
-<div class="collapse mt-3" id="helpCrypto">
-    <div class="card border-primary">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">₿ You paid with Cryptocurrency</h4>
-        </div>
-        <div class="card-body">
-            <div style="white-space: pre-line;">@SafetyContent.GetPostPaymentGuidance("crypto")</div>
-        </div>
-    </div>
-</div>
-
-<!-- Cash -->
-<div class="collapse mt-3" id="helpCash">
-    <div class="card border-primary">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">💵 You sent Cash by Mail/Delivery</h4>
-        </div>
-        <div class="card-body">
-            <div style="white-space: pre-line;">@SafetyContent.GetPostPaymentGuidance("cash")</div>
-        </div>
-    </div>
-</div>
-
-<!-- Money Transfer -->
-<div class="collapse mt-3" id="helpMoneyTransfer">
-    <div class="card border-primary">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">💸 You used a Money Transfer Service</h4>
-        </div>
-        <div class="card-body">
-            <div style="white-space: pre-line;">@SafetyContent.GetPostPaymentGuidance("moneytransfer")</div>
-        </div>
-    </div>
-</div>
-
-<!-- Password -->
-<div class="collapse mt-3" id="helpPassword">
-    <div class="card border-warning">
-        <div class="card-header bg-warning">
-            <h4 class="mb-0">🔑 You gave a Password or Security Answer</h4>
-        </div>
-        <div class="card-body">
-            <div style="white-space: pre-line;">@SafetyContent.GetPostDisclosureGuidance("password")</div>
-        </div>
-    </div>
-</div>
-
-<!-- OTP -->
-<div class="collapse mt-3" id="helpOTP">
-    <div class="card border-warning">
-        <div class="card-header bg-warning">
-            <h4 class="mb-0">📱 You gave a Verification Code/OTP</h4>
-        </div>
-        <div class="card-body">
-            <div style="white-space: pre-line;">@SafetyContent.GetPostDisclosureGuidance("otp")</div>
-        </div>
-    </div>
-</div>
-
-<!-- Card Number -->
-<div class="collapse mt-3" id="helpCardNumber">
-    <div class="card border-warning">
-        <div class="card-header bg-warning">
-            <h4 class="mb-0">💳 You gave Card/Bank Account Number</h4>
-        </div>
-        <div class="card-body">
-            <div style="white-space: pre-line;">@SafetyContent.GetPostDisclosureGuidance("card")</div>
-        </div>
-    </div>
-</div>
-
-<!-- SSN -->
-<div class="collapse mt-3" id="helpSSN">
-    <div class="card border-danger">
-        <div class="card-header bg-danger text-white">
-            <h4 class="mb-0">🆔 You gave Social Security Number/ID</h4>
-        </div>
-        <div class="card-body">
-            <div style="white-space: pre-line;">@SafetyContent.GetPostDisclosureGuidance("ssn")</div>
-        </div>
-    </div>
-</div>
-
-<!-- Device Access -->
-<div class="collapse mt-3" id="helpDeviceAccess">
-    <div class="card border-danger">
-        <div class="card-header bg-danger text-white">
-            <h4 class="mb-0">📲 You gave Device Access</h4>
-        </div>
-        <div class="card-body">
-            <div style="white-space: pre-line;">@SafetyContent.GetPostDisclosureGuidance("app")</div>
-        </div>
-    </div>
-</div>
-
-<!-- General Next Steps -->
-</section>
-<section class="next-steps incident-next-steps">
-    <span class="eyebrow">GENERAL STEPS AFTER A POSSIBLE SCAM</span>
-    <h2>Protect yourself and keep a record</h2>
-    <ol>
-        <li><strong>Contact your bank or payment provider.</strong> Ask whether they can stop, reverse, or dispute the transaction.</li>
-        <li><strong>Secure affected accounts.</strong> Change exposed passwords using official apps or websites and enable extra security where available.</li>
-        <li><strong>Keep evidence.</strong> Save messages, emails, receipts, account names, and transaction details.</li>
-        <li><strong>Report the incident.</strong> Use the appropriate official reporting service or local authorities for your location.</li>
-        <li><strong>Watch for recovery scams.</strong> Be cautious of anyone promising to get your money back for an upfront fee.</li>
-    </ol>
-    <a asp-page="/Index" class="btn btn-outline-primary">Back to the home page</a>
-</section>
